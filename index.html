@@ -247,6 +247,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   .card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 8px; }
   /* 交班预览的卡片头部不打印 */
   #handover-preview .card-header { display: none !important; }
+  /* 历史详情弹窗打印时只显示内容 */
+  #history-detail-modal { display: block !important; position: static; background: none; }
+  #history-detail-modal > div { box-shadow: none; margin: 0; padding: 0; }
+  #history-detail-modal button { display: none !important; }
+}
+/* 历史详情弹窗移动端适配 */
+@media (max-width:1024px) {
+  #history-detail-modal { padding: 8px !important; }
+  #history-detail-modal > div { margin: 10px auto !important; padding: 16px !important; }
 }
 </style>
 </head>
@@ -276,6 +285,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="nav-item" data-section="tubes"><span class="icon">🔌</span><span class="nav-text"> 管道管理</span><span class="nav-label">管道</span></div>
     <div class="nav-section">交班报告</div>
     <div class="nav-item" data-section="handover"><span class="icon">📝</span><span class="nav-text"> 交班记录</span><span class="nav-label">交班</span></div>
+    <div class="nav-item" data-section="history"><span class="icon">📋</span><span class="nav-text"> 历史记录</span><span class="nav-label">历史</span></div>
   </div>
 </nav>
 
@@ -887,6 +897,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </section>
 
+<!-- ==================== 历史记录 ==================== -->
+<section id="section-history" class="section">
+  <div class="page-header"><h2>📋 历史交班记录</h2></div>
+
+  <div class="card">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <input type="text" id="history-search" placeholder="搜索姓名或诊疗号..." style="flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;"
+        oninput="renderHistoryList(this.value)">
+      <button class="btn btn-outline btn-sm" onclick="renderHistoryList(document.getElementById('history-search').value)">🔍 搜索</button>
+      <button class="btn btn-success btn-sm" onclick="exportAllHistory()">📦 导出全部</button>
+      <button class="btn btn-light btn-sm" onclick="importHistory()">📥 导入</button>
+      <button class="btn btn-sm" style="background:#fce8e6;color:#c5221f;border:none;" onclick="clearAllHistory()">🗑️ 清空</button>
+    </div>
+    <div style="font-size:12px;color:#5f6368;margin-top:6px;">共 <span id="history-count">0</span> 条记录 | 数据保存在本浏览器，清缓存会丢失，建议定期导出备份</div>
+  </div>
+
+  <div id="history-list" style="margin-top:12px;">
+    <div style="text-align:center;color:#5f6368;padding:40px 0;font-size:14px;">暂无历史记录<br><span style="font-size:12px;">生成交班记录后会自动保存到这里</span></div>
+  </div>
+</section>
+
 </div><!-- end .main -->
 
 <script>
@@ -905,7 +936,15 @@ function navigateTo(sec) {
     target.classList.add('active');
     window.scrollTo({ top:0, behavior:'smooth' });
   }
+  // 切换到历史记录页时自动渲染列表
+  if (sec === 'history') {
+    renderHistoryList();
+  }
 }
+
+/* 渲染历史列表时同步更新记录数 */
+// 已在 renderHistoryList 内处理（见下方）
+// 历史详情弹窗 HTML 已内置于页面底部
 // Mobile top bar → navigate to handover
 function navToHandover() { navigateTo('handover'); }
 
@@ -1523,6 +1562,228 @@ function generateHandover() {
   html += '<p style="min-height:40px;border-bottom:1px dashed #ccc;font-size:13px;color:#5f6368;" contenteditable="true">（可在此填写交班注意事项）</p>';
 
   document.getElementById('handover-content').innerHTML = html;
+
+  // 自动保存到历史记录（localStorage）
+  saveHandoverToHistory(name, gender, age, mrn, html);
+}
+
+/* ==================== 历史记录（localStorage） ==================== */
+function saveHandoverToHistory(name, gender, age, mrn, html) {
+  try {
+    var records = JSON.parse(localStorage.getItem('handover_records') || '[]');
+    var now = new Date();
+    var record = {
+      id: 'h_' + Date.now(),
+      name: name,
+      gender: gender,
+      age: age,
+      mrn: mrn || '',
+      html: html,
+      time: now.toLocaleString('zh-CN')
+    };
+    records.unshift(record); // 最新的在前面
+    // 最多保存500条，防止localStorage满
+    if (records.length > 500) records = records.slice(0, 500);
+    localStorage.setItem('handover_records', JSON.stringify(records));
+  } catch(e) {
+    // localStorage满了或不可用，忽略
+  }
+}
+
+function getHandoverHistory() {
+  try {
+    return JSON.parse(localStorage.getItem('handover_records') || '[]');
+  } catch(e) {
+    return [];
+  }
+}
+
+function renderHistoryList(keyword) {
+  var records = getHandoverHistory();
+  var container = document.getElementById('history-list');
+  if (!container) return;
+
+  if (keyword) {
+    var kw = keyword.toLowerCase();
+    records = records.filter(function(r) {
+      return (r.name && r.name.toLowerCase().indexOf(kw) >= 0) ||
+             (r.mrn && r.mrn.toLowerCase().indexOf(kw) >= 0);
+    });
+  }
+
+  if (records.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:#5f6368;padding:40px 0;font-size:14px;">' +
+      (keyword ? '未找到匹配的记录' : '暂无历史记录<br><span style="font-size:12px;">生成交班记录后会自动保存到这里</span>') +
+      '</div>';
+    // 更新记录数（0条）
+    var countEl = document.getElementById('history-count');
+    if (countEl) {
+      var total = getHandoverHistory().length;
+      countEl.textContent = keyword ? '0 / ' + total : total;
+    }
+    return;
+  }
+
+  var html = '';
+  records.forEach(function(r, idx) {
+    html += '<div class="history-item" style="border:1px solid #dadce0;border-radius:8px;padding:12px;margin-bottom:10px;cursor:pointer;transition:box-shadow 0.15s;" ' +
+      'onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.12)\'" onmouseout="this.style.boxShadow=\'none\'" ' +
+      'onclick="showHistoryDetail(\'' + r.id + '\')">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;">' +
+        '<div style="font-size:15px;font-weight:600;color:#202124;">' + escapeHtml(r.name) + ' <span style="font-size:13px;font-weight:400;color:#5f6368;">' + escapeHtml(r.gender) + ' ' + escapeHtml(r.age) + '岁</span></div>' +
+        '<div style="font-size:12px;color:#5f6368;">' + escapeHtml(r.time) + '</div>' +
+      '</div>' +
+      (r.mrn ? '<div style="font-size:13px;color:#5f6368;margin-top:4px;">诊疗号：' + escapeHtml(r.mrn) + '</div>' : '') +
+      '<div style="margin-top:8px;display:flex;gap:8px;">' +
+        '<button class="btn btn-sm btn-outline" onclick="event.stopPropagation();loadHistoryToForm(\'' + r.id + '\')">📥 加载到当前</button>' +
+        '<button class="btn btn-sm btn-light" onclick="event.stopPropagation();exportSingleRecord(\'' + r.id + '\')">📄 导出Word</button>' +
+        '<button class="btn btn-sm" style="background:#fce8e6;color:#c5221f;border:none;" onclick="event.stopPropagation();deleteHistoryRecord(\'' + r.id + '\')">🗑️ 删除</button>' +
+      '</div>' +
+      '</div>';
+  });
+  container.innerHTML = html;
+
+  // 更新记录数
+  var countEl = document.getElementById('history-count');
+  if (countEl) {
+    var total = getHandoverHistory().length;
+    countEl.textContent = keyword ? records.length + ' / ' + total : total;
+  }
+}
+
+function showHistoryDetail(id) {
+  var records = getHandoverHistory();
+  var record = records.find(function(r) { return r.id === id; });
+  if (!record) return;
+
+  document.getElementById('history-detail-content').innerHTML = record.html;
+  document.getElementById('history-detail-modal').style.display = 'flex';
+}
+
+function closeHistoryDetail() {
+  document.getElementById('history-detail-modal').style.display = 'none';
+}
+
+function loadHistoryToForm(id) {
+  var records = getHandoverHistory();
+  var record = records.find(function(r) { return r.id === id; });
+  if (!record) return;
+
+  if (!confirm('将把该历史记录的数据加载到当前表单（不会覆盖未保存的修改），确定？')) return;
+
+  // 填充患者基本信息
+  if (record.name) document.getElementById('pt-name').value = record.name;
+  if (record.gender) document.getElementById('pt-gender').value = record.gender;
+  if (record.age) document.getElementById('pt-age').value = record.age;
+  if (record.mrn) document.getElementById('pt-mrn').value = record.mrn;
+
+  // 切换到患者信息页
+  document.querySelectorAll('.nav-item').forEach(function(item) { item.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(sec) { sec.classList.remove('active'); });
+  document.querySelector('[data-section="patient"]').classList.add('active');
+  document.getElementById('section-patient').classList.add('active');
+
+  alert('已加载患者基本信息，交班记录内容请在「交班记录」页面查看');
+}
+
+function deleteHistoryRecord(id) {
+  if (!confirm('确定删除该条记录？')) return;
+  var records = getHandoverHistory();
+  records = records.filter(function(r) { return r.id !== id; });
+  localStorage.setItem('handover_records', JSON.stringify(records));
+  renderHistoryList(document.getElementById('history-search').value);
+}
+
+function exportSingleRecord(id) {
+  var records = getHandoverHistory();
+  var record = records.find(function(r) { return r.id === id; });
+  if (!record) return;
+  exportHandoverWordById(record);
+}
+
+function exportAllHistory() {
+  var records = getHandoverHistory();
+  if (records.length === 0) { alert('暂无记录可导出'); return; }
+  var blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = '交班记录备份_' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+function importHistory() {
+  var fileInput = document.getElementById('import-file-input');
+  if (!fileInput) {
+    fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json';
+    fileInput.id = 'import-file-input';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+    fileInput.onchange = function() {
+      var file = fileInput.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          var imported = JSON.parse(e.target.result);
+          if (!Array.isArray(imported)) throw new Error('格式错误');
+          var existing = getHandoverHistory();
+          // 合并，去重（按id）
+          var idMap = {};
+          existing.forEach(function(r) { idMap[r.id] = true; });
+          var newCount = 0;
+          imported.forEach(function(r) {
+            if (r.id && !idMap[r.id]) { existing.push(r); newCount++; }
+          });
+          localStorage.setItem('handover_records', JSON.stringify(existing));
+          renderHistoryList(document.getElementById('history-search').value);
+          alert('成功导入 ' + newCount + ' 条记录');
+        } catch(err) {
+          alert('导入失败：文件格式不正确');
+        }
+      };
+      reader.readAsText(file);
+    };
+  }
+  fileInput.click();
+}
+
+function clearAllHistory() {
+  if (!confirm('确定清空所有历史记录？此操作不可恢复！')) return;
+  if (!confirm('再次确认：清空后所有历史记录将永久删除，确定？')) return;
+  localStorage.removeItem('handover_records');
+  renderHistoryList();
+}
+
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.textContent = text || '';
+  return div.innerHTML;
+}
+
+function exportHandoverWordById(record) {
+  var html = record.html;
+  if (!html) return;
+  var wrap = '<html xmlns:o="urn:schemas-microsoft-com:office:office"' +
+    ' xmlns:w="urn:schemas-microsoft-com:office:word"' +
+    ' xmlns="http://www.w3.org/TR/REC-html40"><head>' +
+    '<meta charset="utf-8"><title>交班记录</title>' +
+    '<style>body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;margin:20px;}h1{text-align:center;}</style></head><body>' +
+    '<h1>急诊科院前急救评估交接记录</h1>' + html + '</body></html>';
+  var blob = new Blob([wrap], { type: 'application/msword;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = '交班记录_' + (record.name || '未知') + '_' + record.time.replace(/[^0-9]/g,'') + '.doc';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
 function printHandover() {
@@ -1688,5 +1949,50 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('pt-receive-time').value = local;
 });
 </script>
+
+<!-- 历史记录详情弹窗 -->
+<div id="history-detail-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto;">
+  <div style="background:#fff;border-radius:12px;max-width:800px;width:100%;margin:40px auto;padding:24px;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+    <button onclick="closeHistoryDetail()" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;background:#f1f3f4;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-primary btn-sm" onclick="exportHistoryDetailWord()">📄 导出Word</button>
+      <button class="btn btn-outline btn-sm" onclick="printHistoryDetail()">🖨️ 打印</button>
+    </div>
+    <div id="history-detail-content" class="handover" style="border:1px solid #dadce0;border-radius:8px;padding:24px;min-height:300px;font-size:13px;line-height:1.6;"></div>
+  </div>
+</div>
+
+<script>
+// 历史详情弹窗内的导出和打印
+var _currentDetailRecord = null;
+function exportHistoryDetailWord() {
+  var content = document.getElementById('history-detail-content').innerHTML;
+  if (!content) return;
+  var wrap = '<html xmlns:o="urn:schemas-microsoft-com:office:office"' +
+    ' xmlns:w="urn:schemas-microsoft-com:office:word"' +
+    ' xmlns="http://www.w3.org/TR/REC-html40"><head>' +
+    '<meta charset="utf-8"><title>交班记录</title>' +
+    '<style>body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;margin:20px;}h1{text-align:center;}</style></head><body>' +
+    '<h1>急诊科院前急救评估交接记录</h1>' + content + '</body></html>';
+  var blob = new Blob([wrap], { type: 'application/msword;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = '交班记录_历史记录.doc';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+function printHistoryDetail() {
+  var content = document.getElementById('history-detail-content').innerHTML;
+  if (!content) return;
+  var win = window.open('', '_blank');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>打印</title><style>body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;padding:20px;}@media print{body{padding:0;}}</style></head><body>' + content + '</body></html>');
+  win.document.close();
+  setTimeout(function(){ win.print(); }, 300);
+}
+</script>
+
 </body>
 </html>
