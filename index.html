@@ -1962,6 +1962,7 @@ function renderTubes() {
 
 /* ==================== Handover Generation ==================== */
 function generateHandover() {
+  try {
   var name = document.getElementById('pt-name').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
   var gender = document.getElementById('pt-gender').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
   var age = document.getElementById('pt-age').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
@@ -2156,6 +2157,14 @@ function generateHandover() {
   html += '<p style="min-height:40px;border-bottom:1px dashed #ccc;font-size:13px;color:#5f6368;" contenteditable="true">（可在此填写交班注意事项）</p>';
 
   document.getElementById('handover-content').innerHTML = html;
+
+  } catch(e) {
+    var msg = "生成交班记录出错:
+" + e.message + "
+行号: " + (e.lineNumber||"?");
+    alert(msg);
+    console.error(e);
+  }
 
   // 自动保存到历史记录（localStorage）
   saveHandoverToHistory(name, gender, age, mrn, html);
