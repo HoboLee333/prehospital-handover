@@ -825,7 +825,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
       <!-- GRACE -->
       <div id="grace-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GRACE 评分</strong><span class="score-badge score-low" id="grace-score-badge">--</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GRACE 评分</strong><span class="score-badge score-low" id="grace-score-badge">--</span><span id="grace-total" style="display:none;">--</span></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="grace-age" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">&lt;30</option><option value="8">30-39</option><option value="25">40-49</option><option value="41">50-59</option><option value="58">60-69</option><option value="75">70-79</option><option value="91">80-89</option><option value="100">≥90</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>心率</label><select id="grace-hr" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">&lt;50</option><option value="3">50-69</option><option value="9">70-89</option><option value="15">90-109</option><option value="24">110-149</option><option value="38">150-199</option><option value="46">≥200</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>SBP</label><select id="grace-sbp" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="58">&lt;80</option><option value="53">80-99</option><option value="43">100-119</option><option value="34">120-139</option><option value="24">140-159</option><option value="10">160-199</option><option value="0">≥200</option></select></div>
@@ -838,7 +838,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       </div>
       <!-- TIMI -->
       <div id="timi-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">TIMI 评分</strong><span class="score-badge score-low" id="timi-score-badge">--</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">TIMI 评分</strong><span class="score-badge score-low" id="timi-score-badge">--</span><span id="timi-total" style="display:none;">--</span></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>年龄≥65</label><select id="timi-age" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>≥3个CAD危险因素</label><select id="timi-risk" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>已知CAD≥50%</label><select id="timi-cad" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
@@ -850,7 +850,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       </div>
       <!-- HEART -->
       <div id="heart-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">HEART 评分</strong><span class="score-badge score-low" id="heart-score-badge">--</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">HEART 评分</strong><span class="score-badge score-low" id="heart-score-badge">--</span><span id="heart-total" style="display:none;">--</span></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>病史</label><select id="heart-hist" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-非特异</option><option value="1">1-混合型</option><option value="2">2-典型心绞痛</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>ECG</label><select id="heart-ecg" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-正常</option><option value="1">1-非特异</option><option value="2">2-ST偏移</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="heart-age" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-&lt;45</option><option value="1">1-45-65</option><option value="2">2-&gt;65</option></select></div>
@@ -1057,7 +1057,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
       <!-- GBS -->
       <div id="gbs-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GBS Glasgow-Blatchford 评分</strong><span class="score-badge score-low" id="gbs-score-badge">--</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GBS Glasgow-Blatchford 评分</strong><span class="score-badge score-low" id="gbs-score-badge">--</span><span id="gbs-total" style="display:none;">--</span></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>BUN</label><select id="gbs-bun" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: &lt;6.5</option><option value="2">2: 6.5-7.9</option><option value="3">3: 8.0-9.9</option><option value="4">4: 10.0-24.9</option><option value="6">6: ≥25.0</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>Hb 男</label><select id="gbs-hb" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: ≥130</option><option value="1">1: 120-129</option><option value="3">3: 100-119</option><option value="6">6: &lt;100</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>SBP</label><select id="gbs-sbp" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: ≥110</option><option value="1">1: 100-109</option><option value="2">2: 90-99</option><option value="3">3: &lt;90</option></select></div>
@@ -1070,7 +1070,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       </div>
       <!-- Rockall -->
       <div id="rockall-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">Rockall 风险评分</strong><span class="score-badge score-low" id="rockall-score-badge">--</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">Rockall 风险评分</strong><span class="score-badge score-low" id="rockall-score-badge">--</span><span id="rockall-total" style="display:none;">--</span></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="rockall-age" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: &lt;60</option><option value="1">1: 60-79</option><option value="2">2: ≥80</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>休克</label><select id="rockall-shock" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="1">1: 心动过速</option><option value="2">2: 低血压</option></select></div>
         <div class="form-group" style="margin:0 0 6px 0;"><label>合并症</label><select id="rockall-comorb" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 心衰/IHD</option><option value="3">3: 肾衰/肝衰/转移癌</option></select></div>
