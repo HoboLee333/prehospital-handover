@@ -491,20 +491,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
 <section id="section-trauma" class="section">
   <div class="page-header"><h2>🦴 创伤中心评估 · ATMIST 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">A→T→M→I→S→T 逐项填写</span></div>
 
-  <!-- A: 年龄 (旁注：已在患者信息中填写) -->
+  <!-- A: 年龄 -->
   <div class="card" style="border-left:4px solid var(--primary);">
-    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">A</span> 年龄 (Age)</h3><span style="font-size:12px;color:var(--text-secondary);">← 已在「患者基本信息」中填写</span></div>
-    <p style="font-size:13px;color:var(--text-secondary);">姓名：<b id="atm-name">--</b> | 性别：<b id="atm-gender">--</b> | 年龄：<b id="atm-age">--</b></p>
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">A</span> 年龄 (Age)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>姓名</label><input type="text" id="atm-name" placeholder="输入患者姓名"></div>
+      <div class="form-group"><label>性别</label><select id="atm-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
+      <div class="form-group"><label>年龄（岁）</label><input type="number" id="atm-age" min="0" max="120" placeholder="岁"></div>
+    </div>
   </div>
 
   <!-- T: 受伤时间 -->
   <div class="card" style="border-left:4px solid var(--warning);">
     <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 受伤时间 (Time of injury)</h3></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>受伤日期时间</label><input type="datetime-local" id="trauma-time" onchange="updateATMIST()"></div>
-      <div class="form-group"><label>接诊时间</label><input type="text" id="trauma-receive" readonly placeholder="自动同步患者信息" style="background:#f8f9fa;"></div>
-      <div class="form-group"><label>受伤至接诊间隔</label><input type="text" id="trauma-interval" readonly placeholder="自动计算" style="background:#f8f9fa;"></div>
-    </div>
+    <div class="form-group"><label>受伤日期时间</label><input type="datetime-local" id="trauma-time"></div>
   </div>
 
   <!-- M: 受伤机制 -->
@@ -532,18 +532,144 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <!-- I: 伤情/损伤 -->
   <div class="card" style="border-left:4px solid var(--success);">
     <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">I</span> 伤情与损伤部位 (Injuries)</h3></div>
-    <div class="form-row form-row-2">
-      <div class="form-group"><label>头部/颅脑</label><input type="text" id="trauma-inj-head" placeholder="如：头皮裂伤5cm、硬膜下血肿"></div>
-      <div class="form-group"><label>面部</label><input type="text" id="trauma-inj-face" placeholder="如：左眼眶周血肿、鼻骨骨折"></div>
-      <div class="form-group"><label>颈部/颈椎</label><input type="text" id="trauma-inj-neck" placeholder="如：C5-C6骨折、颈髓损伤"></div>
-      <div class="form-group"><label>胸部</label><input type="text" id="trauma-inj-chest" placeholder="如：左侧多发肋骨骨折、气胸"></div>
-      <div class="form-group"><label>腹部/盆腔</label><input type="text" id="trauma-inj-abdomen" placeholder="如：脾破裂、肝挫裂伤"></div>
-      <div class="form-group"><label>脊柱</label><input type="text" id="trauma-inj-spine" placeholder="如：T12压缩性骨折"></div>
-      <div class="form-group"><label>上肢</label><input type="text" id="trauma-inj-uparm" placeholder="如：左尺桡骨双骨折"></div>
-      <div class="form-group"><label>下肢</label><input type="text" id="trauma-inj-leg" placeholder="如：右股骨中段骨折"></div>
-      <div class="form-group"><label>骨盆</label><input type="text" id="trauma-inj-pelvis" placeholder="如：耻骨联合分离"></div>
-      <div class="form-group"><label>体表/皮肤/烧伤</label><input type="text" id="trauma-inj-surface" placeholder="如：全身多处擦挫伤、右手背二度烧伤3%"></div>
+
+    <!-- 头部/颅脑 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">头部/颅脑</b>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-head"><option value="">-- 无 / 未查 --</option>
+            <option>头皮裂伤/血肿</option><option>颅骨骨折（线形/凹陷）</option><option>硬膜外血肿</option>
+            <option>硬膜下血肿（急性）</option><option>硬膜下血肿（亚急性/慢性）</option><option>蛛网膜下腔出血</option>
+            <option>脑挫裂伤</option><option>脑内血肿</option><option>弥漫性轴索损伤</option>
+            <option>脑干损伤</option><option>脑震荡</option><option>颅底骨折</option><option>开放性颅脑损伤</option>
+          </select></div>
+      </div>
     </div>
+
+    <!-- 面部 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">面部</b>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>位置</label>
+          <select id="trauma-inj-face-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧/中线</option></select></div>
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-face"><option value="">-- 无 / 未查 --</option>
+            <option>软组织挫裂伤</option><option>眶周血肿</option><option>鼻骨骨折</option>
+            <option>颧骨骨折</option><option>上颌骨骨折</option><option>下颌骨骨折</option>
+            <option>眼球损伤</option><option>牙折断/脱落</option><option>Le Fort I型骨折</option>
+            <option>Le Fort II型骨折</option><option>Le Fort III型骨折</option></select></div>
+      </div>
+    </div>
+
+    <!-- 颈部/颈椎 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">颈部/颈椎</b>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-neck"><option value="">-- 无 / 未查 --</option>
+            <option>软组织挫伤</option><option>颈椎骨折（C1-C2）</option><option>颈椎骨折（C3-C7）</option>
+            <option>颈髓损伤（完全性）</option><option>颈髓损伤（不完全性）</option><option>气管损伤</option>
+            <option>颈部血管损伤</option><option>咽/食管损伤</option><option>挥鞭伤</option></select></div>
+      </div>
+    </div>
+
+    <!-- 胸部 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">胸部</b>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>位置</label>
+          <select id="trauma-inj-chest-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧</option></select></div>
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-chest"><option value="">-- 无 / 未查 --</option>
+            <option>肋骨骨折（单根）</option><option>肋骨骨折（多根）</option><option>连枷胸</option>
+            <option>气胸（闭合性）</option><option>气胸（开放性）</option><option>张力性气胸</option>
+            <option>血胸</option><option>血气胸</option><option>肺挫伤</option>
+            <option>心肌挫伤</option><option>心包积血/填塞</option><option>主动脉损伤</option>
+            <option>膈肌破裂</option><option>胸骨骨折</option></select></div>
+      </div>
+    </div>
+
+    <!-- 腹部/盆腔 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">腹部/盆腔</b>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-abdomen"><option value="">-- 无 / 未查 --</option>
+            <option>肝破裂/挫裂伤</option><option>脾破裂/挫裂伤</option><option>肾挫裂伤</option>
+            <option>胰腺损伤</option><option>肠破裂/穿孔</option><option>胃穿孔</option>
+            <option>膀胱破裂</option><option>后腹膜血肿</option><option>腹壁挫伤</option>
+            <option>腹腔积血</option><option>膈肌破裂</option></select></div>
+      </div>
+    </div>
+
+    <!-- 脊柱 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">脊柱</b>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-spine"><option value="">-- 无 / 未查 --</option>
+            <option>颈椎骨折（C1-C7）</option><option>胸椎骨折（T1-T12）</option><option>腰椎骨折（L1-L5）</option>
+            <option>脊髓损伤（完全性）</option><option>脊髓损伤（不完全性）</option><option>横突骨折</option>
+            <option>棘突骨折</option><option>骶尾骨骨折</option></select></div>
+      </div>
+    </div>
+
+    <!-- 上肢 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">上肢</b>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>位置</label>
+          <select id="trauma-inj-uparm-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧</option></select></div>
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-uparm"><option value="">-- 无 / 未查 --</option>
+            <option>锁骨骨折</option><option>肩胛骨骨折</option><option>肱骨骨折</option>
+            <option>尺桡骨骨折</option><option>腕骨骨折</option><option>掌指骨骨折</option>
+            <option>肩关节脱位</option><option>肘关节脱位</option><option>神经血管损伤</option>
+            <option>软组织挫裂伤</option><option>截肢/离断</option></select></div>
+      </div>
+    </div>
+
+    <!-- 下肢 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">下肢</b>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>位置</label>
+          <select id="trauma-inj-leg-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧</option></select></div>
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-leg"><option value="">-- 无 / 未查 --</option>
+            <option>股骨骨折</option><option>胫腓骨骨折</option><option>髌骨骨折</option>
+            <option>踝关节骨折</option><option>足部骨折</option><option>髋关节脱位</option>
+            <option>膝关节脱位</option><option>神经血管损伤</option><option>软组织挫裂伤</option>
+            <option>截肢/离断</option></select></div>
+      </div>
+    </div>
+
+    <!-- 骨盆 -->
+    <div style="margin-bottom:10px;border-bottom:1px dotted var(--border);padding-bottom:8px;">
+      <b style="font-size:13px;">骨盆</b>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-pelvis"><option value="">-- 无 / 未查 --</option>
+            <option>耻骨联合分离</option><option>髂骨骨折</option><option>骶骨骨折</option>
+            <option>髋臼骨折</option><option>不稳定骨盆骨折</option><option>骶髂关节分离</option>
+            <option>耻骨支骨折</option><option>坐骨支骨折</option></select></div>
+      </div>
+    </div>
+
+    <!-- 体表/皮肤/烧伤 -->
+    <div style="margin-bottom:8px;">
+      <b style="font-size:13px;">体表/皮肤/烧伤</b>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>损伤描述</label>
+          <select id="trauma-inj-surface"><option value="">-- 无 / 未查 --</option>
+            <option>擦挫伤</option><option>裂伤</option><option>撕脱伤</option>
+            <option>一度烧伤</option><option>浅二度烧伤</option><option>深二度烧伤</option>
+            <option>三度烧伤</option><option>冻伤</option><option>电击伤</option>
+            <option>化学烧伤</option></select></div>
+      </div>
+    </div>
+
     <div class="form-group" style="margin-top:12px;"><label>损伤总结（一句话概括主要伤情，用于交班）</label><textarea id="trauma-inj-summary" rows="2" placeholder="例：多发伤：颅脑损伤+左胸多发肋骨骨折伴气胸+脾破裂+右股骨骨折"></textarea></div>
   </div>
 
@@ -592,21 +718,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <!-- T: 院前处置 -->
   <div class="card" style="border-left:4px solid #e67e22;">
     <div class="card-header"><h3><span style="background:#e67e22;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 院前创伤处置 (Treatment given)</h3></div>
-    <div class="chip-bar">
-      <span class="chip" onclick="quickAddMeasure('止血包扎','创面加压包扎')">🩹 止血包扎</span>
-      <span class="chip" onclick="quickAddMeasure('止血带','动脉止血带（记录时间）')">⏱️ 止血带</span>
-      <span class="chip" onclick="quickAddMeasure('颈椎固定','颈托固定')">🔒 颈托固定</span>
-      <span class="chip" onclick="quickAddMeasure('脊柱板固定','铲式担架/脊柱板')">🛏️ 脊柱板</span>
-      <span class="chip" onclick="quickAddMeasure('骨盆带固定','骨盆外固定')">🦴 骨盆固定</span>
-      <span class="chip" onclick="quickAddMeasure('骨折夹板固定','四肢骨折夹板')">🪵 夹板固定</span>
-      <span class="chip" onclick="quickAddMeasure('胸腔闭式引流','创伤性气胸')">🫁 胸引</span>
-      <span class="chip" onclick="quickAddMeasure('气管插管','经口/经鼻插管')">🫁 气管插管</span>
-      <span class="chip" onclick="quickAddMeasure('环甲膜穿刺','紧急气道')">🔪 环甲膜穿刺</span>
-      <span class="chip" onclick="quickAddMeasure('清创包扎','伤口清创')">💉 清创包扎</span>
-      <span class="chip" onclick="quickAddMeasure('液体复苏','晶体/胶体/血制品')">💧 液体复苏</span>
-      <span class="chip" onclick="quickAddMeasure('氨甲环酸','TXA 1g IV')">💊 氨甲环酸</span>
+    <div class="form-group">
+      <label>院前已采取的创伤处置措施</label>
+      <textarea id="trauma-treatment" rows="3" placeholder="描述院前已采取的创伤处置，如：颈托固定、脊柱板搬运、左下肢夹板固定、创面加压包扎、止血带（上臂，记录时间）、胸腔闭式引流、氨甲环酸1g IV、液体复苏晶体液500ml等..."></textarea>
     </div>
-    <div style="font-size:12px;color:var(--text-secondary);margin-top:8px;">💡 点击上方标签快速添加 → 详细管理请前往「🛠️ 急救措施」页面</div>
   </div>
 </section>
 
@@ -1027,10 +1142,6 @@ function navigateTo(sec) {
   if (sec === 'history') {
     renderHistoryList();
   }
-  // 切换到创伤中心时自动刷新ATMIST信息
-  if (sec === 'trauma') {
-    updateATMIST();
-  }
 }
 
 /* 渲染历史列表时同步更新记录数 */
@@ -1344,44 +1455,16 @@ function setMechanism(val) {
   chips.forEach(function(c) { c.classList.remove('selected'); });
   var targetChip = Array.from(chips).find(function(c) { return c.textContent.indexOf(val) !== -1; });
   if (targetChip) targetChip.classList.add('selected');
-  updateATMIST();
 }
 
 function updateATMIST() {
-  // A - 自动同步患者信息
-  var name = document.getElementById('pt-name').value || '--';
-  var gender = document.getElementById('pt-gender').value || '--';
-  var age = document.getElementById('pt-age').value || '--';
-  document.getElementById('atm-name').textContent = name;
-  document.getElementById('atm-gender').textContent = gender;
-  document.getElementById('atm-age').textContent = age + '岁';
-
-  // T - 计算受伤至接诊间隔
-  var receiveEl = document.getElementById('pt-receive-time');
-  var traumaEl = document.getElementById('trauma-time');
-  if (receiveEl && receiveEl.value) {
-    document.getElementById('trauma-receive').value = receiveEl.value.replace('T', ' ');
-  }
-  if (traumaEl && traumaEl.value && receiveEl && receiveEl.value) {
-    var traumaTime = new Date(traumaEl.value);
-    var receiveTime = new Date(receiveEl.value);
-    if (!isNaN(traumaTime) && !isNaN(receiveTime) && receiveTime > traumaTime) {
-      var diffMin = Math.round((receiveTime - traumaTime) / 60000);
-      var h = Math.floor(diffMin / 60);
-      var m = diffMin % 60;
-      document.getElementById('trauma-interval').value = (h > 0 ? h + '小时' : '') + m + '分钟';
-    } else {
-      document.getElementById('trauma-interval').value = '请确保受伤时间 < 接诊时间';
-    }
-  }
+  // A - 已独立填写，无需同步
+  // 仅保留函数以向后兼容
 }
 
 // Auto-fill trauma time from patient receive time on page load
 function autoSetTraumaReceiveTime() {
-  var receiveEl = document.getElementById('pt-receive-time');
-  if (receiveEl && receiveEl.value) {
-    document.getElementById('trauma-receive').value = receiveEl.value.replace('T', ' ');
-  }
+  // 已移除接诊时间自动同步
 }
 
 /* ==================== Medications ==================== */
@@ -1669,17 +1752,16 @@ function generateHandover() {
   var traumaMech = document.getElementById('trauma-mechanism');
   var traumaTime = document.getElementById('trauma-time');
   var traumaInjSummary = document.getElementById('trauma-inj-summary');
-  var hasATMIST = (traumaMech && traumaMech.value.trim()) || (traumaTime && traumaTime.value) || (traumaInjSummary && traumaInjSummary.value.trim());
+  var traumaTreatment = document.getElementById('trauma-treatment');
+  var atmAge = document.getElementById('atm-age');
+  var hasATMIST = (traumaMech && traumaMech.value.trim()) || (traumaTime && traumaTime.value) || (traumaInjSummary && traumaInjSummary.value.trim()) || (traumaTreatment && traumaTreatment.value.trim()) || (atmAge && atmAge.value);
   if (hasATMIST) {
     html += '<div class="section-title" style="color:#d93025;">ATMIST 创伤交班</div>';
     html += '<table style="font-size:13px;">';
-    // A - Age (auto from patient info)
-    html += '<tr><th>A - 年龄</th><td>' + age + '岁</td><th>T - 受伤时间</th><td colspan="3">' + (traumaTime && traumaTime.value ? traumaTime.value.replace('T',' ') : '____') + '</td></tr>';
-    // T - Time interval
-    var tInterval = document.getElementById('trauma-interval');
-    if (tInterval && tInterval.value && tInterval.value.indexOf('分钟') !== -1) {
-      html += '<tr><th>院前耗时</th><td colspan="5">' + tInterval.value + '</td></tr>';
-    }
+    // A - Age (from ATMIST section input)
+    var atmName = document.getElementById('atm-name');
+    var atmGender = document.getElementById('atm-gender');
+    html += '<tr><th>A - 年龄</th><td>' + (atmName ? atmName.value.trim() || '____' : '____') + ' ' + (atmGender ? atmGender.value || '' : '') + ' ' + (atmAge && atmAge.value ? atmAge.value + '岁' : '') + '</td><th>T - 受伤时间</th><td colspan="3">' + (traumaTime && traumaTime.value ? traumaTime.value.replace('T',' ') : '____') + '</td></tr>';
     // M - Mechanism
     html += '<tr><th>M - 受伤机制</th><td colspan="5">' + (traumaMech ? traumaMech.value.trim() : '____') + '</td></tr>';
     var traumaState = document.getElementById('trauma-state');
@@ -1690,30 +1772,36 @@ function generateHandover() {
     if (traumaMechDetail && traumaMechDetail.value.trim()) {
       html += '<tr><th>机制详情</th><td colspan="5">' + traumaMechDetail.value.trim() + '</td></tr>';
     }
-    // I - Injuries
+    // I - Injuries (reads from select elements + side selectors)
     html += '<tr><th>I - 伤情损伤</th><td colspan="5">';
     var injFields = [
-      { id: 'trauma-inj-head', label: '头部' },
-      { id: 'trauma-inj-face', label: '面部' },
-      { id: 'trauma-inj-neck', label: '颈部/颈椎' },
-      { id: 'trauma-inj-chest', label: '胸部' },
-      { id: 'trauma-inj-abdomen', label: '腹部/盆腔' },
-      { id: 'trauma-inj-spine', label: '脊柱' },
-      { id: 'trauma-inj-uparm', label: '上肢' },
-      { id: 'trauma-inj-leg', label: '下肢' },
-      { id: 'trauma-inj-pelvis', label: '骨盆' },
-      { id: 'trauma-inj-surface', label: '体表/烧伤' }
+      { id: 'trauma-inj-head', label: '头部/颅脑', side: null },
+      { id: 'trauma-inj-face', label: '面部', side: 'trauma-inj-face-side' },
+      { id: 'trauma-inj-neck', label: '颈部/颈椎', side: null },
+      { id: 'trauma-inj-chest', label: '胸部', side: 'trauma-inj-chest-side' },
+      { id: 'trauma-inj-abdomen', label: '腹部/盆腔', side: null },
+      { id: 'trauma-inj-spine', label: '脊柱', side: null },
+      { id: 'trauma-inj-uparm', label: '上肢', side: 'trauma-inj-uparm-side' },
+      { id: 'trauma-inj-leg', label: '下肢', side: 'trauma-inj-leg-side' },
+      { id: 'trauma-inj-pelvis', label: '骨盆', side: null },
+      { id: 'trauma-inj-surface', label: '体表/烧伤', side: null }
     ];
     var injParts = [];
     injFields.forEach(function(f) {
       var el = document.getElementById(f.id);
-      if (el && el.value.trim()) {
-        injParts.push('<b>' + f.label + '</b>：' + el.value.trim());
+      if (el && el.value) {
+        var sideEl = f.side ? document.getElementById(f.side) : null;
+        var sideVal = sideEl && sideEl.value ? sideEl.value : '';
+        injParts.push('<b>' + f.label + '</b>：' + (sideVal ? sideVal : '') + el.value);
       }
     });
     html += (injParts.length > 0 ? injParts.join('；<br>') : '未记录') + '</td></tr>';
     if (traumaInjSummary && traumaInjSummary.value.trim()) {
       html += '<tr><th>损伤总结</th><td colspan="5"><b>' + traumaInjSummary.value.trim() + '</b></td></tr>';
+    }
+    // T - Treatment (textarea)
+    if (traumaTreatment && traumaTreatment.value.trim()) {
+      html += '<tr><th>T - 院前处置</th><td colspan="5">' + traumaTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     html += '</table>';
   }
