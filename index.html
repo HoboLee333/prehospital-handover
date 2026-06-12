@@ -307,7 +307,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="form-row form-row-3">
       <div class="form-group"><label>姓名 *</label><input type="text" id="pt-name" placeholder="患者姓名"></div>
       <div class="form-group"><label>性别 *</label><select id="pt-gender"><option value="">请选择</option><option>男</option><option>女</option></select></div>
-      <div class="form-group"><label>年龄 *</label><input type="number" id="pt-age" placeholder="岁" min="0" max="120"></div>
+      <div class="form-group"><label>年龄 *</label><input type="text" id="pt-age" placeholder="如：25岁、约30岁、不详"></div>
     </div>
     <div class="form-row form-row-3" style="margin-top:12px">
       <div class="form-group"><label>就诊号/病历号</label><input type="text" id="pt-mrn" placeholder="MRN"></div>
@@ -497,7 +497,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="form-row form-row-3">
       <div class="form-group"><label>姓名</label><input type="text" id="atm-name" placeholder="输入患者姓名"></div>
       <div class="form-group"><label>性别</label><select id="atm-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
-      <div class="form-group"><label>年龄（岁）</label><input type="number" id="atm-age" min="0" max="120" placeholder="岁"></div>
+      <div class="form-group"><label>年龄（可填文字）</label><input type="text" id="atm-age" placeholder="如：25岁、约30岁、不详"></div>
     </div>
   </div>
 
@@ -539,10 +539,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-row form-row-3">
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-head"><option value="">-- 无 / 未查 --</option>
-            <option>头皮裂伤/血肿</option><option>颅骨骨折（线形/凹陷）</option><option>硬膜外血肿</option>
-            <option>硬膜下血肿（急性）</option><option>硬膜下血肿（亚急性/慢性）</option><option>蛛网膜下腔出血</option>
-            <option>脑挫裂伤</option><option>脑内血肿</option><option>弥漫性轴索损伤</option>
-            <option>脑干损伤</option><option>脑震荡</option><option>颅底骨折</option><option>开放性颅脑损伤</option>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>颅骨外露</option><option>脑脊液漏</option><option>瘀斑</option>
           </select></div>
       </div>
     </div>
@@ -555,10 +552,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
           <select id="trauma-inj-face-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧/中线</option></select></div>
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-face"><option value="">-- 无 / 未查 --</option>
-            <option>软组织挫裂伤</option><option>眶周血肿</option><option>鼻骨骨折</option>
-            <option>颧骨骨折</option><option>上颌骨骨折</option><option>下颌骨骨折</option>
-            <option>眼球损伤</option><option>牙折断/脱落</option><option>Le Fort I型骨折</option>
-            <option>Le Fort II型骨折</option><option>Le Fort III型骨折</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>眼部肿胀/瘀血</option><option>牙齿缺失/松动</option><option>张口受限</option>
+          </select></div>
       </div>
     </div>
 
@@ -568,9 +563,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-row form-row-2">
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-neck"><option value="">-- 无 / 未查 --</option>
-            <option>软组织挫伤</option><option>颈椎骨折（C1-C2）</option><option>颈椎骨折（C3-C7）</option>
-            <option>颈髓损伤（完全性）</option><option>颈髓损伤（不完全性）</option><option>气管损伤</option>
-            <option>颈部血管损伤</option><option>咽/食管损伤</option><option>挥鞭伤</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>颈部活动受限</option><option>皮下气肿</option><option>呼吸困难</option>
+          </select></div>
       </div>
     </div>
 
@@ -582,11 +576,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
           <select id="trauma-inj-chest-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧</option></select></div>
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-chest"><option value="">-- 无 / 未查 --</option>
-            <option>肋骨骨折（单根）</option><option>肋骨骨折（多根）</option><option>连枷胸</option>
-            <option>气胸（闭合性）</option><option>气胸（开放性）</option><option>张力性气胸</option>
-            <option>血胸</option><option>血气胸</option><option>肺挫伤</option>
-            <option>心肌挫伤</option><option>心包积血/填塞</option><option>主动脉损伤</option>
-            <option>膈肌破裂</option><option>胸骨骨折</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>胸廓畸形</option><option>皮下气肿</option><option>呼吸异常</option>
+          </select></div>
       </div>
     </div>
 
@@ -596,10 +587,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-row form-row-2">
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-abdomen"><option value="">-- 无 / 未查 --</option>
-            <option>肝破裂/挫裂伤</option><option>脾破裂/挫裂伤</option><option>肾挫裂伤</option>
-            <option>胰腺损伤</option><option>肠破裂/穿孔</option><option>胃穿孔</option>
-            <option>膀胱破裂</option><option>后腹膜血肿</option><option>腹壁挫伤</option>
-            <option>腹腔积血</option><option>膈肌破裂</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>腹肌紧张</option><option>腹部膨隆</option><option>皮下瘀血</option>
+          </select></div>
       </div>
     </div>
 
@@ -609,9 +598,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-row form-row-2">
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-spine"><option value="">-- 无 / 未查 --</option>
-            <option>颈椎骨折（C1-C7）</option><option>胸椎骨折（T1-T12）</option><option>腰椎骨折（L1-L5）</option>
-            <option>脊髓损伤（完全性）</option><option>脊髓损伤（不完全性）</option><option>横突骨折</option>
-            <option>棘突骨折</option><option>骶尾骨骨折</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>脊柱活动受限</option><option>棘突压痛</option><option>下肢感觉异常</option>
+          </select></div>
       </div>
     </div>
 
@@ -623,10 +611,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
           <select id="trauma-inj-uparm-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧</option></select></div>
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-uparm"><option value="">-- 无 / 未查 --</option>
-            <option>锁骨骨折</option><option>肩胛骨骨折</option><option>肱骨骨折</option>
-            <option>尺桡骨骨折</option><option>腕骨骨折</option><option>掌指骨骨折</option>
-            <option>肩关节脱位</option><option>肘关节脱位</option><option>神经血管损伤</option>
-            <option>软组织挫裂伤</option><option>截肢/离断</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>活动受限</option><option>异常活动/骨擦感</option><option>肢端苍白/冰凉</option>
+          </select></div>
       </div>
     </div>
 
@@ -638,10 +624,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
           <select id="trauma-inj-leg-side"><option value="">--</option><option>左侧</option><option>右侧</option><option>双侧</option></select></div>
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-leg"><option value="">-- 无 / 未查 --</option>
-            <option>股骨骨折</option><option>胫腓骨骨折</option><option>髌骨骨折</option>
-            <option>踝关节骨折</option><option>足部骨折</option><option>髋关节脱位</option>
-            <option>膝关节脱位</option><option>神经血管损伤</option><option>软组织挫裂伤</option>
-            <option>截肢/离断</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>活动受限</option><option>异常活动/骨擦感</option><option>肢端苍白/冰凉</option>
+          </select></div>
       </div>
     </div>
 
@@ -651,9 +635,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-row form-row-2">
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-pelvis"><option value="">-- 无 / 未查 --</option>
-            <option>耻骨联合分离</option><option>髂骨骨折</option><option>骶骨骨折</option>
-            <option>髋臼骨折</option><option>不稳定骨盆骨折</option><option>骶髂关节分离</option>
-            <option>耻骨支骨折</option><option>坐骨支骨折</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>挤压痛</option><option>骨盆不稳定</option>
+          </select></div>
       </div>
     </div>
 
@@ -663,10 +646,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-row form-row-2">
         <div class="form-group"><label>损伤描述</label>
           <select id="trauma-inj-surface"><option value="">-- 无 / 未查 --</option>
-            <option>擦挫伤</option><option>裂伤</option><option>撕脱伤</option>
-            <option>一度烧伤</option><option>浅二度烧伤</option><option>深二度烧伤</option>
-            <option>三度烧伤</option><option>冻伤</option><option>电击伤</option>
-            <option>化学烧伤</option></select></div>
+            <option>无异常</option><option>畸形</option><option>肿胀</option><option>挫伤</option><option>裂伤/破损</option><option>流血</option><option>异物嵌入</option><option>水泡</option><option>焦痂/碳化</option>
+          </select></div>
       </div>
     </div>
 
@@ -718,59 +699,255 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <!-- T: 院前处置 -->
   <div class="card" style="border-left:4px solid #e67e22;">
     <div class="card-header"><h3><span style="background:#e67e22;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 院前创伤处置 (Treatment given)</h3></div>
+    <div class="chip-bar" style="margin-bottom:10px;">
+      <span class="chip" onclick="setTraumaTreatment('颈托固定')">🔒 颈托固定</span>
+      <span class="chip" onclick="setTraumaTreatment('脊柱板搬运')">🛏️ 脊柱板搬运</span>
+      <span class="chip" onclick="setTraumaTreatment('夹板固定')">📏 夹板固定</span>
+      <span class="chip" onclick="setTraumaTreatment('加压包扎')">🩹 加压包扎</span>
+      <span class="chip" onclick="setTraumaTreatment('止血带')">🩸 止血带</span>
+      <span class="chip" onclick="setTraumaTreatment('胸腔闭式引流')">🫁 胸腔引流</span>
+      <span class="chip" onclick="setTraumaTreatment('氨甲环酸1g IV')">💊 氨甲环酸</span>
+      <span class="chip" onclick="setTraumaTreatment('晶体液500ml')">💧 晶体液</span>
+      <span class="chip" onclick="setTraumaTreatment('气管插管')">🫁 气管插管</span>
+      <span class="chip" onclick="setTraumaTreatment('镇痛')">💉 镇痛</span>
+      <span class="chip" onclick="setTraumaTreatment('抗生素')">💊 抗生素</span>
+    </div>
     <div class="form-group">
       <label>院前已采取的创伤处置措施</label>
-      <textarea id="trauma-treatment" rows="3" placeholder="描述院前已采取的创伤处置，如：颈托固定、脊柱板搬运、左下肢夹板固定、创面加压包扎、止血带（上臂，记录时间）、胸腔闭式引流、氨甲环酸1g IV、液体复苏晶体液500ml等..."></textarea>
+      <textarea id="trauma-treatment" rows="3" placeholder="可点击上方快速选择或自由输入..."></textarea>
     </div>
   </div>
 </section>
 
 <!-- ==================== 胸痛中心 ==================== -->
 <section id="section-chestpain" class="section">
-  <div class="page-header"><h2>❤️ 胸痛中心评估</h2></div>
-  <div class="card" id="grace-card">
-    <div class="card-header"><h3>GRACE 危险分层评分</h3><span class="score-badge score-low" id="grace-score-badge">--</span></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>年龄（岁）</label><input type="number" id="grace-age" min="0" onchange="calcGRACE()" placeholder="岁"></div>
-      <div class="form-group"><label>心率（次/分）</label><input type="number" id="grace-hr" min="0" onchange="calcGRACE()" placeholder="bpm"></div>
-      <div class="form-group"><label>收缩压（mmHg）</label><input type="number" id="grace-sbp" min="0" onchange="calcGRACE()" placeholder="mmHg"></div>
-      <div class="form-group"><label>肌酐（mg/dL）</label><input type="number" id="grace-cr" step="0.1" onchange="calcGRACE()" placeholder="mg/dL"></div>
-      <div class="form-group"><label>Killip分级</label><select id="grace-killip" onchange="calcGRACE()"><option value="">--</option><option value="0">I级</option><option value="1">II级</option><option value="2">III级</option><option value="3">IV级</option></select></div>
-      <div class="form-group"><label>心脏骤停</label><select id="grace-arrest" onchange="calcGRACE()"><option value="">--</option><option value="0">无</option><option value="1">有</option></select></div>
-      <div class="form-group"><label>ST段偏移</label><select id="grace-st" onchange="calcGRACE()"><option value="">--</option><option value="0">无</option><option value="1">有</option></select></div>
-      <div class="form-group"><label>心肌酶升高</label><select id="grace-enzyme" onchange="calcGRACE()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+  <div class="page-header"><h2>❤️ 胸痛中心评估 · CHEST PAIN 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">C→H→E→S→T→P→A→I→N 逐项填写</span></div>
+
+  <!-- C: 胸痛特征 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">C</span> 胸痛特征 (Chest Pain)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setChestpainCx('压榨样/压迫感')">🔴 压榨样</span>
+      <span class="chip" onclick="setChestpainCx('针刺样/锐痛')">📌 针刺样</span>
+      <span class="chip" onclick="setChestpainCx('烧灼感')">🔥 烧灼感</span>
+      <span class="chip" onclick="setChestpainCx('撕裂样')">💥 撕裂样</span>
+      <span class="chip" onclick="setChestpainCx('闷痛/不适')">😤 闷痛</span>
     </div>
-    <div class="score-display"><div class="score-value" id="grace-total">--</div><div class="score-label">GRACE评分：≤108低危 | 109-140中危 | &gt;140高危</div></div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label>疼痛部位</label><input type="text" id="cp-location" placeholder="如：胸骨后、左前胸、上腹部"></div>
+      <div class="form-group"><label>放射部位</label><input type="text" id="cp-radiation" placeholder="如：左肩/臂、下颌、后背"></div>
+    </div>
+    <div class="form-group"><label>胸痛特征描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="cp-character" rows="2" placeholder="描述胸痛性质、部位、放射..."></textarea>
+    </div>
   </div>
-  <div class="card" id="timi-card">
-    <div class="card-header"><h3>TIMI 风险评分（UA/NSTEMI）</h3><span class="score-badge score-low" id="timi-score-badge">--</span></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>年龄≥65岁</label><select id="timi-age" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-      <div class="form-group"><label>≥3个CAD危险因素</label><select id="timi-risk" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-      <div class="form-group"><label>已知CAD（狭窄≥50%）</label><select id="timi-cad" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-      <div class="form-group"><label>近7天使用阿司匹林</label><select id="timi-asa" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-      <div class="form-group"><label>严重心绞痛（≥2次/24h）</label><select id="timi-angina" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-      <div class="form-group"><label>ST段偏移≥0.5mm</label><select id="timi-st" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-      <div class="form-group"><label>心肌标志物升高</label><select id="timi-marker" onchange="calcTIMI()"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+
+  <!-- H: 病史与危险因素 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">H</span> 病史与危险因素 (History)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setChestpainHx('高血压')">💓 高血压</span>
+      <span class="chip" onclick="setChestpainHx('糖尿病')">🍬 糖尿病</span>
+      <span class="chip" onclick="setChestpainHx('高脂血症')">🧈 高脂血症</span>
+      <span class="chip" onclick="setChestpainHx('吸烟')">🚬 吸烟</span>
+      <span class="chip" onclick="setChestpainHx('冠心病家族史')">👨‍👩‍👧 家族史</span>
+      <span class="chip" onclick="setChestpainHx('既往心梗')">💔 既往心梗</span>
+      <span class="chip" onclick="setChestpainHx('PCI术后')">🫀 PCI术后</span>
+      <span class="chip" onclick="setChestpainHx('CABG术后')">🔪 CABG术后</span>
     </div>
-    <div class="score-display"><div class="score-value" id="timi-total">--</div><div class="score-label">TIMI评分：0-2低危 | 3-4中危 | 5-7高危（范围0-7）</div></div>
+    <div class="form-group"><label>病史/危险因素描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="cp-history" rows="2" placeholder="描述既往史、危险因素..."></textarea>
+    </div>
   </div>
-  <div class="card" id="heart-card">
-    <div class="card-header"><h3>HEART 评分</h3><span class="score-badge score-low" id="heart-score-badge">--</span></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>病史 (History)</label><select id="heart-hist" onchange="calcHEART()"><option value="">--</option><option value="0">0 - 非特异性</option><option value="1">1 - 混合型</option><option value="2">2 - 典型心绞痛</option></select></div>
-      <div class="form-group"><label>心电图 (ECG)</label><select id="heart-ecg" onchange="calcHEART()"><option value="">--</option><option value="0">0 - 正常</option><option value="1">1 - 非特异性改变</option><option value="2">2 - ST段显著偏移</option></select></div>
-      <div class="form-group"><label>年龄 (Age)</label><select id="heart-age" onchange="calcHEART()"><option value="">--</option><option value="0">0 - &lt;45岁</option><option value="1">1 - 45-65岁</option><option value="2">2 - &gt;65岁</option></select></div>
-      <div class="form-group"><label>危险因素 (Risk)</label><select id="heart-risk" onchange="calcHEART()"><option value="">--</option><option value="0">0 - 无</option><option value="1">1 - 1-2项</option><option value="2">2 - ≥3项或ASCVD</option></select></div>
-      <div class="form-group"><label>肌钙蛋白 (Troponin)</label><select id="heart-trop" onchange="calcHEART()"><option value="">--</option><option value="0">0 - ≤正常上限</option><option value="1">1 - 1-3倍正常上限</option><option value="2">2 - &gt;3倍正常上限</option></select></div>
+
+  <!-- E: ECG发现 -->
+  <div class="card" style="border-left:4px solid var(--primary);">
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> ECG发现 (ECG)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setChestpainEcg('ST段抬高（前壁）')">📈 ST抬高-前壁</span>
+      <span class="chip" onclick="setChestpainEcg('ST段抬高（下壁）')">📈 ST抬高-下壁</span>
+      <span class="chip" onclick="setChestpainEcg('ST段抬高（侧壁）')">📈 ST抬高-侧壁</span>
+      <span class="chip" onclick="setChestpainEcg('ST段压低')">📉 ST压低</span>
+      <span class="chip" onclick="setChestpainEcg('T波倒置')">↕️ T波倒置</span>
+      <span class="chip" onclick="setChestpainEcg('新发LBBB')">🔀 新发LBBB</span>
+      <span class="chip" onclick="setChestpainEcg('正常/无特殊')">✅ 正常</span>
     </div>
-    <div class="score-display"><div class="score-value" id="heart-total">--</div><div class="score-label">HEART评分：0-3低危 | 4-6中危 | 7-10高危</div></div>
+    <div class="form-group"><label>ECG描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="cp-ecg" rows="2" placeholder="描述心电图发现..."></textarea>
+    </div>
+  </div>
+
+  <!-- S: 伴随症状与体征 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 伴随症状与体征 (Symptoms)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setChestpainSx('呼吸困难')">🫁 呼吸困难</span>
+      <span class="chip" onclick="setChestpainSx('大汗淋漓')">💧 大汗</span>
+      <span class="chip" onclick="setChestpainSx('恶心/呕吐')">🤢 恶心/呕吐</span>
+      <span class="chip" onclick="setChestpainSx('心悸')">💗 心悸</span>
+      <span class="chip" onclick="setChestpainSx('晕厥/黑矇')">😵 晕厥</span>
+      <span class="chip" onclick="setChestpainSx('双肺湿啰音')">🫧 湿啰音</span>
+      <span class="chip" onclick="setChestpainSx('颈静脉怒张')">🩸 颈静脉怒张</span>
+    </div>
+    <div class="form-group"><label>伴随症状描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="cp-symptoms" rows="2" placeholder="描述伴随症状..."></textarea>
+    </div>
+  </div>
+
+  <!-- T: 时间 -->
+  <div class="card" style="border-left:4px solid #17a2b8;">
+    <div class="card-header"><h3><span style="background:#17a2b8;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 时间节点 (Timing)</h3></div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label>胸痛发作时间 <span style="color:var(--danger);">*</span></label><input type="datetime-local" id="cp-onset-time"></div>
+      <div class="form-group"><label>首次医疗接触时间</label><input type="datetime-local" id="cp-fmc-time"></div>
+    </div>
+  </div>
+
+  <!-- P: 院前处置 -->
+  <div class="card" style="border-left:4px solid #e67e22;">
+    <div class="card-header"><h3><span style="background:#e67e22;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">P</span> 院前处置 (Pre-hospital Rx)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setChestpainRx('阿司匹林300mg嚼服')">💊 阿司匹林300mg</span>
+      <span class="chip" onclick="setChestpainRx('替格瑞洛180mg口服')">💊 替格瑞洛180mg</span>
+      <span class="chip" onclick="setChestpainRx('硝酸甘油舌下含服')">💊 硝酸甘油</span>
+      <span class="chip" onclick="setChestpainRx('吗啡镇痛')">💉 吗啡</span>
+      <span class="chip" onclick="setChestpainRx('吸氧')">🫁 吸氧</span>
+      <span class="chip" onclick="setChestpainRx('肝素抗凝')">💉 肝素</span>
+    </div>
+    <div class="form-group"><label>院前处置描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="cp-treatment" rows="2" placeholder="描述院前已给予的药物和措施..."></textarea>
+    </div>
+  </div>
+
+  <!-- A: 评估量表 -->
+  <div class="card" style="border-left:4px solid #6c5ce7;">
+    <div class="card-header"><h3><span style="background:#6c5ce7;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">A</span> 评估量表 (Assessment Scores)</h3></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+      <!-- GRACE -->
+      <div id="grace-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GRACE 评分</strong><span class="score-badge score-low" id="grace-score-badge">--</span></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="grace-age" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">&lt;30</option><option value="8">30-39</option><option value="25">40-49</option><option value="41">50-59</option><option value="58">60-69</option><option value="75">70-79</option><option value="91">80-89</option><option value="100">≥90</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>心率</label><select id="grace-hr" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">&lt;50</option><option value="3">50-69</option><option value="9">70-89</option><option value="15">90-109</option><option value="24">110-149</option><option value="38">150-199</option><option value="46">≥200</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>SBP</label><select id="grace-sbp" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="58">&lt;80</option><option value="53">80-99</option><option value="43">100-119</option><option value="34">120-139</option><option value="24">140-159</option><option value="10">160-199</option><option value="0">≥200</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>肌酐</label><select id="grace-cr" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="1">0-0.39</option><option value="4">0.4-0.79</option><option value="7">0.8-1.19</option><option value="10">1.2-1.59</option><option value="13">1.6-1.99</option><option value="21">2.0-3.99</option><option value="28">≥4.0</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>Killip</label><select id="grace-killip" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">I</option><option value="20">II</option><option value="39">III</option><option value="59">IV</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>心脏骤停</label><select id="grace-arrest" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">无</option><option value="39">有</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>ST偏移</label><select id="grace-st" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">无</option><option value="28">有</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>心肌酶↑</label><select id="grace-enzyme" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="14">是</option></select></div>
+        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">≤108低危 | 109-140中危 | &gt;140高危</div>
+      </div>
+      <!-- TIMI -->
+      <div id="timi-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">TIMI 评分</strong><span class="score-badge score-low" id="timi-score-badge">--</span></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄≥65</label><select id="timi-age" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>≥3个CAD危险因素</label><select id="timi-risk" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>已知CAD≥50%</label><select id="timi-cad" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>7天用阿司匹林</label><select id="timi-asa" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>严重心绞痛24h≥2次</label><select id="timi-angina" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>ST偏移≥0.5mm</label><select id="timi-st" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>心肌标志物↑</label><select id="timi-marker" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
+        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0-2低危 | 3-4中危 | 5-7高危</div>
+      </div>
+      <!-- HEART -->
+      <div id="heart-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">HEART 评分</strong><span class="score-badge score-low" id="heart-score-badge">--</span></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>病史</label><select id="heart-hist" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-非特异</option><option value="1">1-混合型</option><option value="2">2-典型心绞痛</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>ECG</label><select id="heart-ecg" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-正常</option><option value="1">1-非特异</option><option value="2">2-ST偏移</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="heart-age" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-&lt;45</option><option value="1">1-45-65</option><option value="2">2-&gt;65</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>危险因素</label><select id="heart-risk" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-无</option><option value="1">1-1~2项</option><option value="2">2-≥3项</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>肌钙蛋白</label><select id="heart-trop" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-正常</option><option value="1">1-1~3倍</option><option value="2">2-&gt;3倍</option></select></div>
+        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0-3低危 | 4-6中危 | 7-10高危</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- I: 初步印象 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">I</span> 初步印象 (Impression)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setChestpainImp('STEMI（前壁）')">🔴 STEMI-前壁</span>
+      <span class="chip" onclick="setChestpainImp('STEMI（下壁）')">🔴 STEMI-下壁</span>
+      <span class="chip" onclick="setChestpainImp('STEMI（侧壁/后壁）')">🔴 STEMI-侧/后壁</span>
+      <span class="chip" onclick="setChestpainImp('NSTEMI')">🟡 NSTEMI</span>
+      <span class="chip" onclick="setChestpainImp('不稳定性心绞痛')">🟢 UA</span>
+      <span class="chip" onclick="setChestpainImp('主动脉夹层待排')">⚠️ 夹层待排</span>
+      <span class="chip" onclick="setChestpainImp('肺栓塞待排')">⚠️ PE待排</span>
+    </div>
+    <div class="form-group"><label>初步印象（可点击上方快速选择或自由输入）</label>
+      <textarea id="cp-impression" rows="2" placeholder="初步诊断印象..."></textarea>
+    </div>
+  </div>
+
+  <!-- N: 备注 -->
+  <div class="card" style="border-left:4px solid #6c757d;">
+    <div class="card-header"><h3><span style="background:#6c757d;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">N</span> 备注与下一步 (Notes)</h3></div>
+    <div class="form-group">
+      <textarea id="cp-notes" rows="2" placeholder="补充说明、特殊注意事项、下一步计划..."></textarea>
+    </div>
   </div>
 </section>
 
 <!-- ==================== 卒中中心 ==================== -->
 <section id="section-stroke" class="section">
-  <div class="page-header"><h2>🧠 卒中中心评估</h2></div>
+  <div class="page-header"><h2>🧠 卒中中心评估 · STROKE 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">S→T→R→O→K→E 逐项填写</span></div>
+
+  <!-- S: 患者信息 -->
+  <div class="card" style="border-left:4px solid var(--primary);">
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 患者信息 (Patient Info)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>姓名</label><input type="text" id="stroke-name" placeholder="输入患者姓名"></div>
+      <div class="form-group"><label>性别</label><select id="stroke-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
+      <div class="form-group"><label>年龄（可填文字）</label><input type="text" id="stroke-age" placeholder="如：65岁、约70岁、不详"></div>
+    </div>
+  </div>
+
+  <!-- T: 发病时间 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 发病时间 (Time of onset)</h3></div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label>症状发作时间 <span style="color:var(--danger);">*</span></label><input type="datetime-local" id="stroke-onset-time"></div>
+      <div class="form-group"><label>最后正常时间 <span style="color:var(--danger);">*</span></label><input type="datetime-local" id="stroke-last-normal"></div>
+    </div>
+  </div>
+
+  <!-- R: 症状与体征 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">R</span> 症状与体征 (Symptoms & Signs)</h3></div>
+    <div class="chip-bar" style="margin-bottom:10px;">
+      <span class="chip" onclick="setStrokeSymptom('左侧肢体无力')">⬅️ 左侧肢体无力</span>
+      <span class="chip" onclick="setStrokeSymptom('右侧肢体无力')">➡️ 右侧肢体无力</span>
+      <span class="chip" onclick="setStrokeSymptom('面瘫')">😊 面瘫</span>
+      <span class="chip" onclick="setStrokeSymptom('言语不清')">🗣️ 言语不清</span>
+      <span class="chip" onclick="setStrokeSymptom('共济失调')">🌀 共济失调</span>
+      <span class="chip" onclick="setStrokeSymptom('意识障碍')">😵 意识障碍</span>
+      <span class="chip" onclick="setStrokeSymptom('头痛/呕吐')">🤕️ 头痛/呕吐</span>
+      <span class="chip" onclick="setStrokeSymptom('癫痫发作')">⚡ 癫痫发作</span>
+    </div>
+    <div class="form-group" style="margin-top:8px;">
+      <label>症状描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="stroke-symptoms" rows="2" placeholder="描述卒中症状..."></textarea>
+    </div>
+  </div>
+
+  <!-- O: 用药史与既往史 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">O</span> 用药史与既往史 (Other info)</h3></div>
+    <div class="chip-bar" style="margin-bottom:10px;">
+      <span class="chip" onclick="setStrokeMeds('抗凝药（华法林）')">💊 抗凝药（华法林）</span>
+      <span class="chip" onclick="setStrokeMeds('抗凝药（新型口服抗凝药）')">💊 新型口服抗凝药</span>
+      <span class="chip" onclick="setStrokeMeds('抗血小板药（阿司匹林）')">💊 抗血小板药</span>
+      <span class="chip" onclick="setStrokeMeds('降压药使用')">💊 降压药使用</span>
+      <span class="chip" onclick="setStrokeMeds('糖尿病用药')">💊 糖尿病用药</span>
+      <span class="chip" onclick="setStrokeMeds('既往卒中/TIA')">📋 既往卒中/TIA</span>
+      <span class="chip" onclick="setStrokeMeds('房颤')">💓 房颤</span>
+    </div>
+    <div class="form-group" style="margin-top:8px;">
+      <label>用药史与既往史描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="stroke-meds-hx" rows="2" placeholder="描述用药史和既往史..."></textarea>
+    </div>
+  </div>
+
+  <!-- G-FAST 院前卒中筛查 -->
   <div class="card" id="gfast-card">
     <div class="card-header"><h3>G-FAST 院前卒中筛查</h3><span class="score-badge score-low" id="gfast-score-badge">--</span></div>
     <div class="form-row form-row-3">
@@ -807,31 +984,101 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
 
 <!-- ==================== 上消化道出血中心 ==================== -->
 <section id="section-ugib" class="section">
-  <div class="page-header"><h2>🩸 上消化道出血中心</h2></div>
-  <div class="card" id="gbs-card">
-    <div class="card-header"><h3>GBS Glasgow-Blatchford 评分</h3><span class="score-badge score-low" id="gbs-score-badge">--</span></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>BUN (mmol/L)</label><select id="gbs-bun" onchange="calcGBS()"><option value="">--</option><option value="0">0: &lt;6.5</option><option value="2">2: 6.5-7.9</option><option value="3">3: 8.0-9.9</option><option value="4">4: 10.0-24.9</option><option value="6">6: ≥25.0</option></select></div>
-      <div class="form-group"><label>Hb 男 (g/L)</label><select id="gbs-hb" onchange="calcGBS()"><option value="">--</option><option value="0">0: ≥130</option><option value="1">1: 120-129</option><option value="3">3: 100-119</option><option value="6">6: &lt;100</option></select></div>
-      <div class="form-group"><label>SBP (mmHg)</label><select id="gbs-sbp" onchange="calcGBS()"><option value="">--</option><option value="0">0: ≥110</option><option value="1">1: 100-109</option><option value="2">2: 90-99</option><option value="3">3: &lt;90</option></select></div>
-      <div class="form-group"><label>心率 ≥100次/分</label><select id="gbs-hr" onchange="calcGBS()"><option value="">--</option><option value="0">0: 否</option><option value="1">1: 是</option></select></div>
-      <div class="form-group"><label>黑便</label><select id="gbs-melena" onchange="calcGBS()"><option value="">--</option><option value="0">0: 无</option><option value="1">1: 有</option></select></div>
-      <div class="form-group"><label>晕厥</label><select id="gbs-syncope" onchange="calcGBS()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
-      <div class="form-group"><label>肝脏疾病</label><select id="gbs-liver" onchange="calcGBS()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
-      <div class="form-group"><label>心力衰竭</label><select id="gbs-hf" onchange="calcGBS()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
+  <div class="page-header"><h2>🩸 上消化道出血中心 · BLEED 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">B→L→E→E→D 逐项填写</span></div>
+
+  <!-- B: 出血表现 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">B</span> 出血表现 (Bleeding)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setBleedB('呕鲜血')">🩸 呕鲜血</span>
+      <span class="chip" onclick="setBleedB('呕咖啡渣样物')">☕ 咖啡渣样</span>
+      <span class="chip" onclick="setBleedB('黑便')">⬛ 黑便</span>
+      <span class="chip" onclick="setBleedB('暗红色血便')">🔴 暗红血便</span>
+      <span class="chip" onclick="setBleedB('鲜血便')">🩸 鲜血便</span>
+      <span class="chip" onclick="setBleedB('休克表现')">⚠️ 休克表现</span>
     </div>
-    <div class="score-display"><div class="score-value" id="gbs-total">--</div><div class="score-label">GBS评分：0分=低危（可门诊）| ≥1分=需干预（范围0-23）</div></div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label>出血起始时间</label><input type="datetime-local" id="bleed-onset"></div>
+      <div class="form-group"><label>估计出血量（mL）</label><input type="text" id="bleed-volume" placeholder="如：500mL、不详"></div>
+    </div>
+    <div class="form-group"><label>出血表现描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="bleed-presentation" rows="2" placeholder="描述出血表现..."></textarea>
+    </div>
   </div>
-  <div class="card" id="rockall-card">
-    <div class="card-header"><h3>Rockall 风险评分</h3><span class="score-badge score-low" id="rockall-score-badge">--</span></div>
+
+  <!-- L: 实验室指标 -->
+  <div class="card" style="border-left:4px solid var(--primary);">
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">L</span> 实验室指标 (Labs)</h3></div>
     <div class="form-row form-row-3">
-      <div class="form-group"><label>年龄</label><select id="rockall-age" onchange="calcRockall()"><option value="">--</option><option value="0">0: &lt;60岁</option><option value="1">1: 60-79岁</option><option value="2">2: ≥80岁</option></select></div>
-      <div class="form-group"><label>休克</label><select id="rockall-shock" onchange="calcRockall()"><option value="">--</option><option value="0">0: 无休克</option><option value="1">1: 心动过速(&gt;100)</option><option value="2">2: 低血压(&lt;100)</option></select></div>
-      <div class="form-group"><label>合并症</label><select id="rockall-comorb" onchange="calcRockall()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 心衰/IHD/重要合并症</option><option value="3">3: 肾衰/肝衰/转移癌</option></select></div>
-      <div class="form-group"><label>内镜诊断</label><select id="rockall-dx" onchange="calcRockall()"><option value="">--</option><option value="0">0: Mallory-Weiss/无病变</option><option value="1">1: 其他诊断</option><option value="2">2: 上消化道恶性肿瘤</option></select></div>
-      <div class="form-group"><label>近期出血征象</label><select id="rockall-stigmata" onchange="calcRockall()"><option value="">--</option><option value="0">0: 无/暗色斑</option><option value="2">2: 活动性出血/血管显露/黏附血凝块</option></select></div>
+      <div class="form-group"><label>Hb (g/L)</label><input type="text" id="bleed-hb" placeholder="如：85"></div>
+      <div class="form-group"><label>BUN (mmol/L)</label><input type="text" id="bleed-bun" placeholder="如：12.5"></div>
+      <div class="form-group"><label>INR</label><input type="text" id="bleed-inr" placeholder="如：1.2"></div>
+      <div class="form-group"><label>血小板 (×10⁹/L)</label><input type="text" id="bleed-plt" placeholder="如：150"></div>
     </div>
-    <div class="score-display"><div class="score-value" id="rockall-total">--</div><div class="score-label">Rockall评分：0-2低危 | 3-4中危 | ≥5高危（范围0-11）</div></div>
+  </div>
+
+  <!-- E: 病因/诱因 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 病因/诱因 (Etiology)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setBleedE('已知食管静脉曲张')">🟣 静脉曲张</span>
+      <span class="chip" onclick="setBleedE('消化性溃疡病史')">🩹 溃疡病史</span>
+      <span class="chip" onclick="setBleedE('服用NSAIDs/阿司匹林')">💊 NSAIDs</span>
+      <span class="chip" onclick="setBleedE('服用抗凝药')">💊 抗凝药</span>
+      <span class="chip" onclick="setBleedE('饮酒史')">🍺 饮酒史</span>
+      <span class="chip" onclick="setBleedE('肝硬化病史')">🫁 肝硬化</span>
+      <span class="chip" onclick="setBleedE('近期应激/手术')">🏥 应激/手术</span>
+      <span class="chip" onclick="setBleedE('Mallory-Weiss综合征')">🤮 Mallory-Weiss</span>
+    </div>
+    <div class="form-group"><label>病因/诱因描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="bleed-etiology" rows="2" placeholder="描述可能的病因和诱因..."></textarea>
+    </div>
+  </div>
+
+  <!-- E: 体格检查 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 体格检查 (Examination)</h3></div>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="setBleedEx('体位性低血压')">📉 体位性低血压</span>
+      <span class="chip" onclick="setBleedEx('腹部压痛')">🤚 腹部压痛</span>
+      <span class="chip" onclick="setBleedEx('腹水征')">🫧 腹水征</span>
+      <span class="chip" onclick="setBleedEx('肝性脑病征')">🧠 肝性脑病</span>
+      <span class="chip" onclick="setBleedEx('皮肤瘀斑/黄疸')">🟡 瘀斑/黄疸</span>
+      <span class="chip" onclick="setBleedEx('毛细血管再充盈延迟')">⏱️ CRT延迟</span>
+    </div>
+    <div class="form-group"><label>体格检查描述（可点击上方快速选择或自由输入）</label>
+      <textarea id="bleed-exam" rows="2" placeholder="描述体格检查发现..."></textarea>
+    </div>
+  </div>
+
+  <!-- D: 决策评分 -->
+  <div class="card" style="border-left:4px solid #6c5ce7;">
+    <div class="card-header"><h3><span style="background:#6c5ce7;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">D</span> 决策评分 (Decision Scores)</h3></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <!-- GBS -->
+      <div id="gbs-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GBS Glasgow-Blatchford 评分</strong><span class="score-badge score-low" id="gbs-score-badge">--</span></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>BUN</label><select id="gbs-bun" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: &lt;6.5</option><option value="2">2: 6.5-7.9</option><option value="3">3: 8.0-9.9</option><option value="4">4: 10.0-24.9</option><option value="6">6: ≥25.0</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>Hb 男</label><select id="gbs-hb" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: ≥130</option><option value="1">1: 120-129</option><option value="3">3: 100-119</option><option value="6">6: &lt;100</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>SBP</label><select id="gbs-sbp" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: ≥110</option><option value="1">1: 100-109</option><option value="2">2: 90-99</option><option value="3">3: &lt;90</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>心率≥100</label><select id="gbs-hr" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 否</option><option value="1">1: 是</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>黑便</label><select id="gbs-melena" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="1">1: 有</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>晕厥</label><select id="gbs-syncope" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>肝脏疾病</label><select id="gbs-liver" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>心力衰竭</label><select id="gbs-hf" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
+        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0=低危（可门诊）| ≥1=需干预（0-23）</div>
+      </div>
+      <!-- Rockall -->
+      <div id="rockall-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">Rockall 风险评分</strong><span class="score-badge score-low" id="rockall-score-badge">--</span></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="rockall-age" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: &lt;60</option><option value="1">1: 60-79</option><option value="2">2: ≥80</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>休克</label><select id="rockall-shock" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="1">1: 心动过速</option><option value="2">2: 低血压</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>合并症</label><select id="rockall-comorb" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 心衰/IHD</option><option value="3">3: 肾衰/肝衰/转移癌</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>内镜诊断</label><select id="rockall-dx" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: MW/无病变</option><option value="1">1: 其他</option><option value="2">2: 恶性肿瘤</option></select></div>
+        <div class="form-group" style="margin:0 0 6px 0;"><label>出血征象</label><select id="rockall-stigmata" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无/暗斑</option><option value="2">2: 活动性/血管显露</option></select></div>
+        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0-2低危 | 3-4中危 | ≥5高危（0-11）</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1255,36 +1502,24 @@ function calcGRACE() {
   var age = parseInt(document.getElementById('grace-age').value) || 0;
   var hr = parseInt(document.getElementById('grace-hr').value) || 0;
   var sbp = parseInt(document.getElementById('grace-sbp').value) || 0;
-  var cr = parseFloat(document.getElementById('grace-cr').value) || 0;
+  var cr = parseInt(document.getElementById('grace-cr').value) || 0;
   var killip = parseInt(document.getElementById('grace-killip').value) || 0;
   var arrest = parseInt(document.getElementById('grace-arrest').value) || 0;
   var st = parseInt(document.getElementById('grace-st').value) || 0;
   var enzyme = parseInt(document.getElementById('grace-enzyme').value) || 0;
 
-  var score = 0;
-  if (age < 30) score += 0; else if (age < 40) score += 8; else if (age < 50) score += 25;
-  else if (age < 60) score += 41; else if (age < 70) score += 58; else if (age < 80) score += 75;
-  else if (age < 90) score += 91; else score += 100;
+  // Selects now carry predefined risk scores directly
+  var score = age + hr + sbp + cr + killip + arrest + st + enzyme;
+  var anySet = document.getElementById('grace-age').value!=='' || document.getElementById('grace-killip').value!=='';
 
-  if (hr < 50) score += 0; else if (hr < 70) score += 3; else if (hr < 90) score += 9;
-  else if (hr < 110) score += 15; else if (hr < 150) score += 24; else score += 38;
-
-  if (sbp < 80) score += 58; else if (sbp < 100) score += 53; else if (sbp < 120) score += 43;
-  else if (sbp < 140) score += 34; else if (sbp < 160) score += 24; else score += 10;
-
-  if (cr < 0.4) score += 1; else if (cr < 0.8) score += 4; else if (cr < 1.2) score += 7;
-  else if (cr < 1.6) score += 10; else if (cr < 2.0) score += 13; else if (cr < 4.0) score += 21; else score += 28;
-
-  score += killip * 15;
-  score += arrest * 39;
-  score += st * 28;
-  score += enzyme * 14;
-
-  document.getElementById('grace-total').textContent = (age > 0 || cr > 0) ? score : '--';
+  document.getElementById('grace-total').textContent = anySet ? score : '--';
   var badge = document.getElementById('grace-score-badge');
-  if (age > 0 || cr > 0) {
+  if (anySet) {
     badge.textContent = score;
     badge.className = 'score-badge ' + (score <= 108 ? 'score-low' : score <= 140 ? 'score-mid' : 'score-high');
+  } else {
+    badge.textContent = '--';
+    badge.className = 'score-badge score-low';
   }
 }
 
@@ -1460,6 +1695,85 @@ function setMechanism(val) {
 function updateATMIST() {
   // A - 已独立填写，无需同步
   // 仅保留函数以向后兼容
+}
+
+function setTraumaTreatment(val) {
+  var textarea = document.getElementById('trauma-treatment');
+  var current = textarea.value.trim();
+  if (current) {
+    textarea.value = current + '\n' + val;
+  } else {
+    textarea.value = val;
+  }
+}
+
+function setStrokeSymptom(val) {
+  var textarea = document.getElementById('stroke-symptoms');
+  var current = textarea.value.trim();
+  if (current) {
+    textarea.value = current + '\n' + val;
+  } else {
+    textarea.value = val;
+  }
+}
+
+function setStrokeMeds(val) {
+  var textarea = document.getElementById('stroke-meds-hx');
+  var current = textarea.value.trim();
+  if (current) {
+    textarea.value = current + '\n' + val;
+  } else {
+    textarea.value = val;
+  }
+}
+
+/* ==================== Chest Pain CHEST PAIN helpers ==================== */
+function setChestpainCx(val) {
+  var ta = document.getElementById('cp-character');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setChestpainHx(val) {
+  var ta = document.getElementById('cp-history');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setChestpainEcg(val) {
+  var ta = document.getElementById('cp-ecg');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setChestpainSx(val) {
+  var ta = document.getElementById('cp-symptoms');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setChestpainRx(val) {
+  var ta = document.getElementById('cp-treatment');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setChestpainImp(val) {
+  var ta = document.getElementById('cp-impression');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+
+/* ==================== UGIB BLEED helpers ==================== */
+function setBleedB(val) {
+  var ta = document.getElementById('bleed-presentation');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setBleedE(val) {
+  var ta = document.getElementById('bleed-etiology');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function setBleedEx(val) {
+  var ta = document.getElementById('bleed-exam');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
 }
 
 // Auto-fill trauma time from patient receive time on page load
