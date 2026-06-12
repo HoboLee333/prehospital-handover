@@ -487,39 +487,126 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </section>
 
-<!-- ==================== 创伤中心 ==================== -->
+<!-- ==================== 创伤中心 (ATMIST) ==================== -->
 <section id="section-trauma" class="section">
-  <div class="page-header"><h2>🦴 创伤中心评估</h2></div>
-  <div class="card" id="gcs-card">
-    <div class="card-header"><h3>GCS 格拉斯哥昏迷评分</h3><span class="score-badge score-low" id="gcs-score-badge">--</span></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>睁眼反应 (E)</label><select id="gcs-eye" onchange="calcGCS()"><option value="">--</option><option value="4">4 - 自主睁眼</option><option value="3">3 - 呼唤睁眼</option><option value="2">2 - 疼痛睁眼</option><option value="1">1 - 无反应</option></select></div>
-      <div class="form-group"><label>言语反应 (V)</label><select id="gcs-verbal" onchange="calcGCS()"><option value="">--</option><option value="5">5 - 回答切题</option><option value="4">4 - 回答不切题</option><option value="3">3 - 用词不当</option><option value="2">2 - 声音难以理解</option><option value="1">1 - 无反应</option></select></div>
-      <div class="form-group"><label>运动反应 (M)</label><select id="gcs-motor" onchange="calcGCS()"><option value="">--</option><option value="6">6 - 遵嘱动作</option><option value="5">5 - 疼痛定位</option><option value="4">4 - 疼痛回缩</option><option value="3">3 - 异常屈曲</option><option value="2">2 - 异常伸展</option><option value="1">1 - 无反应</option></select></div>
-    </div>
-    <div class="score-display"><div class="score-value" id="gcs-total">--</div><div class="score-label">GCS总分（范围3-15）</div></div>
+  <div class="page-header"><h2>🦴 创伤中心评估 · ATMIST 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">A→T→M→I→S→T 逐项填写</span></div>
+
+  <!-- A: 年龄 (旁注：已在患者信息中填写) -->
+  <div class="card" style="border-left:4px solid var(--primary);">
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">A</span> 年龄 (Age)</h3><span style="font-size:12px;color:var(--text-secondary);">← 已在「患者基本信息」中填写</span></div>
+    <p style="font-size:13px;color:var(--text-secondary);">姓名：<b id="atm-name">--</b> | 性别：<b id="atm-gender">--</b> | 年龄：<b id="atm-age">--</b></p>
   </div>
-  <div class="card" id="rts-card">
-    <div class="card-header"><h3>RTS 修正创伤评分</h3><span class="score-badge score-low" id="rts-score-badge">--</span></div>
+
+  <!-- T: 受伤时间 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 受伤时间 (Time of injury)</h3></div>
     <div class="form-row form-row-3">
-      <div class="form-group"><label>GCS编码值</label><select id="rts-gcs" onchange="calcRTS()"><option value="">--</option><option value="4">4分 (GCS 13-15)</option><option value="3">3分 (GCS 9-12)</option><option value="2">2分 (GCS 6-8)</option><option value="1">1分 (GCS 4-5)</option><option value="0">0分 (GCS 3)</option></select></div>
-      <div class="form-group"><label>收缩压编码值</label><select id="rts-sbp" onchange="calcRTS()"><option value="">--</option><option value="4">4分 (>89 mmHg)</option><option value="3">3分 (76-89 mmHg)</option><option value="2">2分 (50-75 mmHg)</option><option value="1">1分 (1-49 mmHg)</option><option value="0">0分 (0 mmHg)</option></select></div>
-      <div class="form-group"><label>呼吸频率编码值</label><select id="rts-rr" onchange="calcRTS()"><option value="">--</option><option value="4">4分 (10-29次/分)</option><option value="3">3分 (>29次/分)</option><option value="2">2分 (6-9次/分)</option><option value="1">1分 (1-5次/分)</option><option value="0">0分 (0次/分)</option></select></div>
+      <div class="form-group"><label>受伤日期时间</label><input type="datetime-local" id="trauma-time" onchange="updateATMIST()"></div>
+      <div class="form-group"><label>接诊时间</label><input type="text" id="trauma-receive" readonly placeholder="自动同步患者信息" style="background:#f8f9fa;"></div>
+      <div class="form-group"><label>受伤至接诊间隔</label><input type="text" id="trauma-interval" readonly placeholder="自动计算" style="background:#f8f9fa;"></div>
     </div>
-    <div class="score-display"><div class="score-value" id="rts-total">--</div><div class="score-label">RTS总分（范围0-12）</div></div>
   </div>
-  <div class="card" id="iss-card">
-    <div class="card-header"><h3>ISS 损伤严重度评分（AIS最高等级平方求和）</h3><span class="score-badge score-low" id="iss-score-badge">--</span></div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">各部位AIS（简明损伤定级）：0=未伤，1=轻度，2=中度，3=较重，4=严重，5=危重，6=无法存活。ISS取最高3个AIS的平方和</p>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>头颈部 AIS</label><select id="iss-hn" onchange="calcISS()"><option value="">--</option><option value="0">0 - 未伤</option><option value="1">1 - 轻度（浅表裂伤、轻度脑震荡）</option><option value="2">2 - 中度（.open骨折、意识丧失>30min）</option><option value="3">3 - 较重（.open颅脑伤、颈椎骨折）</option><option value="4">4 - 严重（.open颅脑伤伴血肿、脊髓损伤）</option><option value="5">5 - 危重（脑干损伤、.open颅脑伤伴脑疝）</option><option value="6">6 - 无法存活</option></select></div>
-      <div class="form-group"><label>面部 AIS</label><select id="iss-face" onchange="calcISS()"><option value="">--</option><option value="0">0 - 未伤</option><option value="1">1 - 轻度（软组织挫伤、牙折断）</option><option value="2">2 - 中度（面部骨折无移位）</option><option value="3">3 - 较重（.open面部骨折、视神经损伤）</option><option value="4">4 - 严重（眼球破裂、颅底骨折伴脑脊液漏）</option><option value="5">5 - 危重（双眼球摘除、面部毁损伤）</option><option value="6">6 - 无法存活</option></select></div>
-      <div class="form-group"><label>胸部 AIS</label><select id="iss-chest" onchange="calcISS()"><option value="">--</option><option value="0">0 - 未伤</option><option value="1">1 - 轻度（单纯肋骨骨折1-2根）</option><option value="2">2 - 中度（多根肋骨骨折、血气胸）</option><option value="3">3 - 较重（连枷胸、心肌挫伤）</option><option value="4">4 - 严重（主动脉破裂、重度肺挫伤）</option><option value="5">5 - 危重（心脏破裂、大面积肺毁损）</option><option value="6">6 - 无法存活</option></select></div>
-      <div class="form-group"><label>腹部 AIS</label><select id="iss-abd" onchange="calcISS()"><option value="">--</option><option value="0">0 - 未伤</option><option value="1">1 - 轻度（腹壁挫伤、肝被膜下血肿）</option><option value="2">2 - 中度（脾挫伤、肾挫裂伤无血腹）</option><option value="3">3 - 较重（脾破裂、肝破裂需手术）</option><option value="4">4 - 严重（重度肝破裂、十二指肠破裂）</option><option value="5">5 - 危重（腹腔大血管破裂、重度胰十二指肠损伤）</option><option value="6">6 - 无法存活</option></select></div>
-      <div class="form-group"><label>四肢/骨盆 AIS</label><select id="iss-ext" onchange="calcISS()"><option value="">--</option><option value="0">0 - 未伤</option><option value="1">1 - 轻度（软组织挫裂伤、指/趾骨折）</option><option value="2">2 - 中度（.open长骨骨折、脱位）</option><option value="3">3 - 较重（.open股骨骨折、骨盆骨折稳定性）</option><option value="4">4 - 严重（.open骨盆骨折不稳定、血管损伤）</option><option value="5">5 - 危重（躯干离断、四肢广泛毁损）</option><option value="6">6 - 无法存活</option></select></div>
-      <div class="form-group"><label>体表 AIS</label><select id="iss-surf" onchange="calcISS()"><option value="">--</option><option value="0">0 - 未伤</option><option value="1">1 - 轻度（浅表烧伤&lt;10% TBSA）</option><option value="2">2 - 中度（烧伤10-20% TBSA、.open伤）</option><option value="3">3 - 较重（烧伤20-30% TBSA、冻伤）</option><option value="4">4 - 严重（烧伤30-50% TBSA、吸入性损伤）</option><option value="5">5 - 危重（烧伤&gt;50% TBSA、重度吸入性损伤）</option><option value="6">6 - 无法存活</option></select></div>
+
+  <!-- M: 受伤机制 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">M</span> 受伤机制 (Mechanism of injury)</h3></div>
+    <div class="chip-bar" style="margin-bottom:10px;">
+      <span class="chip" onclick="setMechanism('交通事故')">🚗 交通事故</span>
+      <span class="chip" onclick="setMechanism('坠落伤')">🪜 坠落伤</span>
+      <span class="chip" onclick="setMechanism('钝器伤')">🔨 钝器伤</span>
+      <span class="chip" onclick="setMechanism('锐器伤/刀伤')">🔪 锐器伤</span>
+      <span class="chip" onclick="setMechanism('枪伤')">🔫 枪伤</span>
+      <span class="chip" onclick="setMechanism('烧伤/烫伤')">🔥 烧伤</span>
+      <span class="chip" onclick="setMechanism('爆炸伤')">💥 爆炸伤</span>
+      <span class="chip" onclick="setMechanism('挤压伤')">⚙️ 挤压伤</span>
+      <span class="chip" onclick="setMechanism('运动伤')">⚽ 运动伤</span>
+      <span class="chip" onclick="setMechanism('其他')">❓ 其他</span>
     </div>
-    <div class="score-display"><div class="score-value" id="iss-total">--</div><div class="score-label">ISS总分（范围0-75，>15为严重创伤）</div></div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label>受伤机制 <span style="color:var(--danger)">*</span></label><input type="text" id="trauma-mechanism" placeholder="可点击上方快速选择或自由输入" onchange="updateATMIST()"></div>
+      <div class="form-group"><label>受伤时状态</label><select id="trauma-state"><option value="">--</option><option>步行/清醒</option><option>困在车内</option><option>意识模糊</option><option>昏迷</option><option>饮酒/药物影响</option></select></div>
+    </div>
+    <div class="form-group" style="margin-top:8px;"><label>详细机制描述（事故现场情况，如：车速、碰撞方向、坠落高度、防护措施等）</label><textarea id="trauma-mech-detail" rows="2" placeholder="例：高速追尾，驾驶员未系安全带，方向盘撞击胸部；或：从约5米高处坠落，右侧着地..."></textarea></div>
+  </div>
+
+  <!-- I: 伤情/损伤 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">I</span> 伤情与损伤部位 (Injuries)</h3></div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label>头部/颅脑</label><input type="text" id="trauma-inj-head" placeholder="如：头皮裂伤5cm、硬膜下血肿"></div>
+      <div class="form-group"><label>面部</label><input type="text" id="trauma-inj-face" placeholder="如：左眼眶周血肿、鼻骨骨折"></div>
+      <div class="form-group"><label>颈部/颈椎</label><input type="text" id="trauma-inj-neck" placeholder="如：C5-C6骨折、颈髓损伤"></div>
+      <div class="form-group"><label>胸部</label><input type="text" id="trauma-inj-chest" placeholder="如：左侧多发肋骨骨折、气胸"></div>
+      <div class="form-group"><label>腹部/盆腔</label><input type="text" id="trauma-inj-abdomen" placeholder="如：脾破裂、肝挫裂伤"></div>
+      <div class="form-group"><label>脊柱</label><input type="text" id="trauma-inj-spine" placeholder="如：T12压缩性骨折"></div>
+      <div class="form-group"><label>上肢</label><input type="text" id="trauma-inj-uparm" placeholder="如：左尺桡骨双骨折"></div>
+      <div class="form-group"><label>下肢</label><input type="text" id="trauma-inj-leg" placeholder="如：右股骨中段骨折"></div>
+      <div class="form-group"><label>骨盆</label><input type="text" id="trauma-inj-pelvis" placeholder="如：耻骨联合分离"></div>
+      <div class="form-group"><label>体表/皮肤/烧伤</label><input type="text" id="trauma-inj-surface" placeholder="如：全身多处擦挫伤、右手背二度烧伤3%"></div>
+    </div>
+    <div class="form-group" style="margin-top:12px;"><label>损伤总结（一句话概括主要伤情，用于交班）</label><textarea id="trauma-inj-summary" rows="2" placeholder="例：多发伤：颅脑损伤+左胸多发肋骨骨折伴气胸+脾破裂+右股骨骨折"></textarea></div>
+  </div>
+
+  <!-- S: 体征与评分 -->
+  <div class="card" style="border-left:4px solid #7b1fa2;">
+    <div class="card-header"><h3><span style="background:#7b1fa2;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 体征与评分 (Signs &amp; Scores)</h3></div>
+
+    <!-- GCS -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><b style="font-size:14px;">GCS 格拉斯哥昏迷评分</b><span class="score-badge score-low" id="gcs-score-badge">--</span></div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>睁眼 (E)</label><select id="gcs-eye" onchange="calcGCS()"><option value="">--</option><option value="4">4 - 自主睁眼</option><option value="3">3 - 呼唤睁眼</option><option value="2">2 - 疼痛睁眼</option><option value="1">1 - 无反应</option></select></div>
+        <div class="form-group"><label>言语 (V)</label><select id="gcs-verbal" onchange="calcGCS()"><option value="">--</option><option value="5">5 - 回答切题</option><option value="4">4 - 回答不切题</option><option value="3">3 - 用词不当</option><option value="2">2 - 难以理解</option><option value="1">1 - 无反应</option></select></div>
+        <div class="form-group"><label>运动 (M)</label><select id="gcs-motor" onchange="calcGCS()"><option value="">--</option><option value="6">6 - 遵嘱动作</option><option value="5">5 - 疼痛定位</option><option value="4">4 - 疼痛回缩</option><option value="3">3 - 异常屈曲</option><option value="2">2 - 异常伸展</option><option value="1">1 - 无反应</option></select></div>
+      </div>
+      <div class="score-display" style="margin-top:8px;"><div class="score-value" id="gcs-total" style="font-size:28px;">--</div><div class="score-label">GCS（3-15）</div></div>
+    </div>
+
+    <!-- RTS -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><b style="font-size:14px;">RTS 修正创伤评分</b><span class="score-badge score-low" id="rts-score-badge">--</span></div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>GCS编码</label><select id="rts-gcs" onchange="calcRTS()"><option value="">--</option><option value="4">4 (GCS 13-15)</option><option value="3">3 (GCS 9-12)</option><option value="2">2 (GCS 6-8)</option><option value="1">1 (GCS 4-5)</option><option value="0">0 (GCS 3)</option></select></div>
+        <div class="form-group"><label>收缩压编码</label><select id="rts-sbp" onchange="calcRTS()"><option value="">--</option><option value="4">4 (>89 mmHg)</option><option value="3">3 (76-89)</option><option value="2">2 (50-75)</option><option value="1">1 (1-49)</option><option value="0">0 (0)</option></select></div>
+        <div class="form-group"><label>呼吸编码</label><select id="rts-rr" onchange="calcRTS()"><option value="">--</option><option value="4">4 (10-29)</option><option value="3">3 (>29)</option><option value="2">2 (6-9)</option><option value="1">1 (1-5)</option><option value="0">0 (0)</option></select></div>
+      </div>
+      <div class="score-display" style="margin-top:8px;"><div class="score-value" id="rts-total" style="font-size:28px;">--</div><div class="score-label">RTS（0-12）</div></div>
+    </div>
+
+    <!-- ISS -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><b style="font-size:14px;">ISS 损伤严重度评分</b><span class="score-badge score-low" id="iss-score-badge">--</span></div>
+      <p style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">AIS：0未伤 1轻度 2中度 3较重 4严重 5危重 6无法存活 | ISS = Σ(最高3个AIS²)</p>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>头颈部</label><select id="iss-hn" onchange="calcISS()"><option value="">--</option><option value="0">0-未伤</option><option value="1">1-轻度</option><option value="2">2-中度</option><option value="3">3-较重</option><option value="4">4-严重</option><option value="5">5-危重</option><option value="6">6-无法存活</option></select></div>
+        <div class="form-group"><label>面部</label><select id="iss-face" onchange="calcISS()"><option value="">--</option><option value="0">0-未伤</option><option value="1">1-轻度</option><option value="2">2-中度</option><option value="3">3-较重</option><option value="4">4-严重</option><option value="5">5-危重</option><option value="6">6-无法存活</option></select></div>
+        <div class="form-group"><label>胸部</label><select id="iss-chest" onchange="calcISS()"><option value="">--</option><option value="0">0-未伤</option><option value="1">1-轻度</option><option value="2">2-中度</option><option value="3">3-较重</option><option value="4">4-严重</option><option value="5">5-危重</option><option value="6">6-无法存活</option></select></div>
+        <div class="form-group"><label>腹部</label><select id="iss-abd" onchange="calcISS()"><option value="">--</option><option value="0">0-未伤</option><option value="1">1-轻度</option><option value="2">2-中度</option><option value="3">3-较重</option><option value="4">4-严重</option><option value="5">5-危重</option><option value="6">6-无法存活</option></select></div>
+        <div class="form-group"><label>四肢/骨盆</label><select id="iss-ext" onchange="calcISS()"><option value="">--</option><option value="0">0-未伤</option><option value="1">1-轻度</option><option value="2">2-中度</option><option value="3">3-较重</option><option value="4">4-严重</option><option value="5">5-危重</option><option value="6">6-无法存活</option></select></div>
+        <div class="form-group"><label>体表</label><select id="iss-surf" onchange="calcISS()"><option value="">--</option><option value="0">0-未伤</option><option value="1">1-轻度</option><option value="2">2-中度</option><option value="3">3-较重</option><option value="4">4-严重</option><option value="5">5-危重</option><option value="6">6-无法存活</option></select></div>
+      </div>
+      <div class="score-display" style="margin-top:8px;"><div class="score-value" id="iss-total" style="font-size:28px;">--</div><div class="score-label">ISS（0-75，>15为严重创伤）</div></div>
+    </div>
+  </div>
+
+  <!-- T: 院前处置 -->
+  <div class="card" style="border-left:4px solid #e67e22;">
+    <div class="card-header"><h3><span style="background:#e67e22;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 院前创伤处置 (Treatment given)</h3></div>
+    <div class="chip-bar">
+      <span class="chip" onclick="quickAddMeasure('止血包扎','创面加压包扎')">🩹 止血包扎</span>
+      <span class="chip" onclick="quickAddMeasure('止血带','动脉止血带（记录时间）')">⏱️ 止血带</span>
+      <span class="chip" onclick="quickAddMeasure('颈椎固定','颈托固定')">🔒 颈托固定</span>
+      <span class="chip" onclick="quickAddMeasure('脊柱板固定','铲式担架/脊柱板')">🛏️ 脊柱板</span>
+      <span class="chip" onclick="quickAddMeasure('骨盆带固定','骨盆外固定')">🦴 骨盆固定</span>
+      <span class="chip" onclick="quickAddMeasure('骨折夹板固定','四肢骨折夹板')">🪵 夹板固定</span>
+      <span class="chip" onclick="quickAddMeasure('胸腔闭式引流','创伤性气胸')">🫁 胸引</span>
+      <span class="chip" onclick="quickAddMeasure('气管插管','经口/经鼻插管')">🫁 气管插管</span>
+      <span class="chip" onclick="quickAddMeasure('环甲膜穿刺','紧急气道')">🔪 环甲膜穿刺</span>
+      <span class="chip" onclick="quickAddMeasure('清创包扎','伤口清创')">💉 清创包扎</span>
+      <span class="chip" onclick="quickAddMeasure('液体复苏','晶体/胶体/血制品')">💧 液体复苏</span>
+      <span class="chip" onclick="quickAddMeasure('氨甲环酸','TXA 1g IV')">💊 氨甲环酸</span>
+    </div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:8px;">💡 点击上方标签快速添加 → 详细管理请前往「🛠️ 急救措施」页面</div>
   </div>
 </section>
 
@@ -940,6 +1027,10 @@ function navigateTo(sec) {
   if (sec === 'history') {
     renderHistoryList();
   }
+  // 切换到创伤中心时自动刷新ATMIST信息
+  if (sec === 'trauma') {
+    updateATMIST();
+  }
 }
 
 /* 渲染历史列表时同步更新记录数 */
@@ -1245,6 +1336,54 @@ function calcNRS() {
   badge.className = 'score-badge ' + (v <= 3 ? 'score-low' : v <= 6 ? 'score-mid' : 'score-high');
 }
 
+/* ==================== ATMIST Helper Functions ==================== */
+function setMechanism(val) {
+  document.getElementById('trauma-mechanism').value = val;
+  // Highlight the clicked chip
+  var chips = document.querySelectorAll('#section-trauma .chip-bar .chip');
+  chips.forEach(function(c) { c.classList.remove('selected'); });
+  var targetChip = Array.from(chips).find(function(c) { return c.textContent.indexOf(val) !== -1; });
+  if (targetChip) targetChip.classList.add('selected');
+  updateATMIST();
+}
+
+function updateATMIST() {
+  // A - 自动同步患者信息
+  var name = document.getElementById('pt-name').value || '--';
+  var gender = document.getElementById('pt-gender').value || '--';
+  var age = document.getElementById('pt-age').value || '--';
+  document.getElementById('atm-name').textContent = name;
+  document.getElementById('atm-gender').textContent = gender;
+  document.getElementById('atm-age').textContent = age + '岁';
+
+  // T - 计算受伤至接诊间隔
+  var receiveEl = document.getElementById('pt-receive-time');
+  var traumaEl = document.getElementById('trauma-time');
+  if (receiveEl && receiveEl.value) {
+    document.getElementById('trauma-receive').value = receiveEl.value.replace('T', ' ');
+  }
+  if (traumaEl && traumaEl.value && receiveEl && receiveEl.value) {
+    var traumaTime = new Date(traumaEl.value);
+    var receiveTime = new Date(receiveEl.value);
+    if (!isNaN(traumaTime) && !isNaN(receiveTime) && receiveTime > traumaTime) {
+      var diffMin = Math.round((receiveTime - traumaTime) / 60000);
+      var h = Math.floor(diffMin / 60);
+      var m = diffMin % 60;
+      document.getElementById('trauma-interval').value = (h > 0 ? h + '小时' : '') + m + '分钟';
+    } else {
+      document.getElementById('trauma-interval').value = '请确保受伤时间 < 接诊时间';
+    }
+  }
+}
+
+// Auto-fill trauma time from patient receive time on page load
+function autoSetTraumaReceiveTime() {
+  var receiveEl = document.getElementById('pt-receive-time');
+  if (receiveEl && receiveEl.value) {
+    document.getElementById('trauma-receive').value = receiveEl.value.replace('T', ' ');
+  }
+}
+
 /* ==================== Medications ==================== */
 var medRecords = [];
 
@@ -1525,6 +1664,59 @@ function generateHandover() {
     }
   }
   html += '</table>';
+
+  // 2.5 ATMIST创伤结构化交班（仅当有创伤数据时显示）
+  var traumaMech = document.getElementById('trauma-mechanism');
+  var traumaTime = document.getElementById('trauma-time');
+  var traumaInjSummary = document.getElementById('trauma-inj-summary');
+  var hasATMIST = (traumaMech && traumaMech.value.trim()) || (traumaTime && traumaTime.value) || (traumaInjSummary && traumaInjSummary.value.trim());
+  if (hasATMIST) {
+    html += '<div class="section-title" style="color:#d93025;">ATMIST 创伤交班</div>';
+    html += '<table style="font-size:13px;">';
+    // A - Age (auto from patient info)
+    html += '<tr><th>A - 年龄</th><td>' + age + '岁</td><th>T - 受伤时间</th><td colspan="3">' + (traumaTime && traumaTime.value ? traumaTime.value.replace('T',' ') : '____') + '</td></tr>';
+    // T - Time interval
+    var tInterval = document.getElementById('trauma-interval');
+    if (tInterval && tInterval.value && tInterval.value.indexOf('分钟') !== -1) {
+      html += '<tr><th>院前耗时</th><td colspan="5">' + tInterval.value + '</td></tr>';
+    }
+    // M - Mechanism
+    html += '<tr><th>M - 受伤机制</th><td colspan="5">' + (traumaMech ? traumaMech.value.trim() : '____') + '</td></tr>';
+    var traumaState = document.getElementById('trauma-state');
+    if (traumaState && traumaState.value) {
+      html += '<tr><th>受伤时状态</th><td colspan="5">' + traumaState.value + '</td></tr>';
+    }
+    var traumaMechDetail = document.getElementById('trauma-mech-detail');
+    if (traumaMechDetail && traumaMechDetail.value.trim()) {
+      html += '<tr><th>机制详情</th><td colspan="5">' + traumaMechDetail.value.trim() + '</td></tr>';
+    }
+    // I - Injuries
+    html += '<tr><th>I - 伤情损伤</th><td colspan="5">';
+    var injFields = [
+      { id: 'trauma-inj-head', label: '头部' },
+      { id: 'trauma-inj-face', label: '面部' },
+      { id: 'trauma-inj-neck', label: '颈部/颈椎' },
+      { id: 'trauma-inj-chest', label: '胸部' },
+      { id: 'trauma-inj-abdomen', label: '腹部/盆腔' },
+      { id: 'trauma-inj-spine', label: '脊柱' },
+      { id: 'trauma-inj-uparm', label: '上肢' },
+      { id: 'trauma-inj-leg', label: '下肢' },
+      { id: 'trauma-inj-pelvis', label: '骨盆' },
+      { id: 'trauma-inj-surface', label: '体表/烧伤' }
+    ];
+    var injParts = [];
+    injFields.forEach(function(f) {
+      var el = document.getElementById(f.id);
+      if (el && el.value.trim()) {
+        injParts.push('<b>' + f.label + '</b>：' + el.value.trim());
+      }
+    });
+    html += (injParts.length > 0 ? injParts.join('；<br>') : '未记录') + '</td></tr>';
+    if (traumaInjSummary && traumaInjSummary.value.trim()) {
+      html += '<tr><th>损伤总结</th><td colspan="5"><b>' + traumaInjSummary.value.trim() + '</b></td></tr>';
+    }
+    html += '</table>';
+  }
 
   // 3. 药物
   if (medRecords.length > 0) {
@@ -1947,6 +2139,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var now = new Date();
   var local = now.getFullYear() + '-' + ('0' + (now.getMonth()+1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2) + 'T' + ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
   document.getElementById('pt-receive-time').value = local;
+  // 自动填充ATMIST接诊时间
+  autoSetTraumaReceiveTime();
 });
 </script>
 
