@@ -280,6 +280,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="nav-section">评估中心</div>
     <div class="nav-item active" data-section="trauma"><span class="icon">🦴</span><span class="nav-text"> 创伤中心</span><span class="nav-label">创伤</span></div>
     <div class="nav-item" data-section="stroke"><span class="icon">🧠</span><span class="nav-text"> 卒中中心</span><span class="nav-label">卒中</span></div>
+    <div class="nav-item" data-section="chestpain"><span class="icon">❤️</span><span class="nav-text"> 胸痛中心</span><span class="nav-label">胸痛</span></div>
+    <div class="nav-item" data-section="bleed"><span class="icon">🩸</span><span class="nav-text"> 消化道出血</span><span class="nav-label">出血</span></div>
     <div class="nav-item" data-section="general"><span class="icon">📋</span><span class="nav-text"> 通用评估工具</span><span class="nav-label">通用</span></div>
     <div class="nav-section">院前处置</div>
     <div class="nav-item" data-section="medication"><span class="icon">💊</span><span class="nav-text"> 急救药物</span><span class="nav-label">药物</span></div>
@@ -584,6 +586,239 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="form-group">
       <label>呼叫会诊科室（可多选快速标签或自由输入）</label>
       <textarea id="trauma-consult" rows="3" placeholder="可点击上方快速选择或自由输入其他需要的科室..."></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 胸痛中心 (CHEST) ==================== -->
+<section id="section-chestpain" class="section">
+  <div class="page-header"><h2>❤️ 胸痛中心评估 · CHEST 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">C→H→E→S→T 逐项填写</span></div>
+
+  <!-- C: 胸痛特征 -->
+  <div class="card" style="border-left:4px solid var(--primary);">
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">C</span> 胸痛特征 (Characteristics)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>姓名</label><input type="text" id="chest-name" placeholder="输入患者姓名"></div>
+      <div class="form-group"><label>性别</label><select id="chest-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
+      <div class="form-group"><label>年龄（可填文字）</label><input type="text" id="chest-age" placeholder="如：62岁、约50岁、不详"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">快速填写 — 点击添加</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendChestC('突发胸骨后压榨样胸痛')">🔴 压榨样胸痛</span>
+      <span class="chip" onclick="appendChestC('胸痛放射至左肩')">⬅️ 放射至左肩</span>
+      <span class="chip" onclick="appendChestC('伴全身大汗')">💧 全身大汗</span>
+      <span class="chip" onclick="appendChestC('胸闷憋气')">🫁 胸闷憋气</span>
+      <span class="chip" onclick="appendChestC('胸痛放射至后背')">🔙 放射至后背</span>
+      <span class="chip" onclick="appendChestC('心前区持续性疼痛')">💔 心前区痛</span>
+      <span class="chip" onclick="appendChestC('撕裂样胸痛')">⚡ 撕裂样</span>
+      <span class="chip" onclick="appendChestC('针刺样胸痛')">📌 针刺样</span>
+    </div>
+    <div class="form-group">
+      <label>胸痛描述（可点击快速选择或自由输入）</label>
+      <textarea id="chest-c" rows="3" placeholder="描述胸痛性质、部位、放射、伴随症状..."></textarea>
+    </div>
+  </div>
+
+  <!-- H: 病史/危险因素 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">H</span> 病史与危险因素 (History)</h3></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">快速填写 — 点击添加</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendChestH('既往高血压')">💓 高血压</span>
+      <span class="chip" onclick="appendChestH('高血脂')">🧈 高血脂</span>
+      <span class="chip" onclick="appendChestH('长期吸烟')">🚬 吸烟</span>
+      <span class="chip" onclick="appendChestH('糖尿病')">🩸 糖尿病</span>
+      <span class="chip" onclick="appendChestH('冠心病史')">❤️ 冠心病</span>
+      <span class="chip" onclick="appendChestH('有支架植入史')">🩹 支架史</span>
+      <span class="chip" onclick="appendChestH('无支架病史')">✅ 无支架史</span>
+      <span class="chip" onclick="appendChestH('陈旧心梗史')">⚠️ 陈旧心梗</span>
+      <span class="chip" onclick="appendChestH('肥胖')">😴 肥胖</span>
+      <span class="chip" onclick="appendChestH('家族早发冠心病史')">👪 家族史</span>
+    </div>
+    <div class="form-group">
+      <label>病史与危险因素描述</label>
+      <textarea id="chest-h" rows="2" placeholder="描述患者既往史与心血管危险因素..."></textarea>
+    </div>
+  </div>
+
+  <!-- E: ECG/事件 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> ECG发现与事件时间 (ECG &amp; Event)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>胸痛发作时间</label><input type="datetime-local" id="chest-onset-time"></div>
+      <div class="form-group"><label>持续时间</label><input type="text" id="chest-duration" placeholder="如：持续20分钟"></div>
+      <div class="form-group"><label>诱因</label><input type="text" id="chest-trigger" placeholder="如：劳累后发作"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">ECG — 快速选择</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendChestE('12导心电图提示下壁ST段抬高')">📈 下壁ST↑</span>
+      <span class="chip" onclick="appendChestE('12导心电图提示前壁ST段抬高')">📈 前壁ST↑</span>
+      <span class="chip" onclick="appendChestE('心电图提示ST段压低')">📉 ST↓</span>
+      <span class="chip" onclick="appendChestE('心电图无明显异常')">✅ ECG正常</span>
+      <span class="chip" onclick="appendChestE('含服硝酸甘油无法缓解')">💊 硝酸甘油无效</span>
+      <span class="chip" onclick="appendChestE('含服硝酸甘油可缓解')">💊 硝酸甘油有效</span>
+    </div>
+    <div class="form-group">
+      <label>ECG发现与事件描述</label>
+      <textarea id="chest-e" rows="2" placeholder="描述心电图发现、发作诱因、用药反应..."></textarea>
+    </div>
+  </div>
+
+  <!-- S: 生命体征与症状 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 生命体征与伴随症状 (Signs &amp; Symptoms)</h3></div>
+    <div class="form-row form-row-4">
+      <div class="form-group"><label>血压 (mmHg)</label><input type="text" id="chest-bp" placeholder="如：145/90"></div>
+      <div class="form-group"><label>心率 (次/分)</label><input type="text" id="chest-hr" placeholder="如：108"></div>
+      <div class="form-group"><label>血氧 (%)</label><input type="text" id="chest-spo2" placeholder="如：95"></div>
+      <div class="form-group"><label>心律</label><select id="chest-rhythm"><option value="">--</option><option>心律齐</option><option>心律不齐</option><option>房颤心律</option><option>频发早搏</option></select></div>
+    </div>
+    <div class="form-group" style="margin-top:4px;">
+      <label>意识与伴随症状</label>
+      <textarea id="chest-s" rows="2" placeholder="如：意识清楚，心律齐，无心力衰竭表现..."></textarea>
+    </div>
+  </div>
+
+  <!-- T: 院前处置 -->
+  <div class="card" style="border-left:4px solid #e37400;">
+    <div class="card-header"><h3><span style="background:#e37400;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 院前处置与转运 (Treatment)</h3></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">快速填写 — 点击添加</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendChestT('已吸氧')">🫁 吸氧</span>
+      <span class="chip" onclick="appendChestT('卧床制动')">🛏️ 卧床制动</span>
+      <span class="chip" onclick="appendChestT('嚼服阿司匹林300mg')">💊 阿司匹林300mg</span>
+      <span class="chip" onclick="appendChestT('建立静脉通路')">💉 建立静脉通路</span>
+      <span class="chip" onclick="appendChestT('心电监护')">📟 心电监护</span>
+      <span class="chip" onclick="appendChestT('舌下含服硝酸甘油')">💊 硝酸甘油</span>
+      <span class="chip" onclick="appendChestT('转运中胸痛持续加重')">⚠️ 胸痛加重</span>
+      <span class="chip" onclick="appendChestT('转运中病情相对稳定')">✅ 病情稳定</span>
+    </div>
+    <div class="form-row form-row-2">
+      <div class="form-group">
+        <label>院前处置描述</label>
+        <textarea id="chest-t" rows="3" placeholder="描述院前急救处置与转运情况..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>预估抵达时间</label>
+        <input type="text" id="chest-eta" placeholder="如：约10分钟">
+        <div style="margin-top:8px;">
+          <label><input type="checkbox" id="chest-green-channel" checked> 启动心梗急救绿色通道</label>
+        </div>
+        <div style="margin-top:4px;">
+          <label><input type="checkbox" id="chest-cath-ready"> 通知导管室备台</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 消化道出血中心 (BLEED) ==================== -->
+<section id="section-bleed" class="section">
+  <div class="page-header"><h2>🩸 消化道出血中心 · BLEED 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">B→L→E→E→D 逐项填写</span></div>
+
+  <!-- B: 出血表现 -->
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <div class="card-header"><h3><span style="background:#c5221f;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">B</span> 出血表现 (Bleeding)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>姓名</label><input type="text" id="bleed-name" placeholder="输入患者姓名"></div>
+      <div class="form-group"><label>性别</label><select id="bleed-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
+      <div class="form-group"><label>年龄（可填文字）</label><input type="text" id="bleed-age" placeholder="如：52岁、约40岁、不详"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">快速填写 — 点击添加</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendBleedB('突发呕鲜红色血液')">🩸 呕血</span>
+      <span class="chip" onclick="appendBleedB('伴柏油样黑便')">💩 黑便</span>
+      <span class="chip" onclick="appendBleedB('自觉头晕乏力')">😵 头晕乏力</span>
+      <span class="chip" onclick="appendBleedB('视物黑朦')">👁️ 视物黑朦</span>
+      <span class="chip" onclick="appendBleedB('呕咖啡渣样液体')">☕ 咖啡渣样</span>
+      <span class="chip" onclick="appendBleedB('便血（暗红色）')">🩸 便血</span>
+      <span class="chip" onclick="appendBleedB('面色苍白')">😨 面色苍白</span>
+      <span class="chip" onclick="appendBleedB('四肢湿冷')">🥶 四肢湿冷</span>
+    </div>
+    <div class="form-group">
+      <label>出血表现描述（可点击快速选择或自由输入）</label>
+      <textarea id="bleed-b" rows="3" placeholder="描述出血性质、次数、总量、伴随症状..."></textarea>
+    </div>
+  </div>
+
+  <!-- L: 时间与实验室 -->
+  <div class="card" style="border-left:4px solid var(--primary);">
+    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">L</span> 出血时间与实验室 (Timeline &amp; Lab)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>出血起始时间</label><input type="datetime-local" id="bleed-onset-time"></div>
+      <div class="form-group"><label>持续时间</label><input type="text" id="bleed-duration" placeholder="如：持续30分钟"></div>
+      <div class="form-group"><label>出血性质</label><select id="bleed-nature"><option value="">--</option><option>活动性反复出血</option><option>一次性出血已停止</option><option>间歇性出血</option><option>持续性活动出血</option></select></div>
+    </div>
+    <div class="form-group" style="margin-top:8px;">
+      <label>实验室检查</label>
+      <textarea id="bleed-l" rows="2" placeholder="描述血常规、凝血功能、肝肾功能等实验室结果..."></textarea>
+    </div>
+  </div>
+
+  <!-- E: 病因/诱因 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 病因与诱因 (Etiology)</h3></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">快速填写 — 点击添加</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendBleedE('既往肝硬化失代偿期')">🫁 肝硬化</span>
+      <span class="chip" onclick="appendBleedE('食管胃底静脉曲张病史')">🩸 静脉曲张</span>
+      <span class="chip" onclick="appendBleedE('发病前大量饮酒')">🍺 大量饮酒</span>
+      <span class="chip" onclick="appendBleedE('消化性溃疡病史')">🤢 溃疡史</span>
+      <span class="chip" onclick="appendBleedE('长期服用NSAIDs')">💊 NSAIDs</span>
+      <span class="chip" onclick="appendBleedE('长期口服抗凝药')">💊 抗凝药</span>
+      <span class="chip" onclick="appendBleedE('近期手术/创伤')">🔪 手术史</span>
+      <span class="chip" onclick="appendBleedE('胃癌病史')">⚠️ 胃癌史</span>
+    </div>
+    <div class="form-group">
+      <label>病因与诱因描述</label>
+      <textarea id="bleed-e1" rows="2" placeholder="描述基础疾病、诱因、用药史..."></textarea>
+    </div>
+  </div>
+
+  <!-- E: 体格检查 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 体格检查与生命体征 (Exam)</h3></div>
+    <div class="form-row form-row-4">
+      <div class="form-group"><label>血压 (mmHg)</label><input type="text" id="bleed-bp" placeholder="如：80/45"></div>
+      <div class="form-group"><label>心率 (次/分)</label><input type="text" id="bleed-hr" placeholder="如：130"></div>
+      <div class="form-group"><label>血氧 (%)</label><input type="text" id="bleed-spo2" placeholder="如：93"></div>
+      <div class="form-group"><label>意识</label><select id="bleed-conscious"><option value="">--</option><option>意识清楚</option><option>嗜睡</option><option>意识模糊</option><option>昏迷</option></select></div>
+    </div>
+    <div class="form-group" style="margin-top:4px;">
+      <label>查体描述</label>
+      <textarea id="bleed-e2" rows="2" placeholder="如：面色苍白、四肢湿冷，存在明显失血性休克..."></textarea>
+    </div>
+  </div>
+
+  <!-- D: 药物/处置 -->
+  <div class="card" style="border-left:4px solid #7b1fa2;">
+    <div class="card-header"><h3><span style="background:#7b1fa2;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">D</span> 药物与院前处置 (Drugs &amp; Disposition)</h3></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">快速填写 — 点击添加</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendBleedD('无药物过敏')">✅ 无过敏</span>
+      <span class="chip" onclick="appendBleedD('未长期服药')">💊 未长期服药</span>
+      <span class="chip" onclick="appendBleedD('头偏一侧防误吸')">🛏️ 防误吸</span>
+      <span class="chip" onclick="appendBleedD('禁食')">🚫 禁食</span>
+      <span class="chip" onclick="appendBleedD('已吸氧')">🫁 吸氧</span>
+      <span class="chip" onclick="appendBleedD('快速静脉输注晶体液')">💧 快速补液</span>
+      <span class="chip" onclick="appendBleedD('转运中仍有少量呕血')">⚠️ 仍有呕血</span>
+      <span class="chip" onclick="appendBleedD('血压偏低')">📉 血压低</span>
+    </div>
+    <div class="form-row form-row-2">
+      <div class="form-group">
+        <label>药物与院前处置描述</label>
+        <textarea id="bleed-d" rows="3" placeholder="描述药物过敏史、院前处置与转运情况..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>预估抵达时间</label>
+        <input type="text" id="bleed-eta" placeholder="如：约15分钟">
+        <div style="margin-top:8px;">
+          <label><input type="checkbox" id="bleed-emergency" checked> 紧急启动抗休克、止血救治</label>
+        </div>
+        <div style="margin-top:4px;">
+          <label><input type="checkbox" id="bleed-endoscopy"> 通知内镜室备急诊胃镜</label>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1491,51 +1726,56 @@ function appendStrokeE(val) {
   textarea.value = current ? current + '\n' + val : val;
 }
 
-/* ==================== Chest Pain CHEST PAIN helpers ==================== */
-function setChestpainCx(val) {
-  var ta = document.getElementById('cp-character');
+/* ==================== CHEST 胸痛助手 ==================== */
+function appendChestC(val) {
+  var ta = document.getElementById('chest-c');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
-function setChestpainHx(val) {
-  var ta = document.getElementById('cp-history');
+function appendChestH(val) {
+  var ta = document.getElementById('chest-h');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
-function setChestpainEcg(val) {
-  var ta = document.getElementById('cp-ecg');
+function appendChestE(val) {
+  var ta = document.getElementById('chest-e');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
-function setChestpainSx(val) {
-  var ta = document.getElementById('cp-symptoms');
+function appendChestS(val) {
+  var ta = document.getElementById('chest-s');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
-function setChestpainRx(val) {
-  var ta = document.getElementById('cp-treatment');
-  var cur = ta.value.trim();
-  ta.value = cur ? cur + '\n' + val : val;
-}
-function setChestpainImp(val) {
-  var ta = document.getElementById('cp-impression');
+function appendChestT(val) {
+  var ta = document.getElementById('chest-t');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
 
-/* ==================== UGIB BLEED helpers ==================== */
-function setBleedB(val) {
-  var ta = document.getElementById('bleed-presentation');
+/* ==================== BLEED 消化道出血助手 ==================== */
+function appendBleedB(val) {
+  var ta = document.getElementById('bleed-b');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
-function setBleedE(val) {
-  var ta = document.getElementById('bleed-etiology');
+function appendBleedL(val) {
+  var ta = document.getElementById('bleed-l');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
-function setBleedEx(val) {
-  var ta = document.getElementById('bleed-exam');
+function appendBleedE(val) {
+  var ta = document.getElementById('bleed-e1');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function appendBleedExam(val) {
+  var ta = document.getElementById('bleed-e2');
+  var cur = ta.value.trim();
+  ta.value = cur ? cur + '\n' + val : val;
+}
+function appendBleedD(val) {
+  var ta = document.getElementById('bleed-d');
   var cur = ta.value.trim();
   ta.value = cur ? cur + '\n' + val : val;
 }
@@ -1724,6 +1964,8 @@ function renderTubes() {
 /* ==================== Handover Generation ==================== */
 function generateHandover() {
   try {
+
+  var name = '____', gender = '____', age = '____', mrn = '____';
 
   // Collect scores
   var scores = [];
@@ -2015,6 +2257,184 @@ function generateHandover() {
     }
     if (strokeGreen && strokeGreen.checked) html += '建议启动<b style="color:#188038;">卒中绿色通道</b>。';
     if (strokeCt && strokeCt.checked) html += '请备好<b>头颅 CT</b>。';
+    html += '</p>';
+
+    html += '</div>';
+  }
+
+  // 2.7 CHEST 胸痛结构化交班（仅当有胸痛数据时显示）
+  var chestName = document.getElementById('chest-name');
+  var chestC = document.getElementById('chest-c');
+  var chestH = document.getElementById('chest-h');
+  var chestE = document.getElementById('chest-e');
+  var chestS = document.getElementById('chest-s');
+  var chestT = document.getElementById('chest-t');
+  var hasCHEST = (chestName && chestName.value.trim()) || (chestC && chestC.value.trim()) || (chestH && chestH.value.trim()) || (chestE && chestE.value.trim()) || (chestT && chestT.value.trim());
+  if (hasCHEST) {
+    html += '<div class="section-title" style="color:#d93025;">CHEST</div>';
+    html += '<div style="background:#fff5f5;border-left:3px solid #d93025;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.9;">';
+
+    // 开场白
+    var cpInfo = '';
+    if (chestName && chestName.value.trim()) cpInfo += chestName.value.trim();
+    var chestGender = document.getElementById('chest-gender');
+    if (chestGender && chestGender.value) cpInfo += ' ' + chestGender.value;
+    var chestAge = document.getElementById('chest-age');
+    if (chestAge && chestAge.value.trim()) cpInfo += ' ' + chestAge.value.trim() + '岁';
+    if (!cpInfo) cpInfo = '一名';
+    html += '<p style="margin:0 0 10px 0;font-weight:700;color:#d93025;">接收急诊胸痛团队，CHEST交接：</p>';
+
+    // C
+    html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">C</b>：';
+    if (chestC && chestC.value.trim()) {
+      html += chestC.value.trim().replace(/\n/g, '，') + '；';
+    }
+    html += '</p>';
+
+    // H
+    html += '<p style="margin:4px 0;"><b style="color:#d93025;">H</b>：';
+    if (chestH && chestH.value.trim()) {
+      html += chestH.value.trim().replace(/\n/g, '，') + '；';
+    }
+    html += '</p>';
+
+    // E
+    html += '<p style="margin:4px 0;"><b style="color:#f9ab00;">E</b>：';
+    var eParts = [];
+    var chestTrigger = document.getElementById('chest-trigger');
+    var chestDuration = document.getElementById('chest-duration');
+    var chestOnsetTime = document.getElementById('chest-onset-time');
+    if (chestTrigger && chestTrigger.value.trim()) eParts.push(chestTrigger.value.trim());
+    if (chestOnsetTime && chestOnsetTime.value) eParts.push(chestOnsetTime.value.replace('T',' ') + '发作');
+    if (chestDuration && chestDuration.value.trim()) eParts.push('持续' + chestDuration.value.trim());
+    if (eParts.length > 0) {
+      html += eParts.join('，');
+      if (chestE && chestE.value.trim()) html += '，' + chestE.value.trim().replace(/\n/g, '，');
+    } else if (chestE && chestE.value.trim()) {
+      html += chestE.value.trim().replace(/\n/g, '，');
+    }
+    html += '；</p>';
+
+    // S
+    html += '<p style="margin:4px 0;"><b style="color:#188038;">S</b>：';
+    var sParts = [];
+    var chestBp = document.getElementById('chest-bp');
+    var chestHr = document.getElementById('chest-hr');
+    var chestSpo2 = document.getElementById('chest-spo2');
+    var chestRhythm = document.getElementById('chest-rhythm');
+    if (chestBp && chestBp.value.trim()) sParts.push('BP' + chestBp.value.trim() + 'mmHg');
+    if (chestHr && chestHr.value.trim()) sParts.push('HR' + chestHr.value.trim() + '次/分');
+    if (chestSpo2 && chestSpo2.value.trim()) sParts.push('SPO₂' + chestSpo2.value.trim() + '%');
+    if (chestRhythm && chestRhythm.value) sParts.push(chestRhythm.value);
+    if (sParts.length > 0) html += sParts.join('，');
+    if (chestS && chestS.value.trim()) {
+      if (sParts.length > 0) html += '，';
+      html += chestS.value.trim().replace(/\n/g, '，');
+    }
+    html += '；</p>';
+
+    // T
+    html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b>：';
+    if (chestT && chestT.value.trim()) {
+      html += chestT.value.trim().replace(/\n/g, '，') + '。';
+    }
+    var chestEta = document.getElementById('chest-eta');
+    if (chestEta && chestEta.value.trim()) {
+      html += '约 ' + chestEta.value.trim() + ' 抵达。';
+    }
+    var chestGreen = document.getElementById('chest-green-channel');
+    if (chestGreen && chestGreen.checked) html += '请启动<b style="color:#d93025;">心梗急救绿色通道</b>。';
+    var chestCath = document.getElementById('chest-cath-ready');
+    if (chestCath && chestCath.checked) html += '通知<b>导管室</b>备台。';
+    html += '</p>';
+
+    html += '</div>';
+  }
+
+  // 2.8 BLEED 消化道出血结构化交班（仅当有出血数据时显示）
+  var bleedName = document.getElementById('bleed-name');
+  var bleedB = document.getElementById('bleed-b');
+  var bleedL = document.getElementById('bleed-l');
+  var bleedE1 = document.getElementById('bleed-e1');
+  var bleedE2 = document.getElementById('bleed-e2');
+  var bleedD = document.getElementById('bleed-d');
+  var hasBLEED = (bleedName && bleedName.value.trim()) || (bleedB && bleedB.value.trim()) || (bleedL && bleedL.value.trim()) || (bleedE1 && bleedE1.value.trim()) || (bleedD && bleedD.value.trim());
+  if (hasBLEED) {
+    html += '<div class="section-title" style="color:#c5221f;">BLEED</div>';
+    html += '<div style="background:#fff5f5;border-left:3px solid #c5221f;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.9;">';
+
+    // 开场白
+    var blInfo = '';
+    if (bleedName && bleedName.value.trim()) blInfo += bleedName.value.trim();
+    var bleedGender = document.getElementById('bleed-gender');
+    if (bleedGender && bleedGender.value) blInfo += ' ' + bleedGender.value;
+    var bleedAge = document.getElementById('bleed-age');
+    if (bleedAge && bleedAge.value.trim()) blInfo += ' ' + bleedAge.value.trim() + '岁';
+    if (!blInfo) blInfo = '一名';
+    html += '<p style="margin:0 0 10px 0;font-weight:700;color:#c5221f;">接收急诊消化出血团队，BLEED交接：</p>';
+
+    // B
+    html += '<p style="margin:4px 0;"><b style="color:#c5221f;">B</b>：';
+    if (bleedB && bleedB.value.trim()) {
+      html += bleedB.value.trim().replace(/\n/g, '，') + '；';
+    }
+    html += '</p>';
+
+    // L
+    html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">L</b>：';
+    var lParts = [];
+    var bleedOnsetTime = document.getElementById('bleed-onset-time');
+    var bleedDuration = document.getElementById('bleed-duration');
+    var bleedNature = document.getElementById('bleed-nature');
+    if (bleedOnsetTime && bleedOnsetTime.value) lParts.push('出血起始于' + bleedOnsetTime.value.replace('T',' '));
+    if (bleedDuration && bleedDuration.value.trim()) lParts.push('持续' + bleedDuration.value.trim());
+    if (bleedNature && bleedNature.value) lParts.push(bleedNature.value);
+    if (lParts.length > 0) {
+      html += lParts.join('，');
+      if (bleedL && bleedL.value.trim()) html += '，' + bleedL.value.trim().replace(/\n/g, '，');
+    } else if (bleedL && bleedL.value.trim()) {
+      html += bleedL.value.trim().replace(/\n/g, '，');
+    }
+    html += '；</p>';
+
+    // E - Etiology
+    html += '<p style="margin:4px 0;"><b style="color:#f9ab00;">E</b>：';
+    if (bleedE1 && bleedE1.value.trim()) {
+      html += bleedE1.value.trim().replace(/\n/g, '，') + '；';
+    }
+    html += '</p>';
+
+    // E - Exam
+    html += '<p style="margin:4px 0;"><b style="color:#188038;">E</b>：';
+    var exParts = [];
+    var bleedBp = document.getElementById('bleed-bp');
+    var bleedHr = document.getElementById('bleed-hr');
+    var bleedSpo2 = document.getElementById('bleed-spo2');
+    var bleedConscious = document.getElementById('bleed-conscious');
+    if (bleedBp && bleedBp.value.trim()) exParts.push('BP' + bleedBp.value.trim() + 'mmHg');
+    if (bleedHr && bleedHr.value.trim()) exParts.push('HR' + bleedHr.value.trim() + '次/分');
+    if (bleedSpo2 && bleedSpo2.value.trim()) exParts.push('SPO₂' + bleedSpo2.value.trim() + '%');
+    if (bleedConscious && bleedConscious.value) exParts.push(bleedConscious.value);
+    if (exParts.length > 0) html += exParts.join('，');
+    if (bleedE2 && bleedE2.value.trim()) {
+      if (exParts.length > 0) html += '，';
+      html += bleedE2.value.trim().replace(/\n/g, '，');
+    }
+    html += '；</p>';
+
+    // D
+    html += '<p style="margin:4px 0;"><b style="color:#7b1fa2;">D</b>：';
+    if (bleedD && bleedD.value.trim()) {
+      html += bleedD.value.trim().replace(/\n/g, '，') + '。';
+    }
+    var bleedEta = document.getElementById('bleed-eta');
+    if (bleedEta && bleedEta.value.trim()) {
+      html += '约 ' + bleedEta.value.trim() + ' 抵达。';
+    }
+    var bleedEmergency = document.getElementById('bleed-emergency');
+    if (bleedEmergency && bleedEmergency.checked) html += '请紧急启动<b style="color:#c5221f;">抗休克、止血救治流程</b>。';
+    var bleedEndoscopy = document.getElementById('bleed-endoscopy');
+    if (bleedEndoscopy && bleedEndoscopy.checked) html += '通知<b>内镜室</b>备急诊胃镜。';
     html += '</p>';
 
     html += '</div>';
