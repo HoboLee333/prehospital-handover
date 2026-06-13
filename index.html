@@ -2155,6 +2155,7 @@ function generateHandover() {
   var hasATMIST = (traumaMech && traumaMech.value.trim()) || (traumaTime && traumaTime.value) || (traumaInjSummary && traumaInjSummary.value.trim()) || (traumaTreatment && traumaTreatment.value.trim()) || (atmAge && atmAge.value);
   if (hasATMIST) {
     html += '<div class="section-title" style="color:#d93025;">ATMIST 创伤交班</div>';
+    html += '<div style="display:inline-block;background:linear-gradient(135deg,#d93025,#c5221f);color:#fff;padding:3px 12px;border-radius:16px;font-weight:700;font-size:12px;margin-bottom:8px;animation:pulse-alert 2s infinite;"><span style="font-size:14px;">🚨</span> 创伤预警</div>';
     html += '<table style="font-size:13px;">';
     // A - Age (from ATMIST section input)
     var atmName = document.getElementById('atm-name');
