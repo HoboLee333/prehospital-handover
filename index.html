@@ -310,11 +310,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="nav-item" data-section="stroke"><span class="icon">🧠</span><span class="nav-text"> 卒中中心</span><span class="nav-label">卒中</span></div>
     <div class="nav-item" data-section="chestpain"><span class="icon">❤️</span><span class="nav-text"> 胸痛中心</span><span class="nav-label">胸痛</span></div>
     <div class="nav-item" data-section="bleed"><span class="icon">🩸</span><span class="nav-text"> 消化道出血</span><span class="nav-label">出血</span></div>
-    <div class="nav-item" data-section="general"><span class="icon">📋</span><span class="nav-text"> 通用评估工具</span><span class="nav-label">通用</span></div>
     <div class="nav-section">院前处置</div>
     <div class="nav-item" data-section="medication"><span class="icon">💊</span><span class="nav-text"> 急救药物</span><span class="nav-label">药物</span></div>
     <div class="nav-item" data-section="measures"><span class="icon">🛠️</span><span class="nav-text"> 急救措施</span><span class="nav-label">措施</span></div>
-    <div class="nav-item" data-section="vitals"><span class="icon">📊</span><span class="nav-text"> 生命体征</span><span class="nav-label">体征</span></div>
     <div class="nav-item" data-section="tubes"><span class="icon">🔌</span><span class="nav-text"> 管道管理</span><span class="nav-label">管道</span></div>
     <div class="nav-section">交班报告</div>
     <div class="nav-item" data-section="handover"><span class="icon">📝</span><span class="nav-text"> 交班记录</span><span class="nav-label">交班</span></div>
@@ -634,6 +632,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <textarea id="trauma-consult" rows="3" placeholder="可点击上方快速选择或自由输入其他需要的科室..."></textarea>
     </div>
   </div>
+  <!-- NRS 疼痛评分 -->
+  <div class="card" id="nrs-card">
+    <div class="card-header"><h3>NRS 疼痛数字评分</h3><span class="score-badge score-low" id="nrs-score-badge">--</span></div>
+    <div style="display:flex;align-items:center;gap:16px;margin:10px 0;">
+      <span style="font-size:13px;color:var(--text-secondary)">0 无痛</span>
+      <input type="range" id="nrs-val" min="0" max="10" value="0" oninput="calcNRS()" style="flex:1;">
+      <span style="font-size:13px;color:var(--text-secondary)">10 剧痛</span>
+    </div>
+    <div class="score-display"><div class="score-value" id="nrs-total">0</div><div class="score-label">NRS疼痛评分：0=无痛 | 1-3=轻度 | 4-6=中度 | 7-10=重度</div></div>
+  </div>
 </section>
 
 <!-- ==================== 胸痛中心 (CHEST) ==================== -->
@@ -756,6 +764,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       </div>
     </div>
   </div>
+  <!-- NEWS 早期预警评分 -->
+  <div class="card" id="news-card">
+    <div class="card-header"><h3>NEWS 国家早期预警评分</h3><span class="score-badge score-low" id="news-score-badge">--</span></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>呼吸频率（次/分）</label><select id="news-rr" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤8</option><option value="1">1: 9-11</option><option value="0">0: 12-20</option><option value="2">2: 21-24</option><option value="3">3: ≥25</option></select></div>
+      <div class="form-group"><label>血氧饱和度 (%)</label><select id="news-spo2" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤91</option><option value="2">2: 92-93</option><option value="1">1: 94-95</option><option value="0">0: ≥96</option></select></div>
+      <div class="form-group"><label>是否吸氧</label><select id="news-o2" onchange="calcNEWS()"><option value="">--</option><option value="0">0: 否</option><option value="2">2: 是</option></select></div>
+      <div class="form-group"><label>收缩压 (mmHg)</label><select id="news-sbp" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤90</option><option value="2">2: 91-100</option><option value="1">1: 101-110</option><option value="0">0: 111-219</option><option value="3">3: ≥220</option></select></div>
+      <div class="form-group"><label>心率（次/分）</label><select id="news-hr" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤40</option><option value="1">1: 41-50</option><option value="0">0: 51-90</option><option value="1">1: 91-110</option><option value="2">2: 111-130</option><option value="3">3: ≥131</option></select></div>
+      <div class="form-group"><label>意识水平</label><select id="news-avpu" onchange="calcNEWS()"><option value="">--</option><option value="0">0: A（清醒）</option><option value="3">3: V/P/U（异常）</option></select></div>
+      <div class="form-group"><label>体温 (°C)</label><select id="news-temp" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤35.0</option><option value="1">1: 35.1-36.0</option><option value="0">0: 36.1-38.0</option><option value="1">1: 38.1-39.0</option><option value="2">2: ≥39.1</option></select></div>
+    </div>
+    <div class="score-display"><div class="score-value" id="news-total">--</div><div class="score-label">NEWS：0-4低危 | 5-6中危（紧急响应）| ≥7高危（立即抢救）</div></div>
+  </div>
 </section>
 
 <!-- ==================== 消化道出血中心 (BLEED) ==================== -->
@@ -874,6 +896,35 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
         </div>
       </div>
     </div>
+  </div>
+  <!-- SOFA 评分 -->
+  <div class="card" id="sofa-card">
+    <div class="card-header"><h3>SOFA 序贯器官衰竭评估</h3><span class="score-badge score-low" id="sofa-score-badge">--</span></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">范围0-24分，SOFA增加≥2分提示新发器官衰竭</p>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>PaO₂/FiO₂ (mmHg)</label><select id="sofa-pf" onchange="calcSOFA()"><option value="">--</option><option value="0">0: ≥400</option><option value="1">1: 300-399</option><option value="2">2: 200-299</option><option value="3">3: 100-199 + 呼吸支持</option><option value="4">4: <100 + 呼吸支持</option></select></div>
+      <div class="form-group"><label>血小板 (×10⁹/L)</label><select id="sofa-plt" onchange="calcSOFA()"><option value="">--</option><option value="0">0: ≥150</option><option value="1">1: 100-149</option><option value="2">2: 50-99</option><option value="3">3: 20-49</option><option value="4">4: <20</option></select></div>
+      <div class="form-group"><label>胆红素 (μmol/L)</label><select id="sofa-bili" onchange="calcSOFA()"><option value="">--</option><option value="0">0: <20</option><option value="1">1: 20-32</option><option value="2">2: 33-101</option><option value="3">3: 102-204</option><option value="4">4: >204</option></select></div>
+      <div class="form-group"><label>MAP/升压药</label><select id="sofa-cv" onchange="calcSOFA()"><option value="">--</option><option value="0">0: MAP≥70</option><option value="1">1: MAP<70</option><option value="2">2: 多巴胺≤5或多巴酚丁胺</option><option value="3">3: 多巴胺>5或NE≤0.1</option><option value="4">4: 多巴胺>15或NE>0.1</option></select></div>
+      <div class="form-group"><label>GCS</label><select id="sofa-gcs" onchange="calcSOFA()"><option value="">--</option><option value="0">0: 15</option><option value="1">1: 13-14</option><option value="2">2: 10-12</option><option value="3">3: 6-9</option><option value="4">4: <6</option></select></div>
+      <div class="form-group"><label>肌酐 (μmol/L)/尿量</label><select id="sofa-cr" onchange="calcSOFA()"><option value="">--</option><option value="0">0: Cr<110</option><option value="1">1: Cr 110-170</option><option value="2">2: Cr 171-299</option><option value="3">3: Cr 300-440 或尿量<500mL/d</option><option value="4">4: Cr>440 或尿量<200mL/d</option></select></div>
+    </div>
+    <div class="score-display"><div class="score-value" id="sofa-total">--</div><div class="score-label">SOFA总分（范围0-24）：SOFA增加≥2分提示器官衰竭</div></div>
+  </div>
+  <!-- APACHE II 评分 -->
+  <div class="card" id="apache-card">
+    <div class="card-header"><h3>APACHE II 简化评分（院前版）</h3><span class="score-badge score-low" id="apache-score-badge">--</span></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">院前快速版（选取核心指标，仅供参考）</p>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>体温 (°C)</label><select id="apache-temp" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 36-38.4</option><option value="1">1: 34-35.9 / 38.5-38.9</option><option value="2">2: 32-33.9</option><option value="3">3: 30-31.9 / 39-40.9</option><option value="4">4: <29.9 / ≥41</option></select></div>
+      <div class="form-group"><label>MAP (mmHg)</label><select id="apache-map" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 70-109</option><option value="1">1: 50-69 / 110-129</option><option value="2">2: 130-159</option><option value="3">3: 40-54 / ≥160</option><option value="4">4: ≤49</option></select></div>
+      <div class="form-group"><label>心率（次/分）</label><select id="apache-hr" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 70-109</option><option value="1">1: 55-69 / 110-139</option><option value="2">2: 40-54 / 140-179</option><option value="3">3: ≤39 / ≥180</option></select></div>
+      <div class="form-group"><label>呼吸频率</label><select id="apache-rr" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 12-24</option><option value="1">1: 10-11 / 25-34</option><option value="2">2: 6-9</option><option value="3">3: 35-49</option><option value="4">4: ≤5 / ≥50</option></select></div>
+      <div class="form-group"><label>GCS</label><input type="number" id="apache-gcs" min="3" max="15" onchange="calcAPACHE()" placeholder="3-15"></div>
+      <div class="form-group"><label>年龄</label><select id="apache-age" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: <44岁</option><option value="2">2: 45-54岁</option><option value="3">3: 55-64岁</option><option value="5">5: 65-74岁</option><option value="6">6: ≥75岁</option></select></div>
+      <div class="form-group"><label>慢性健康状况</label><select id="apache-chronic" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 择期术后</option><option value="5">5: 非手术或急诊术后</option></select></div>
+    </div>
+    <div class="score-display"><div class="score-value" id="apache-total">--</div><div class="score-label">APACHE II 院前简化评分（仅供参考）</div></div>
   </div>
 </section>
 
@@ -1073,60 +1124,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </section>
 
-<!-- ==================== 通用评估工具 ==================== -->
-<section id="section-general" class="section">
-  <div class="page-header"><h2>📋 通用评估工具</h2></div>
-  <div class="card" id="news-card">
-    <div class="card-header"><h3>NEWS 国家早期预警评分</h3><span class="score-badge score-low" id="news-score-badge">--</span></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>呼吸频率（次/分）</label><select id="news-rr" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤8</option><option value="1">1: 9-11</option><option value="0">0: 12-20</option><option value="2">2: 21-24</option><option value="3">3: ≥25</option></select></div>
-      <div class="form-group"><label>血氧饱和度 (%)</label><select id="news-spo2" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤91</option><option value="2">2: 92-93</option><option value="1">1: 94-95</option><option value="0">0: ≥96</option></select></div>
-      <div class="form-group"><label>是否吸氧</label><select id="news-o2" onchange="calcNEWS()"><option value="">--</option><option value="0">0: 否</option><option value="2">2: 是</option></select></div>
-      <div class="form-group"><label>收缩压 (mmHg)</label><select id="news-sbp" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤90</option><option value="2">2: 91-100</option><option value="1">1: 101-110</option><option value="0">0: 111-219</option><option value="3">3: ≥220</option></select></div>
-      <div class="form-group"><label>心率（次/分）</label><select id="news-hr" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤40</option><option value="1">1: 41-50</option><option value="0">0: 51-90</option><option value="1">1: 91-110</option><option value="2">2: 111-130</option><option value="3">3: ≥131</option></select></div>
-      <div class="form-group"><label>意识水平</label><select id="news-avpu" onchange="calcNEWS()"><option value="">--</option><option value="0">0: A（清醒）</option><option value="3">3: V/P/U（异常）</option></select></div>
-      <div class="form-group"><label>体温 (°C)</label><select id="news-temp" onchange="calcNEWS()"><option value="">--</option><option value="3">3: ≤35.0</option><option value="1">1: 35.1-36.0</option><option value="0">0: 36.1-38.0</option><option value="1">1: 38.1-39.0</option><option value="2">2: ≥39.1</option></select></div>
-    </div>
-    <div class="score-display"><div class="score-value" id="news-total">--</div><div class="score-label">NEWS：0-4低危 | 5-6中危（紧急响应）| ≥7高危（立即抢救）</div></div>
-  </div>
-  <div class="card" id="sofa-card">
-    <div class="card-header"><h3>SOFA 序贯器官衰竭评估</h3><span class="score-badge score-low" id="sofa-score-badge">--</span></div>
-    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">范围0-24分，SOFA增加≥2分提示新发器官衰竭</p>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>PaO₂/FiO₂ (mmHg)</label><select id="sofa-pf" onchange="calcSOFA()"><option value="">--</option><option value="0">0: ≥400</option><option value="1">1: 300-399</option><option value="2">2: 200-299</option><option value="3">3: 100-199 + 呼吸支持</option><option value="4">4: &lt;100 + 呼吸支持</option></select></div>
-      <div class="form-group"><label>血小板 (×10⁹/L)</label><select id="sofa-plt" onchange="calcSOFA()"><option value="">--</option><option value="0">0: ≥150</option><option value="1">1: 100-149</option><option value="2">2: 50-99</option><option value="3">3: 20-49</option><option value="4">4: &lt;20</option></select></div>
-      <div class="form-group"><label>胆红素 (μmol/L)</label><select id="sofa-bili" onchange="calcSOFA()"><option value="">--</option><option value="0">0: &lt;20</option><option value="1">1: 20-32</option><option value="2">2: 33-101</option><option value="3">3: 102-204</option><option value="4">4: &gt;204</option></select></div>
-      <div class="form-group"><label>MAP/升压药</label><select id="sofa-cv" onchange="calcSOFA()"><option value="">--</option><option value="0">0: MAP≥70</option><option value="1">1: MAP&lt;70</option><option value="2">2: 多巴胺≤5或多巴酚丁胺</option><option value="3">3: 多巴胺&gt;5或NE≤0.1</option><option value="4">4: 多巴胺&gt;15或NE&gt;0.1</option></select></div>
-      <div class="form-group"><label>GCS</label><select id="sofa-gcs" onchange="calcSOFA()"><option value="">--</option><option value="0">0: 15</option><option value="1">1: 13-14</option><option value="2">2: 10-12</option><option value="3">3: 6-9</option><option value="4">4: &lt;6</option></select></div>
-      <div class="form-group"><label>肌酐 (μmol/L)/尿量</label><select id="sofa-cr" onchange="calcSOFA()"><option value="">--</option><option value="0">0: Cr&lt;110</option><option value="1">1: Cr 110-170</option><option value="2">2: Cr 171-299</option><option value="3">3: Cr 300-440 或尿量&lt;500mL/d</option><option value="4">4: Cr&gt;440 或尿量&lt;200mL/d</option></select></div>
-    </div>
-    <div class="score-display"><div class="score-value" id="sofa-total">--</div><div class="score-label">SOFA总分（范围0-24）：SOFA增加≥2分提示器官衰竭</div></div>
-  </div>
-  <div class="card" id="apache-card">
-    <div class="card-header"><h3>APACHE II 简化评分（院前版）</h3><span class="score-badge score-low" id="apache-score-badge">--</span></div>
-    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">院前快速版（选取核心指标，仅供参考）</p>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>体温 (°C)</label><select id="apache-temp" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 36-38.4</option><option value="1">1: 34-35.9 / 38.5-38.9</option><option value="2">2: 32-33.9</option><option value="3">3: 30-31.9 / 39-40.9</option><option value="4">4: &lt;29.9 / ≥41</option></select></div>
-      <div class="form-group"><label>MAP (mmHg)</label><select id="apache-map" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 70-109</option><option value="1">1: 50-69 / 110-129</option><option value="2">2: 130-159</option><option value="3">3: 40-54 / ≥160</option><option value="4">4: ≤49</option></select></div>
-      <div class="form-group"><label>心率（次/分）</label><select id="apache-hr" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 70-109</option><option value="1">1: 55-69 / 110-139</option><option value="2">2: 40-54 / 140-179</option><option value="3">3: ≤39 / ≥180</option></select></div>
-      <div class="form-group"><label>呼吸频率</label><select id="apache-rr" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 12-24</option><option value="1">1: 10-11 / 25-34</option><option value="2">2: 6-9</option><option value="3">3: 35-49</option><option value="4">4: ≤5 / ≥50</option></select></div>
-      <div class="form-group"><label>GCS</label><input type="number" id="apache-gcs" min="3" max="15" onchange="calcAPACHE()" placeholder="3-15"></div>
-      <div class="form-group"><label>年龄</label><select id="apache-age" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: &lt;44岁</option><option value="2">2: 45-54岁</option><option value="3">3: 55-64岁</option><option value="5">5: 65-74岁</option><option value="6">6: ≥75岁</option></select></div>
-      <div class="form-group"><label>慢性健康状况</label><select id="apache-chronic" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 择期术后</option><option value="5">5: 非手术或急诊术后</option></select></div>
-    </div>
-    <div class="score-display"><div class="score-value" id="apache-total">--</div><div class="score-label">APACHE II 院前简化评分（仅供参考）</div></div>
-  </div>
-  <div class="card" id="nrs-card">
-    <div class="card-header"><h3>NRS 疼痛数字评分</h3><span class="score-badge score-low" id="nrs-score-badge">--</span></div>
-    <div style="display:flex;align-items:center;gap:16px;margin:10px 0;">
-      <span style="font-size:13px;color:var(--text-secondary)">0 无痛</span>
-      <input type="range" id="nrs-val" min="0" max="10" value="0" oninput="calcNRS()" style="flex:1;">
-      <span style="font-size:13px;color:var(--text-secondary)">10 剧痛</span>
-    </div>
-    <div class="score-display"><div class="score-value" id="nrs-total">0</div><div class="score-label">NRS疼痛评分：0=无痛 | 1-3=轻度 | 4-6=中度 | 7-10=重度</div></div>
-  </div>
-</section>
-
 <!-- ==================== 急救药物（点选+自定义） ==================== -->
 <section id="section-medication" class="section">
   <div class="page-header"><h2>💊 急救药物</h2><span class="meta">点击常用药 → 自动添加 → 可编辑/删除</span></div>
@@ -1315,26 +1312,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card">
     <div class="card-header"><h3>已录入措施 (<span id="meas-count">0</span> 条)</h3></div>
     <div class="timeline-list" id="meas-list"><p style="color:var(--text-secondary);padding:20px 0;text-align:center;">暂无记录，点击上方常用措施或手动添加</p></div>
-  </div>
-</section>
-
-<!-- ==================== 生命体征 ==================== -->
-<section id="section-vitals" class="section">
-  <div class="page-header"><h2>📊 生命体征</h2></div>
-  <div class="card">
-    <div class="card-header"><h3>新增生命体征记录</h3></div>
-    <div class="form-row form-row-4">
-      <div class="form-group"><label>时间点</label><input type="text" id="vital-time" placeholder="例：10:30"></div>
-      <div class="form-group"><label>收缩压 (mmHg)</label><input type="text" id="vital-sbp" placeholder="SBP"></div>
-      <div class="form-group"><label>舒张压 (mmHg)</label><input type="text" id="vital-dbp" placeholder="DBP"></div>
-      <div class="form-group"><label>心率 (次/分)</label><input type="text" id="vital-hr" placeholder="HR"></div>
-      <div class="form-group"><label>呼吸频率</label><input type="text" id="vital-rr" placeholder="次/分"></div>
-      <div class="form-group"><label>SpO₂ (%)</label><input type="text" id="vital-spo2" placeholder="%"></div>
-      <div class="form-group"><label>体温 (°C)</label><input type="text" id="vital-temp" placeholder="°C"></div>
-      <div class="form-group"><label>血糖 (mmol/L)</label><input type="text" id="vital-glu" placeholder="mmol/L"></div>
-    </div>
-    <button class="btn btn-primary" onclick="addVital()" style="margin-top:10px">➕ 添加生命体征</button>
-    <div class="timeline-list" id="vital-list" style="margin-top:16px;"></div>
   </div>
 </section>
 
@@ -1981,46 +1958,6 @@ function renderMeasures() {
   }).join('');
 }
 
-/* ==================== Vitals ==================== */
-var vitalRecords = [];
-function addVital() {
-  var t = document.getElementById('vital-time').value.trim();
-  if (!t) { alert('请填写时间点'); return; }
-  vitalRecords.push({
-    time: t,
-    sbp: document.getElementById('vital-sbp').value.trim(),
-    dbp: document.getElementById('vital-dbp').value.trim(),
-    hr: document.getElementById('vital-hr').value.trim(),
-    rr: document.getElementById('vital-rr').value.trim(),
-    spo2: document.getElementById('vital-spo2').value.trim(),
-    temp: document.getElementById('vital-temp').value.trim(),
-    glu: document.getElementById('vital-glu').value.trim()
-  });
-  renderVitals();
-  ['time','sbp','dbp','hr','rr','spo2','temp','glu'].forEach(function(k) {
-    document.getElementById('vital-' + k).value = '';
-  });
-}
-
-function renderVitals() {
-  var list = document.getElementById('vital-list');
-  if (vitalRecords.length === 0) { list.innerHTML = ''; return; }
-  list.innerHTML = vitalRecords.map(function(r, i) {
-    var parts = [];
-    if (r.sbp) parts.push('BP ' + r.sbp + '/' + (r.dbp || '?'));
-    if (r.hr) parts.push('HR ' + r.hr);
-    if (r.rr) parts.push('RR ' + r.rr);
-    if (r.spo2) parts.push('SpO\u2082 ' + r.spo2 + '%');
-    if (r.temp) parts.push('T ' + r.temp + '\u2103');
-    if (r.glu) parts.push('Glu ' + r.glu);
-    return '<div class="timeline-item">' +
-      '<span class="time">' + r.time + '</span>' +
-      '<span class="content">' + (parts.join(' | ') || '无数据') + '</span>' +
-      '<span class="del" onclick="vitalRecords.splice(' + i + ',1);renderVitals();">\u2715</span>' +
-      '</div>';
-  }).join('');
-}
-
 /* ==================== Tubes ==================== */
 var tubeRecords = [];
 
@@ -2096,25 +2033,7 @@ function generateHandover() {
 
 
 
-  // 2.1 生命体征（独立成节）
-  if (vitalRecords.length > 0) {
-    var latestVV = vitalRecords[vitalRecords.length - 1];
-    var vParts = [];
-    if (latestVV.sbp) vParts.push('BP ' + latestVV.sbp + '/' + (latestVV.dbp || '?'));
-    if (latestVV.hr) vParts.push('P ' + latestVV.hr);
-    if (latestVV.rr) vParts.push('R ' + latestVV.rr);
-    if (latestVV.spo2) vParts.push('SpO₂ ' + latestVV.spo2 + '%');
-    if (latestVV.temp) vParts.push('T ' + latestVV.temp + '℃');
-    if (latestVV.glu) vParts.push('Glu ' + latestVV.glu);
-    if (vParts.length > 0) {
-      html += '<div class="section-title">生命体征</div>';
-      html += '<table style="font-size:13px;">';
-      html += '<tr><td colspan="5">' + vParts.join('　') + '　(' + latestVV.time + ')</td></tr>';
-      html += '</table>';
-    }
-  }
-
-  // 2.2 评分（独立成节，含GCS明细）
+  // 评分（独立成节，含GCS明细）
   if (scores.length > 0 || document.getElementById('gcs-total').textContent !== '--') {
     html += '<div class="section-title">评分</div>';
     html += '<table style="font-size:13px;">';
@@ -3200,13 +3119,6 @@ function loadDemoCase() {
     document.getElementById('news-avpu').value = '0';
     document.getElementById('news-temp').value = '0';
     calcNEWS();
-
-    // ===== 生命体征 =====
-    vitalRecords = [
-      { time: t1030, sbp: '90', dbp: '55', hr: '110', rr: '22', spo2: '94', temp: '36.2', glu: '6.8' },
-      { time: t1045, sbp: '85', dbp: '50', hr: '120', rr: '24', spo2: '92', temp: '36.0', glu: '' }
-    ];
-    renderVitals();
 
     // ===== 急救药物 =====
     medRecords = [
