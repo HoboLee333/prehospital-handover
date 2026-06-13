@@ -247,6 +247,34 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   .hamburger { display: none !important; }
 }
 
+/* ===== Floating Demo Button ===== */
+.fab-demo {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a73e8, #1557b0);
+  color: #fff; border: none; cursor: pointer;
+  font-size: 24px; box-shadow: 0 4px 16px rgba(26,115,232,0.35);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s; overflow: hidden;
+}
+.fab-demo:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(26,115,232,0.45); }
+.fab-demo:active { transform: scale(0.95); }
+.fab-demo .fab-text { display: none; }
+/* Expanded FAB on hover */
+.fab-demo:hover { width: auto; border-radius: 28px; padding: 0 20px; }
+.fab-demo:hover .fab-text { display: inline; font-size: 14px; font-weight: 600; margin-left: 6px; white-space: nowrap; }
+@media (max-width: 1024px) {
+  .fab-demo { bottom: 16px; right: 12px; width: 48px; height: 48px; font-size: 20px; }
+}
+
+/* Pulse animation for demo button */
+@keyframes pulse-demo {
+  0%, 100% { box-shadow: 0 4px 16px rgba(26,115,232,0.35); }
+  50% { box-shadow: 0 4px 24px rgba(26,115,232,0.6), 0 0 0 8px rgba(26,115,232,0.1); }
+}
+.fab-demo { animation: pulse-demo 2.5s ease-in-out infinite; }
+.fab-demo:hover { animation: none; }
+
 @media print {
   body { background: #fff; }
   /* 隐藏不需要打印的元素 */
@@ -291,6 +319,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="nav-section">交班报告</div>
     <div class="nav-item" data-section="handover"><span class="icon">📝</span><span class="nav-text"> 交班记录</span><span class="nav-label">交班</span></div>
     <div class="nav-item" data-section="history"><span class="icon">📋</span><span class="nav-text"> 历史记录</span><span class="nav-label">历史</span></div>
+    <div class="nav-section">快捷操作</div>
+    <div class="nav-item" onclick="loadDemoCase()" style="background:rgba(26,115,232,0.2);border-left:3px solid var(--primary);"><span class="icon">🎯</span><span class="nav-text"> 一键示范案例</span><span class="nav-label">示范</span></div>
   </div>
 </nav>
 
@@ -326,6 +356,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-group"><label>性别</label><select id="atm-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
       <div class="form-group"><label>年龄（可填文字）</label><input type="text" id="atm-age" placeholder="如：25岁、约30岁、不详"></div>
     </div>
+    <div class="form-group" style="margin-top:8px;"><label>既往史</label><input type="text" id="atm-past-history" placeholder="如：既往体健 / 高血压 / 糖尿病 / 手术史..."></div>
   </div>
 
   <!-- T: 受伤时间 -->
@@ -485,6 +516,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card" style="border-left:4px solid #7b1fa2;">
     <div class="card-header"><h3><span style="background:#7b1fa2;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 体征与评分 (Signs &amp; Scores)</h3></div>
 
+    <!-- 生命体征 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;">
+      <b style="font-size:14px;">生命体征</b>
+      <div class="form-row form-row-4" style="margin-top:8px;">
+        <div class="form-group"><label>血压 (mmHg)</label><div style="display:flex;align-items:center;gap:4px;"><input type="number" id="trauma-s-bp-sys" placeholder="收缩压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"><span style="font-size:18px;font-weight:700;color:var(--text);">/</span><input type="number" id="trauma-s-bp-dia" placeholder="舒张压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
+        <div class="form-group"><label>心率 (次/分)</label><input type="text" id="trauma-s-hr" placeholder="如：120"></div>
+        <div class="form-group"><label>血氧 (%)</label><input type="text" id="trauma-s-spo2" placeholder="如：92"></div>
+        <div class="form-group"><label>呼吸 (次/分)</label><input type="text" id="trauma-s-rr" placeholder="如：24"></div>
+      </div>
+    </div>
+
     <!-- GCS -->
     <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><b style="font-size:14px;">GCS 格拉斯哥昏迷评分</b><span class="score-badge score-low" id="gcs-score-badge">--</span></div>
@@ -543,11 +585,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <label>院前已采取的创伤处置措施</label>
       <textarea id="trauma-treatment" rows="3" placeholder="可点击上方快速选择或自由输入..."></textarea>
     </div>
+    <div class="form-group" style="margin-top:8px;">
+      <label>备注</label>
+      <textarea id="trauma-t-note" rows="2" placeholder="补充说明、到院提醒..."></textarea>
+    </div>
   </div>
 
   <!-- 预警原因 -->
   <div class="card" style="border-left:4px solid #c5221f;background:#fff5f5;">
-    <div class="card-header"><h3>⚠️ 预警原因 (Alert Reason)</h3></div>
+    <div class="card-header"><h3>预警原因 (Alert Reason)</h3></div>
     <div class="chip-bar" style="margin-bottom:10px;">
       <span class="chip" onclick="setAlertReason('ISS>15严重创伤')">📊 ISS>15</span>
       <span class="chip" onclick="setAlertReason('多发伤')">🦴 多发伤</span>
@@ -570,7 +616,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
 
   <!-- 呼叫会诊科室 -->
   <div class="card" style="border-left:4px solid #1a73e8;background:#f0f7ff;">
-    <div class="card-header"><h3>📞 呼叫会诊科室 (Consultation)</h3></div>
+    <div class="card-header"><h3>呼叫会诊科室 (Consultation)</h3></div>
     <div class="chip-bar" style="margin-bottom:10px;">
       <span class="chip" onclick="setTraumaConsult('骨一科')">🦴 骨一科</span>
       <span class="chip" onclick="setTraumaConsult('骨二科')">🦴 骨二科</span>
@@ -668,7 +714,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card" style="border-left:4px solid var(--success);">
     <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 生命体征与伴随症状 (Signs &amp; Symptoms)</h3></div>
     <div class="form-row form-row-4">
-      <div class="form-group"><label>血压 (mmHg)</label><input type="text" id="chest-bp" placeholder="如：145/90"></div>
+      <div class="form-group"><label>血压 (mmHg)</label><div style="display:flex;align-items:center;gap:4px;"><input type="number" id="chest-bp-sys" placeholder="收缩压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"><span style="font-size:18px;font-weight:700;color:var(--text);">/</span><input type="number" id="chest-bp-dia" placeholder="舒张压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
       <div class="form-group"><label>心率 (次/分)</label><input type="text" id="chest-hr" placeholder="如：108"></div>
       <div class="form-group"><label>血氧 (%)</label><input type="text" id="chest-spo2" placeholder="如：95"></div>
       <div class="form-group"><label>心律</label><select id="chest-rhythm"><option value="">--</option><option>心律齐</option><option>心律不齐</option><option>房颤心律</option><option>频发早搏</option></select></div>
@@ -699,8 +745,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
         <textarea id="chest-t" rows="3" placeholder="描述院前急救处置与转运情况..."></textarea>
       </div>
       <div class="form-group">
-        <label>预估抵达时间</label>
-        <input type="text" id="chest-eta" placeholder="如：约10分钟">
+        <label>备注</label>
+        <textarea id="chest-t-note" rows="2" placeholder="补充说明、到院时间、特殊提醒..."></textarea>
         <div style="margin-top:8px;">
           <label><input type="checkbox" id="chest-green-channel" checked> 启动心梗急救绿色通道</label>
         </div>
@@ -750,8 +796,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-group"><label>出血性质</label><select id="bleed-nature"><option value="">--</option><option>活动性反复出血</option><option>一次性出血已停止</option><option>间歇性出血</option><option>持续性活动出血</option></select></div>
     </div>
     <div class="form-group" style="margin-top:8px;">
-      <label>实验室检查</label>
-      <textarea id="bleed-l" rows="2" placeholder="描述血常规、凝血功能、肝肾功能等实验室结果..."></textarea>
+      <label>实验室检查（填入数值自动生成文字）</label>
+      <div class="form-row form-row-5">
+        <div class="form-group"><label>Hb (g/L)</label><input type="number" id="bleed-lab-hb" placeholder="如：72" oninput="updateBleedLab()" style="min-width:60px;"></div>
+        <div class="form-group"><label>HCT (%)</label><input type="number" id="bleed-lab-hct" placeholder="如：22" oninput="updateBleedLab()" style="min-width:60px;"></div>
+        <div class="form-group"><label>PLT (×10⁹/L)</label><input type="number" id="bleed-lab-plt" placeholder="如：85" oninput="updateBleedLab()" style="min-width:60px;"></div>
+        <div class="form-group"><label>PT (s)</label><input type="number" id="bleed-lab-pt" placeholder="如：18" step="0.1" oninput="updateBleedLab()" style="min-width:60px;"></div>
+        <div class="form-group"><label>INR</label><input type="number" id="bleed-lab-inr" placeholder="如：1.8" step="0.1" oninput="updateBleedLab()" style="min-width:60px;"></div>
+      </div>
+      <textarea id="bleed-l" rows="2" style="display:none;"></textarea>
+      <div id="bleed-lab-preview" style="margin-top:6px;font-size:13px;color:var(--primary);min-height:20px;"></div>
     </div>
   </div>
 
@@ -779,7 +833,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card" style="border-left:4px solid var(--success);">
     <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 体格检查与生命体征 (Exam)</h3></div>
     <div class="form-row form-row-4">
-      <div class="form-group"><label>血压 (mmHg)</label><input type="text" id="bleed-bp" placeholder="如：80/45"></div>
+      <div class="form-group"><label>血压 (mmHg)</label><div style="display:flex;align-items:center;gap:4px;"><input type="number" id="bleed-bp-sys" placeholder="收缩压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"><span style="font-size:18px;font-weight:700;color:var(--text);">/</span><input type="number" id="bleed-bp-dia" placeholder="舒张压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
       <div class="form-group"><label>心率 (次/分)</label><input type="text" id="bleed-hr" placeholder="如：130"></div>
       <div class="form-group"><label>血氧 (%)</label><input type="text" id="bleed-spo2" placeholder="如：93"></div>
       <div class="form-group"><label>意识</label><select id="bleed-conscious"><option value="">--</option><option>意识清楚</option><option>嗜睡</option><option>意识模糊</option><option>昏迷</option></select></div>
@@ -810,8 +864,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
         <textarea id="bleed-d" rows="3" placeholder="描述药物过敏史、院前处置与转运情况..."></textarea>
       </div>
       <div class="form-group">
-        <label>预估抵达时间</label>
-        <input type="text" id="bleed-eta" placeholder="如：约15分钟">
+        <label>备注</label>
+        <textarea id="bleed-d-note" rows="2" placeholder="补充说明、到院时间、特殊提醒..."></textarea>
         <div style="margin-top:8px;">
           <label><input type="checkbox" id="bleed-emergency" checked> 紧急启动抗休克、止血救治</label>
         </div>
@@ -868,6 +922,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <label>症状补充描述</label>
       <textarea id="stroke-type-text" rows="2" placeholder="补充描述具体症状表现、部位、程度等..."></textarea>
     </div>
+    <!-- GCS 评分 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><b style="font-size:13px;">GCS 格拉斯哥昏迷评分</b><span class="score-badge score-low" id="stroke-gcs-score-badge">--</span></div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>睁眼 (E)</label><select id="stroke-gcs-eye" onchange="calcStrokeGCS()"><option value="">--</option><option value="4">4-自主睁眼</option><option value="3">3-呼唤睁眼</option><option value="2">2-疼痛睁眼</option><option value="1">1-无反应</option></select></div>
+        <div class="form-group"><label>言语 (V)</label><select id="stroke-gcs-verbal" onchange="calcStrokeGCS()"><option value="">--</option><option value="5">5-回答切题</option><option value="4">4-回答不切题</option><option value="3">3-用词不当</option><option value="2">2-难以理解</option><option value="1">1-无反应</option></select></div>
+        <div class="form-group"><label>运动 (M)</label><select id="stroke-gcs-motor" onchange="calcStrokeGCS()"><option value="">--</option><option value="6">6-遵嘱动作</option><option value="5">5-疼痛定位</option><option value="4">4-疼痛回缩</option><option value="3">3-异常屈曲</option><option value="2">2-异常伸展</option><option value="1">1-无反应</option></select></div>
+      </div>
+    </div>
   </div>
 
   <!-- R: 高危危险因素 (Risk factors) -->
@@ -896,7 +959,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card" style="border-left:4px solid var(--success);">
     <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">O</span> 生命体征与查体 (Observations & vital signs)</h3></div>
     <div class="form-row form-row-4">
-      <div class="form-group"><label>血压 (mmHg)</label><input type="text" id="stroke-bp" placeholder="如：160/95"></div>
+      <div class="form-group"><label>血压 (mmHg)</label><div style="display:flex;align-items:center;gap:4px;"><input type="number" id="stroke-bp-sys" placeholder="收缩压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"><span style="font-size:18px;font-weight:700;color:var(--text);">/</span><input type="number" id="stroke-bp-dia" placeholder="舒张压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
       <div class="form-group"><label>心率 (次/分)</label><input type="text" id="stroke-hr" placeholder="如：78"></div>
       <div class="form-group"><label>血氧 (%)</label><input type="text" id="stroke-spo2" placeholder="如：96"></div>
       <div class="form-group"><label>指尖血糖 (mmol/L)</label><input type="text" id="stroke-glu" placeholder="如：7.2"></div>
@@ -963,8 +1026,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
         <textarea id="stroke-e-treatment" rows="2" placeholder="描述院前急救处置..."></textarea>
       </div>
       <div class="form-group">
-        <label>预估抵达时间</label>
-        <input type="text" id="stroke-eta" placeholder="如：约15分钟">
+        <label>备注</label>
+        <textarea id="stroke-e-note" rows="2" placeholder="补充说明、到院时间、特殊提醒..."></textarea>
         <div style="margin-top:8px;">
           <label><input type="checkbox" id="stroke-green-channel" checked> 建议启动卒中绿色通道</label>
         </div>
@@ -1438,6 +1501,44 @@ function calcGCS() {
   else if (total >= 9) { badge.textContent = '中度 ' + total; badge.className = 'score-badge score-mid'; }
   else if (total > 0) { badge.textContent = '重度 ' + total; badge.className = 'score-badge score-high'; }
   else { badge.textContent = '--'; badge.className = 'score-badge score-low'; }
+}
+
+/* ==================== 卒中 GCS ==================== */
+function calcStrokeGCS() {
+  var e = parseInt(document.getElementById('stroke-gcs-eye').value) || 0;
+  var v = parseInt(document.getElementById('stroke-gcs-verbal').value) || 0;
+  var m = parseInt(document.getElementById('stroke-gcs-motor').value) || 0;
+  var total = e + v + m;
+  var badge = document.getElementById('stroke-gcs-score-badge');
+  if (total > 0) {
+    badge.textContent = total;
+    badge.className = 'score-badge ' + (total >= 13 ? 'score-low' : total >= 9 ? 'score-mid' : 'score-high');
+  } else {
+    badge.textContent = '--'; badge.className = 'score-badge score-low';
+  }
+}
+
+/* ==================== 出血 L 实验室自动生成 ==================== */
+function updateBleedLab() {
+  var hb = document.getElementById('bleed-lab-hb').value.trim();
+  var hct = document.getElementById('bleed-lab-hct').value.trim();
+  var plt = document.getElementById('bleed-lab-plt').value.trim();
+  var pt = document.getElementById('bleed-lab-pt').value.trim();
+  var inr = document.getElementById('bleed-lab-inr').value.trim();
+  var parts = [];
+  var cbcParts = [];
+  if (hb) cbcParts.push('Hb ' + hb + 'g/L');
+  if (hct) cbcParts.push('HCT ' + hct + '%');
+  if (plt) cbcParts.push('PLT ' + plt + '×10⁹/L');
+  if (cbcParts.length > 0) parts.push('血常规：' + cbcParts.join('，'));
+  var coaParts = [];
+  if (pt) coaParts.push('PT ' + pt + 's');
+  if (inr) coaParts.push('INR ' + inr);
+  if (coaParts.length > 0) parts.push('凝血功能：' + coaParts.join('，'));
+  var text = parts.join('；') + (parts.length > 0 ? '。' : '');
+  document.getElementById('bleed-l').value = text;
+  var preview = document.getElementById('bleed-lab-preview');
+  if (preview) preview.textContent = text;
 }
 
 /* ==================== RTS ==================== */
@@ -2049,12 +2150,14 @@ function generateHandover() {
     // A
     var atmName = document.getElementById('atm-name');
     var atmGender = document.getElementById('atm-gender');
+    var atmPastHistory = document.getElementById('atm-past-history');
     var aParts = [];
     if (atmName && atmName.value.trim()) aParts.push(atmName.value.trim());
     if (atmGender && atmGender.value) aParts.push(atmGender.value);
     if (atmAge && atmAge.value) aParts.push(atmAge.value + '岁');
+    if (atmPastHistory && atmPastHistory.value.trim()) aParts.push(atmPastHistory.value.trim());
     if (aParts.length > 0) {
-      html += '<p style="margin:4px 0;"><b style="color:#d93025;">A</b>：' + aParts.join('，') + '，既往体健</p>';
+      html += '<p style="margin:4px 0;"><b style="color:#d93025;">A</b>：' + aParts.join('，') + '</p>';
     }
 
     // T - Time
@@ -2103,16 +2206,17 @@ function generateHandover() {
 
     // S - Signs / Vitals
     var sParts = [];
-    if (vitalRecords.length > 0) {
-      var latestVV = vitalRecords[vitalRecords.length - 1];
-      if (latestVV.sbp) sParts.push('BP ' + latestVV.sbp + '/' + (latestVV.dbp || '?') + 'mmHg');
-      if (latestVV.hr) sParts.push('HR ' + latestVV.hr + '次/分');
-      if (latestVV.spo2) sParts.push('SPO₂ ' + latestVV.spo2 + '%');
-    }
+    var traumaSBpSys = document.getElementById('trauma-s-bp-sys');
+    var traumaSBpDia = document.getElementById('trauma-s-bp-dia');
+    var traumaSHr = document.getElementById('trauma-s-hr');
+    var traumaSSpo2 = document.getElementById('trauma-s-spo2');
+    var traumaSRr = document.getElementById('trauma-s-rr');
+    if (traumaSBpSys && traumaSBpSys.value.trim()) sParts.push('BP ' + traumaSBpSys.value.trim() + '/' + (traumaSBpDia && traumaSBpDia.value.trim() ? traumaSBpDia.value.trim() : '?') + 'mmHg');
+    if (traumaSHr && traumaSHr.value.trim()) sParts.push('HR ' + traumaSHr.value.trim() + '次/分');
+    if (traumaSSpo2 && traumaSSpo2.value.trim()) sParts.push('SPO₂ ' + traumaSSpo2.value.trim() + '%');
+    if (traumaSRr && traumaSRr.value.trim()) sParts.push('R ' + traumaSRr.value.trim() + '次/分');
     var gcsEl = document.getElementById('gcs-total');
     if (gcsEl && gcsEl.textContent !== '--') sParts.push('GCS ' + gcsEl.textContent + '分');
-    var traumaState = document.getElementById('trauma-state');
-    if (traumaState && traumaState.value) sParts.push(traumaState.value);
     if (sParts.length > 0) {
       html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">S</b>：' + sParts.join('，') + '</p>';
     }
@@ -2123,18 +2227,22 @@ function generateHandover() {
       tTreatParts.push(traumaTreatment.value.trim().replace(/\n/g, '，'));
     }
     if (tTreatParts.length > 0) {
-      html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b>：' + tTreatParts.join('，') + '，即刻到院，请启动创伤绿色通道</p>';
+      html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b>：' + tTreatParts.join('，') + '</p>';
+    }
+    var traumaTNote = document.getElementById('trauma-t-note');
+    if (traumaTNote && traumaTNote.value.trim()) {
+      html += '<p style="margin:4px 0;color:#5f6368;">' + traumaTNote.value.trim().replace(/\n/g, '；') + '</p>';
     }
 
     // 预警原因
     var alertReason = document.getElementById('trauma-alert-reason');
     if (alertReason && alertReason.value.trim()) {
-      html += '<p style="margin:4px 0;color:#c5221f;">⚠ ' + alertReason.value.trim().replace(/\n/g, '，') + '</p>';
+      html += '<p style="margin:4px 0;color:#c5221f;">预警原因：' + alertReason.value.trim().replace(/\n/g, '，') + '</p>';
     }
     // 呼叫会诊
     var consult = document.getElementById('trauma-consult');
     if (consult && consult.value.trim()) {
-      html += '<p style="margin:4px 0;color:#1a73e8;">📞 ' + consult.value.trim().replace(/\n/g, '，') + '</p>';
+      html += '<p style="margin:4px 0;color:#1a73e8;">呼叫会诊科室：' + consult.value.trim().replace(/\n/g, '，') + '</p>';
     }
     html += '</div>';
   }
@@ -2151,7 +2259,8 @@ function generateHandover() {
   var strokeSeizure = document.getElementById('stroke-seizure');
   var strokeVomit = document.getElementById('stroke-vomit');
   var strokeRisk = document.getElementById('stroke-risk');
-  var strokeBp = document.getElementById('stroke-bp');
+  var strokeBpSys = document.getElementById('stroke-bp-sys');
+  var strokeBpDia = document.getElementById('stroke-bp-dia');
   var strokeHr = document.getElementById('stroke-hr');
   var strokeSpo2 = document.getElementById('stroke-spo2');
   var strokeGlu = document.getElementById('stroke-glu');
@@ -2160,7 +2269,6 @@ function generateHandover() {
   var strokeMedsLong = document.getElementById('stroke-meds-long');
   var strokeAllergy = document.getElementById('stroke-allergy');
   var strokeETreatment = document.getElementById('stroke-e-treatment');
-  var strokeEta = document.getElementById('stroke-eta');
   var strokeGreen = document.getElementById('stroke-green-channel');
   var strokeCt = document.getElementById('stroke-ct-ready');
 
@@ -2196,9 +2304,13 @@ function generateHandover() {
     if (strokeMuscle && strokeMuscle.value) {
       html += '查体患侧肌力 ' + strokeMuscle.value + '。';
     }
-    var gcsTotal = document.getElementById('gcs-total') ? document.getElementById('gcs-total').textContent : '--';
-    if (gcsTotal !== '--') {
-      html += 'GCS 评分 ' + gcsTotal + ' 分。';
+    // Stroke dedicated GCS
+    var strokeGCSE = parseInt(document.getElementById('stroke-gcs-eye').value) || 0;
+    var strokeGCSV = parseInt(document.getElementById('stroke-gcs-verbal').value) || 0;
+    var strokeGCSM = parseInt(document.getElementById('stroke-gcs-motor').value) || 0;
+    var strokeGCS = strokeGCSE + strokeGCSV + strokeGCSM;
+    if (strokeGCS > 0) {
+      html += 'GCS ' + strokeGCS + ' 分 (E' + strokeGCSE + ' V' + strokeGCSV + ' M' + strokeGCSM + ')。';
     }
     var seizureTxt = strokeSeizure && strokeSeizure.value ? strokeSeizure.value : '无抽搐';
     var vomitTxt = strokeVomit && strokeVomit.value ? strokeVomit.value : '无剧烈呕吐';
@@ -2215,7 +2327,7 @@ function generateHandover() {
     // O - 生命体征与查体
     html += '<p style="margin:4px 0;"><b style="color:#188038;">O</b><br>转运时';
     var hasVitals = false;
-    if (strokeBp && strokeBp.value.trim()) { html += '血压 ' + strokeBp.value.trim() + 'mmHg'; hasVitals = true; }
+    if (strokeBpSys && strokeBpSys.value.trim()) { html += '血压 ' + strokeBpSys.value.trim() + '/' + (strokeBpDia && strokeBpDia.value.trim() ? strokeBpDia.value.trim() : '?') + 'mmHg'; hasVitals = true; }
     if (strokeHr && strokeHr.value.trim()) { html += (hasVitals ? '，' : '') + '心率 ' + strokeHr.value.trim() + ' 次/分'; hasVitals = true; }
     if (strokeSpo2 && strokeSpo2.value.trim()) { html += (hasVitals ? '，' : '') + '血氧 ' + strokeSpo2.value.trim() + '%'; hasVitals = true; }
     if (strokeGlu && strokeGlu.value.trim()) { html += (hasVitals ? '，' : '') + '指尖血糖 ' + strokeGlu.value.trim() + 'mmol/L'; hasVitals = true; }
@@ -2252,8 +2364,9 @@ function generateHandover() {
       html += '已行基本院前处置。';
     }
     html += '转运途中症状' + (strokeETreatment && strokeETreatment.value && strokeETreatment.value.indexOf('加重') !== -1 ? '进行性加重' : '无明显加重') + '。';
-    if (strokeEta && strokeEta.value.trim()) {
-      html += '约 ' + strokeEta.value.trim() + ' 抵达。';
+    var strokeENote = document.getElementById('stroke-e-note');
+    if (strokeENote && strokeENote.value.trim()) {
+      html += strokeENote.value.trim().replace(/\n/g, '；') + '。';
     }
     if (strokeGreen && strokeGreen.checked) html += '建议启动<b style="color:#188038;">卒中绿色通道</b>。';
     if (strokeCt && strokeCt.checked) html += '请备好<b>头颅 CT</b>。';
@@ -2318,11 +2431,12 @@ function generateHandover() {
     // S
     html += '<p style="margin:4px 0;"><b style="color:#188038;">S</b>：';
     var sParts = [];
-    var chestBp = document.getElementById('chest-bp');
+    var chestBpSys = document.getElementById('chest-bp-sys');
+    var chestBpDia = document.getElementById('chest-bp-dia');
     var chestHr = document.getElementById('chest-hr');
     var chestSpo2 = document.getElementById('chest-spo2');
     var chestRhythm = document.getElementById('chest-rhythm');
-    if (chestBp && chestBp.value.trim()) sParts.push('BP' + chestBp.value.trim() + 'mmHg');
+    if (chestBpSys && chestBpSys.value.trim()) sParts.push('BP ' + chestBpSys.value.trim() + '/' + (chestBpDia && chestBpDia.value.trim() ? chestBpDia.value.trim() : '?') + 'mmHg');
     if (chestHr && chestHr.value.trim()) sParts.push('HR' + chestHr.value.trim() + '次/分');
     if (chestSpo2 && chestSpo2.value.trim()) sParts.push('SPO₂' + chestSpo2.value.trim() + '%');
     if (chestRhythm && chestRhythm.value) sParts.push(chestRhythm.value);
@@ -2338,9 +2452,9 @@ function generateHandover() {
     if (chestT && chestT.value.trim()) {
       html += chestT.value.trim().replace(/\n/g, '，') + '。';
     }
-    var chestEta = document.getElementById('chest-eta');
-    if (chestEta && chestEta.value.trim()) {
-      html += '约 ' + chestEta.value.trim() + ' 抵达。';
+    var chestTNote = document.getElementById('chest-t-note');
+    if (chestTNote && chestTNote.value.trim()) {
+      html += chestTNote.value.trim().replace(/\n/g, '；') + '。';
     }
     var chestGreen = document.getElementById('chest-green-channel');
     if (chestGreen && chestGreen.checked) html += '请启动<b style="color:#d93025;">心梗急救绿色通道</b>。';
@@ -2407,11 +2521,12 @@ function generateHandover() {
     // E - Exam
     html += '<p style="margin:4px 0;"><b style="color:#188038;">E</b>：';
     var exParts = [];
-    var bleedBp = document.getElementById('bleed-bp');
+    var bleedBpSys = document.getElementById('bleed-bp-sys');
+    var bleedBpDia = document.getElementById('bleed-bp-dia');
     var bleedHr = document.getElementById('bleed-hr');
     var bleedSpo2 = document.getElementById('bleed-spo2');
     var bleedConscious = document.getElementById('bleed-conscious');
-    if (bleedBp && bleedBp.value.trim()) exParts.push('BP' + bleedBp.value.trim() + 'mmHg');
+    if (bleedBpSys && bleedBpSys.value.trim()) exParts.push('BP ' + bleedBpSys.value.trim() + '/' + (bleedBpDia && bleedBpDia.value.trim() ? bleedBpDia.value.trim() : '?') + 'mmHg');
     if (bleedHr && bleedHr.value.trim()) exParts.push('HR' + bleedHr.value.trim() + '次/分');
     if (bleedSpo2 && bleedSpo2.value.trim()) exParts.push('SPO₂' + bleedSpo2.value.trim() + '%');
     if (bleedConscious && bleedConscious.value) exParts.push(bleedConscious.value);
@@ -2427,9 +2542,9 @@ function generateHandover() {
     if (bleedD && bleedD.value.trim()) {
       html += bleedD.value.trim().replace(/\n/g, '，') + '。';
     }
-    var bleedEta = document.getElementById('bleed-eta');
-    if (bleedEta && bleedEta.value.trim()) {
-      html += '约 ' + bleedEta.value.trim() + ' 抵达。';
+    var bleedDNote = document.getElementById('bleed-d-note');
+    if (bleedDNote && bleedDNote.value.trim()) {
+      html += bleedDNote.value.trim().replace(/\n/g, '；') + '。';
     }
     var bleedEmergency = document.getElementById('bleed-emergency');
     if (bleedEmergency && bleedEmergency.checked) html += '请紧急启动<b style="color:#c5221f;">抗休克、止血救治流程</b>。';
@@ -2902,6 +3017,251 @@ function exportHandoverWord() {
   setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
+/* ==================== 一键示范案例 ==================== */
+function loadDemoCase() {
+  if (!confirm('将加载演示案例数据到所有模块，并自动生成交班记录。\n\n此操作不会覆盖历史记录，确定继续？')) return;
+  try {
+    var now = new Date();
+    var fmt = function(d) {
+      return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2) + 'T' + ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+    };
+    var h2 = new Date(now - 2*3600000);    // 2h ago
+    var h25 = new Date(now - 2.5*3600000); // 2.5h ago
+    var h3 = new Date(now - 3*3600000);    // 3h ago
+    var h05 = new Date(now - 30*60000);    // 30min ago
+    var h1 = new Date(now - 1*3600000);    // 1h ago
+    var t1030 = ('0'+now.getHours()).slice(-2) + ':30';
+    var t1045 = ('0'+now.getHours()).slice(-2) + ':45';
+
+    // ===== 创伤中心 ATMIST =====
+    document.getElementById('atm-name').value = '张建国';
+    document.getElementById('atm-gender').value = '男';
+    document.getElementById('atm-age').value = '45';
+    document.getElementById('atm-past-history').value = '既往体健';
+    document.getElementById('trauma-time').value = fmt(h2);
+    document.getElementById('trauma-mechanism').value = '交通事故';
+    document.getElementById('trauma-state').value = '困在车内';
+    document.getElementById('trauma-mech-detail').value = '高速追尾，驾驶员未系安全带，方向盘撞击胸部，车速约80km/h';
+    // 伤情
+    document.getElementById('trauma-inj-head').value = '裂伤/破损';
+    document.getElementById('trauma-inj-face').value = '挫伤';
+    document.getElementById('trauma-inj-face-side').value = '左侧';
+    document.getElementById('trauma-inj-neck').value = '颈部活动受限';
+    document.getElementById('trauma-inj-chest').value = '胸廓畸形';
+    document.getElementById('trauma-inj-chest-side').value = '左侧';
+    document.getElementById('trauma-inj-abdomen').value = '腹部膨隆';
+    document.getElementById('trauma-inj-spine').value = '脊柱活动受限';
+    document.getElementById('trauma-inj-uparm').value = '无异常';
+    document.getElementById('trauma-inj-leg').value = '畸形';
+    document.getElementById('trauma-inj-leg-side').value = '右侧';
+    document.getElementById('trauma-inj-pelvis').value = '挤压痛';
+    document.getElementById('trauma-inj-surface').value = '挫伤';
+    document.getElementById('trauma-inj-summary').value = '多发伤：颅脑损伤+左胸多发肋骨骨折伴气胸+脾破裂+右股骨骨折';
+    // GCS: E3 V4 M5
+    document.getElementById('gcs-eye').value = '3';
+    document.getElementById('gcs-verbal').value = '4';
+    document.getElementById('gcs-motor').value = '5';
+    calcGCS();
+    // RTS
+    document.getElementById('rts-gcs').value = '4';
+    document.getElementById('rts-sbp').value = '3';
+    document.getElementById('rts-rr').value = '4';
+    calcRTS();
+    // ISS
+    document.getElementById('iss-hn').value = '3';
+    document.getElementById('iss-face').value = '0';
+    document.getElementById('iss-chest').value = '4';
+    document.getElementById('iss-abd').value = '3';
+    document.getElementById('iss-ext').value = '3';
+    document.getElementById('iss-surf').value = '1';
+    calcISS();
+    // Trauma S vitals
+    document.getElementById('trauma-s-bp-sys').value = '85';
+    document.getElementById('trauma-s-bp-dia').value = '50';
+    document.getElementById('trauma-s-hr').value = '120';
+    document.getElementById('trauma-s-spo2').value = '92';
+    document.getElementById('trauma-s-rr').value = '24';
+    // Treatment
+    document.getElementById('trauma-treatment').value = '颈托固定\n脊柱板搬运\n右下肢夹板固定\n头部加压包扎\n氨甲环酸1g IV\n晶体液500ml快速静滴';
+    document.getElementById('trauma-t-note').value = '创伤绿色通道已启动';
+    document.getElementById('trauma-alert-reason').value = 'ISS>15严重创伤\n多发伤\n颅脑损伤 GCS≤8\n高速交通事故\n需要紧急手术';
+    document.getElementById('trauma-consult').value = '骨一科\n脑病科\n外一科\nICU\n手术室';
+
+    // ===== 胸痛中心 CHEST =====
+    document.getElementById('chest-name').value = '李秀英';
+    document.getElementById('chest-gender').value = '女';
+    document.getElementById('chest-age').value = '62';
+    document.getElementById('chest-c').value = '突发胸骨后压榨样胸痛\n胸痛放射至左肩\n伴全身大汗\n胸闷憋气';
+    document.getElementById('chest-h').value = '既往高血压\n糖尿病\n长期吸烟\n冠心病史\n有支架植入史';
+    document.getElementById('chest-onset-time').value = fmt(h05);
+    document.getElementById('chest-duration').value = '约20分钟';
+    document.getElementById('chest-trigger').value = '劳累后发作';
+    document.getElementById('chest-e').value = '12导心电图提示下壁ST段抬高\n含服硝酸甘油无法缓解';
+    document.getElementById('chest-bp-sys').value = '145';
+    document.getElementById('chest-bp-dia').value = '90';
+    document.getElementById('chest-hr').value = '108';
+    document.getElementById('chest-spo2').value = '95';
+    document.getElementById('chest-rhythm').value = '心律齐';
+    document.getElementById('chest-s').value = '意识清楚，心律齐，无心力衰竭表现';
+    document.getElementById('chest-t').value = '已吸氧\n卧床制动\n嚼服阿司匹林300mg\n建立静脉通路\n心电监护';
+    document.getElementById('chest-t-note').value = '约10分钟抵达';
+    document.getElementById('chest-green-channel').checked = true;
+    document.getElementById('chest-cath-ready').checked = true;
+
+    // ===== 卒中中心 STROKE =====
+    document.getElementById('stroke-name').value = '王德发';
+    document.getElementById('stroke-gender').value = '男';
+    document.getElementById('stroke-age').value = '65';
+    document.getElementById('stroke-last-normal').value = fmt(h3);
+    document.getElementById('stroke-onset-time').value = fmt(h25);
+    document.getElementById('stroke-onset-desc').value = '突发左侧肢体无力伴口角歪斜，症状持续无缓解，无明显间断好转';
+    document.getElementById('stroke-type-text').value = '单侧肢体无力\n口角歪斜\n言语障碍';
+    // Stroke GCS: E3 V4 M5
+    document.getElementById('stroke-gcs-eye').value = '3';
+    document.getElementById('stroke-gcs-verbal').value = '4';
+    document.getElementById('stroke-gcs-motor').value = '5';
+    calcStrokeGCS();
+    document.getElementById('stroke-muscle').value = '3级 抗重力';
+    document.getElementById('stroke-seizure').value = '无抽搐';
+    document.getElementById('stroke-vomit').value = '无剧烈呕吐';
+    document.getElementById('stroke-risk').value = '既往高血压\n糖尿病\n房颤\n长期吸烟\n房颤未规范抗凝';
+    document.getElementById('stroke-bp-sys').value = '160';
+    document.getElementById('stroke-bp-dia').value = '95';
+    document.getElementById('stroke-hr').value = '78';
+    document.getElementById('stroke-spo2').value = '96';
+    document.getElementById('stroke-glu').value = '7.2';
+    document.getElementById('stroke-pupil').value = '双侧瞳孔等大等圆、对光反射灵敏';
+    document.getElementById('stroke-o-note').value = '左侧鼻唇沟变浅，伸舌偏左';
+    document.getElementById('stroke-meds-long').value = '长期口服降压药\n口服利伐沙班';
+    document.getElementById('stroke-allergy').value = '无药物过敏史';
+    document.getElementById('stroke-e-treatment').value = '已开放外周静脉通路\n吸氧维持血氧\n卧床制动保护气道\n心电监护';
+    document.getElementById('stroke-e-note').value = '约15分钟抵达';
+    document.getElementById('stroke-green-channel').checked = true;
+    document.getElementById('stroke-ct-ready').checked = true;
+    // G-FAST
+    document.getElementById('gfast-gaze').value = '1';
+    document.getElementById('gfast-face').value = '1';
+    document.getElementById('gfast-arm').value = '1';
+    document.getElementById('gfast-speech').value = '1';
+    document.getElementById('gfast-time').value = '约2.5小时';
+    calcGFAST();
+    // NIHSS
+    document.getElementById('nihss-1a').value = '0';
+    document.getElementById('nihss-1b').value = '1';
+    document.getElementById('nihss-1c').value = '0';
+    document.getElementById('nihss-2').value = '0';
+    document.getElementById('nihss-3').value = '1';
+    document.getElementById('nihss-4').value = '1';
+    document.getElementById('nihss-5a').value = '2';
+    document.getElementById('nihss-5b').value = '1';
+    document.getElementById('nihss-6a').value = '2';
+    document.getElementById('nihss-6b').value = '1';
+    document.getElementById('nihss-7').value = '0';
+    document.getElementById('nihss-8').value = '1';
+    document.getElementById('nihss-9').value = '1';
+    document.getElementById('nihss-10').value = '1';
+    document.getElementById('nihss-11').value = '0';
+    calcNIHSS();
+
+    // ===== 消化道出血 BLEED =====
+    document.getElementById('bleed-name').value = '赵明辉';
+    document.getElementById('bleed-gender').value = '男';
+    document.getElementById('bleed-age').value = '52';
+    document.getElementById('bleed-b').value = '突发呕鲜红色血液约500ml\n伴柏油样黑便\n自觉头晕乏力\n面色苍白\n四肢湿冷';
+    document.getElementById('bleed-onset-time').value = fmt(h1);
+    document.getElementById('bleed-duration').value = '约30分钟';
+    document.getElementById('bleed-nature').value = '活动性反复出血';
+    // Lab auto-fill
+    document.getElementById('bleed-lab-hb').value = '72';
+    document.getElementById('bleed-lab-hct').value = '22';
+    document.getElementById('bleed-lab-plt').value = '85';
+    document.getElementById('bleed-lab-pt').value = '18';
+    document.getElementById('bleed-lab-inr').value = '1.8';
+    updateBleedLab();
+    document.getElementById('bleed-e1').value = '既往肝硬化失代偿期\n食管胃底静脉曲张病史\n发病前大量饮酒';
+    document.getElementById('bleed-bp-sys').value = '80';
+    document.getElementById('bleed-bp-dia').value = '45';
+    document.getElementById('bleed-hr').value = '130';
+    document.getElementById('bleed-spo2').value = '93';
+    document.getElementById('bleed-conscious').value = '意识清楚';
+    document.getElementById('bleed-e2').value = '面色苍白、四肢湿冷，存在明显失血性休克表现';
+    document.getElementById('bleed-d').value = '无药物过敏\n未长期服药\n头偏一侧防误吸\n禁食\n已吸氧\n快速静脉输注晶体液500ml';
+    document.getElementById('bleed-d-note').value = '约15分钟抵达';
+    document.getElementById('bleed-emergency').checked = true;
+    document.getElementById('bleed-endoscopy').checked = true;
+
+    // ===== 通用评分 =====
+    // NEWS
+    document.getElementById('news-rr').value = '2';
+    document.getElementById('news-spo2').value = '1';
+    document.getElementById('news-o2').value = '2';
+    document.getElementById('news-sbp').value = '2';
+    document.getElementById('news-hr').value = '2';
+    document.getElementById('news-avpu').value = '0';
+    document.getElementById('news-temp').value = '0';
+    calcNEWS();
+
+    // ===== 生命体征 =====
+    vitalRecords = [
+      { time: t1030, sbp: '90', dbp: '55', hr: '110', rr: '22', spo2: '94', temp: '36.2', glu: '6.8' },
+      { time: t1045, sbp: '85', dbp: '50', hr: '120', rr: '24', spo2: '92', temp: '36.0', glu: '' }
+    ];
+    renderVitals();
+
+    // ===== 急救药物 =====
+    medRecords = [
+      { time: t1030, cat: '药物', name: '氨甲环酸', detail: '1g 静滴' },
+      { time: t1035, cat: '药物', name: '阿司匹林', detail: '300mg 嚼服' },
+      { time: t1035, cat: '药物', name: '吗啡', detail: '3mg 静推 镇痛' },
+      { time: t1030, cat: '液体', name: 'NS 500mL', detail: '快速静滴' },
+      { time: t1040, cat: '液体', name: '乳酸林格氏液', detail: '500mL 静滴' }
+    ];
+    renderMeds();
+
+    // ===== 急救措施 =====
+    measureRecords = [
+      { time: t1030, cat: '气道/呼吸', name: '吸氧', detail: '面罩 8L/min' },
+      { time: t1030, cat: '循环/复苏', name: '建立静脉通路', detail: '18G留置针×2' },
+      { time: t1030, cat: '循环/复苏', name: '心电监护', detail: '持续监测' },
+      { time: t1030, cat: '创伤处理', name: '颈椎固定', detail: '颈托' },
+      { time: t1030, cat: '创伤处理', name: '脊柱板固定', detail: '铲式担架' },
+      { time: t1035, cat: '创伤处理', name: '加压包扎', detail: '头部创面' }
+    ];
+    renderMeasures();
+
+    // ===== 管道管理 =====
+    tubeRecords = [
+      { time: t1030, type: '静脉通路', site: '左前臂 18G留置针', note: '通畅' },
+      { time: t1030, type: '静脉通路', site: '右前臂 20G留置针', note: '通畅' }
+    ];
+    renderTubes();
+
+    // ===== 补充描述 =====
+    document.getElementById('meas-note-airway').value = '气道通畅，无分泌物阻塞';
+    document.getElementById('meas-note-cir').value = '双通道静脉通路建立顺利';
+    document.getElementById('meas-note-trauma').value = '右下肢夹板固定稳固，末梢循环良好';
+
+    // 导航到交班记录页并生成
+    navigateTo('handover');
+    setTimeout(function() { generateHandover(); }, 200);
+
+    showCopyToastMsg('✅ 示范案例已加载，交班记录已自动生成');
+  } catch(e) {
+    alert('加载示范案例出错: ' + e.message);
+    console.error(e);
+  }
+}
+
+function showCopyToastMsg(msg) {
+  var toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function() {
+    if (toast.parentNode) toast.parentNode.removeChild(toast);
+  }, 2500);
+}
+
 /* ==================== Init ==================== */
 document.addEventListener('DOMContentLoaded', function() {
   var now = new Date();
@@ -2954,6 +3314,11 @@ function printHistoryDetail() {
   setTimeout(function(){ win.print(); }, 300);
 }
 </script>
+
+<!-- Floating Demo Button -->
+<button class="fab-demo no-print" onclick="loadDemoCase()" title="一键加载示范案例">
+  🎯<span class="fab-text">一键示范</span>
+</button>
 
 </body>
 </html>
