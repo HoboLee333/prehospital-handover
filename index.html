@@ -1204,7 +1204,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <!-- 常用药快速选择 -->
   <div class="card">
     <div class="card-header"><h3>常用药快速选择</h3></div>
-    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">点击药物名称即添加一条记录，时间点自动填入当前时间</p>
     <div class="pe-section-title">心血管药物</div>
     <div class="chip-bar" id="med-chip-cv">
       <span class="chip" onclick="quickAddMed('阿司匹林','300mg 嚼服','药物')">阿司匹林 300mg</span>
@@ -1215,32 +1214,69 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <span class="chip" onclick="quickAddMed('肾上腺素','0.3-0.5mg 肌注/静推','药物')">肾上腺素</span>
       <span class="chip" onclick="quickAddMed('多巴胺','2-20μg/kg/min 静滴','药物')">多巴胺</span>
       <span class="chip" onclick="quickAddMed('去甲肾上腺素','0.05-0.2μg/kg/min 静滴','药物')">去甲肾上腺素</span>
+      <span class="chip" onclick="quickAddMed('多巴酚丁胺','2-20μg/kg/min 静滴','药物')">多巴酚丁胺</span>
       <span class="chip" onclick="quickAddMed('胺碘酮','150mg 静推后维持','药物')">胺碘酮</span>
       <span class="chip" onclick="quickAddMed('西地兰','0.2-0.4mg 缓慢静推','药物')">西地兰</span>
+      <span class="chip" onclick="quickAddMed('利多卡因','50-100mg 静推','药物')">利多卡因</span>
+      <span class="chip" onclick="quickAddMed('腺苷','6-12mg 快速静推','药物')">腺苷</span>
       <span class="chip" onclick="quickAddMed('异丙肾上腺素','1-4μg/min 静滴','药物')">异丙肾上腺素</span>
+      <span class="chip" onclick="quickAddMed('去氧肾上腺素','50-100μg 静推','药物')">去氧肾上腺素</span>
+      <span class="chip" onclick="quickAddMed('硝普钠','0.5-3μg/kg/min 微量泵入','药物')">硝普钠</span>
+      <span class="chip" onclick="quickAddMed('尼卡地平','2-10mg/h 静滴','药物')">尼卡地平</span>
+      <span class="chip" onclick="quickAddMed('乌拉地尔','25mg 静推','药物')">乌拉地尔</span>
     </div>
     <div class="pe-section-title">呼吸/过敏药物</div>
     <div class="chip-bar" id="med-chip-resp">
       <span class="chip" onclick="quickAddMed('肾上腺素','0.3-0.5mg 肌注（过敏）','药物')">肾上腺素（过敏）</span>
       <span class="chip" onclick="quickAddMed('异丙嗪','25-50mg 肌注','药物')">异丙嗪</span>
+      <span class="chip" onclick="quickAddMed('氯苯那敏','10mg 肌注','药物')">氯苯那敏</span>
       <span class="chip" onclick="quickAddMed('地塞米松','5-10mg 静推/肌注','药物')">地塞米松</span>
+      <span class="chip" onclick="quickAddMed('甲泼尼龙','40-80mg 静推','药物')">甲泼尼龙</span>
       <span class="chip" onclick="quickAddMed('氨茶碱','0.25g 缓慢静推','药物')">氨茶碱</span>
       <span class="chip" onclick="quickAddMed('沙丁胺醇雾化','2.5mg 雾化吸入','药物')">沙丁胺醇雾化</span>
+      <span class="chip" onclick="quickAddMed('异丙托溴铵雾化','0.5mg 雾化吸入','药物')">异丙托溴铵雾化</span>
+      <span class="chip" onclick="quickAddMed('布地奈德雾化','2mg 雾化吸入','药物')">布地奈德雾化</span>
     </div>
-    <div class="pe-section-title">止血/止痛/镇静</div>
-    <div class="chip-bar" id="med-chip-other">
+    <div class="pe-section-title">镇痛/镇静/肌松</div>
+    <div class="chip-bar" id="med-chip-sed">
       <span class="chip" onclick="quickAddMed('吗啡','3-5mg 静推','药物')">吗啡</span>
       <span class="chip" onclick="quickAddMed('芬太尼','50-100μg 静推','药物')">芬太尼</span>
+      <span class="chip" onclick="quickAddMed('酮咯酸','30mg 肌注/静推','药物')">酮咯酸</span>
+      <span class="chip" onclick="quickAddMed('曲马多','50-100mg 肌注/静推','药物')">曲马多</span>
       <span class="chip" onclick="quickAddMed('地西泮','5-10mg 静推','药物')">地西泮</span>
       <span class="chip" onclick="quickAddMed('咪达唑仑','2-5mg 静推','药物')">咪达唑仑</span>
       <span class="chip" onclick="quickAddMed('丙泊酚','1-2mg/kg 静推','药物')">丙泊酚</span>
+      <span class="chip" onclick="quickAddMed('依托咪酯','0.3mg/kg 静推','药物')">依托咪酯</span>
+      <span class="chip" onclick="quickAddMed('右美托咪定','0.5-1μg/kg 静滴','药物')">右美托咪定</span>
+      <span class="chip" onclick="quickAddMed('罗库溴铵','0.6mg/kg 静推','药物')">罗库溴铵</span>
+    </div>
+    <div class="pe-section-title">止血/利尿/其他</div>
+    <div class="chip-bar" id="med-chip-hemo">
+      <span class="chip" onclick="quickAddMed('氨甲环酸','1g 静滴','药物')">氨甲环酸</span>
+      <span class="chip" onclick="quickAddMed('垂体后叶素','20U 静滴','药物')">垂体后叶素</span>
+      <span class="chip" onclick="quickAddMed('维生素K1','10mg 肌注/静推','药物')">维生素K1</span>
       <span class="chip" onclick="quickAddMed('呋塞米','20-40mg 静推','药物')">呋塞米</span>
       <span class="chip" onclick="quickAddMed('甘露醇','125-250mL 快速静滴','药物')">甘露醇</span>
-      <span class="chip" onclick="quickAddMed('氨甲环酸','1g 静滴','药物')">氨甲环酸</span>
       <span class="chip" onclick="quickAddMed('阿托品','0.5mg 静推','药物')">阿托品</span>
       <span class="chip" onclick="quickAddMed('山莨菪碱','10mg 肌注','药物')">山莨菪碱</span>
-      <span class="chip" onclick="quickAddMed('NS 500mL 静滴','开放静脉通路','液体')">NS 500mL</span>
+      <span class="chip" onclick="quickAddMed('昂丹司琼','4-8mg 静推','药物')">昂丹司琼</span>
+      <span class="chip" onclick="quickAddMed('奥美拉唑','40mg 静推','药物')">奥美拉唑</span>
+      <span class="chip" onclick="quickAddMed('纳洛酮','0.4-2mg 静推','药物')">纳洛酮</span>
+      <span class="chip" onclick="quickAddMed('氟马西尼','0.2mg 静推','药物')">氟马西尼</span>
+      <span class="chip" onclick="quickAddMed('葡萄糖酸钙','1-2g 缓慢静推','药物')">葡萄糖酸钙</span>
+      <span class="chip" onclick="quickAddMed('硫酸镁','2.5g 静推','药物')">硫酸镁</span>
+      <span class="chip" onclick="quickAddMed('胰岛素','10U 皮下/静推','药物')">胰岛素</span>
+      <span class="chip" onclick="quickAddMed('低分子肝素','5000U 皮下','药物')">低分子肝素</span>
+    </div>
+    <div class="pe-section-title">液体/电解质</div>
+    <div class="chip-bar" id="med-chip-fluid">
+      <span class="chip" onclick="quickAddMed('NS 500mL','维持静脉通路','液体')">NS 500mL</span>
       <span class="chip" onclick="quickAddMed('乳酸林格氏液','500mL 静滴','液体')">乳酸林格氏液</span>
+      <span class="chip" onclick="quickAddMed('5%GS 500mL','静滴','液体')">5%GS 500mL</span>
+      <span class="chip" onclick="quickAddMed('10%GS 500mL','静滴','液体')">10%GS 500mL</span>
+      <span class="chip" onclick="quickAddMed('5%碳酸氢钠','250mL 静滴','液体')">碳酸氢钠 250mL</span>
+      <span class="chip" onclick="quickAddMed('羟乙基淀粉','500mL 静滴','液体')">羟乙基淀粉</span>
+      <span class="chip" onclick="quickAddMed('琥珀酰明胶','500mL 静滴','液体')">琥珀酰明胶</span>
     </div>
     <textarea id="meas-note-other" rows="2" placeholder="补充其他处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
   </div>
@@ -1249,7 +1285,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card">
     <div class="card-header"><h3>自定义添加药物</h3></div>
     <div class="form-row form-row-4">
-      <div class="form-group"><label>时间点</label><input type="text" id="med-time" placeholder="点击自动填入"></div>
+      <div class="form-group"><label>时间点</label><input type="text" id="med-time" placeholder="例：10:30"></div>
       <div class="form-group"><label>药物名称</label><input type="text" id="med-name" placeholder="例：阿司匹林300mg"></div>
       <div class="form-group"><label>用法/备注</label><input type="text" id="med-detail" placeholder="例：嚼服"></div>
       <div class="form-group"><label>类别</label><select id="med-cat"><option>药物</option><option>液体</option><option>其他</option></select></div>
@@ -1273,45 +1309,63 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="pe-section-title">气道 & 呼吸</div>
     <div class="chip-bar" id="meas-chip-airway">
       <span class="chip" onclick="quickAddMeasure('吸氧','鼻导管/面罩 3-10L/min')">吸氧</span>
+      <span class="chip" onclick="quickAddMeasure('口咽通气管','OPA置入')">口咽通气管</span>
+      <span class="chip" onclick="quickAddMeasure('鼻咽通气管','NPA置入')">鼻咽通气管</span>
+      <span class="chip" onclick="quickAddMeasure('球囊面罩通气','BMV辅助通气')">球囊面罩通气</span>
       <span class="chip" onclick="quickAddMeasure('高流量氧疗','HFNC')">高流量氧疗</span>
       <span class="chip" onclick="quickAddMeasure('无创正压通气','NPPV/CPAP')">无创正压通气</span>
       <span class="chip" onclick="quickAddMeasure('气管插管','术前诱导+机械通气')">气管插管</span>
       <span class="chip" onclick="quickAddMeasure('喉罩置入','应急气道')">喉罩置入</span>
       <span class="chip" onclick="quickAddMeasure('环甲膜穿刺/切开','紧急气道')">环甲膜穿刺</span>
-      <span class="chip" onclick="quickAddMeasure('吸痰','清理气道')">吸痰</span>
+      <span class="chip" onclick="quickAddMeasure('气道异物清除','海姆立克法')">气道异物清除</span>
+      <span class="chip" onclick="quickAddMeasure('吸痰','清理气道分泌物')">吸痰</span>
     </div>
     <textarea id="meas-note-airway" rows="2" placeholder="补充气道/呼吸处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
     <div class="pe-section-title">循环 & 复苏</div>
     <div class="chip-bar" id="meas-chip-cir">
       <span class="chip" onclick="quickAddMeasure('建立静脉通路','大口径留置针')">建立静脉通路</span>
       <span class="chip" onclick="quickAddMeasure('建立骨通路','IO通路')">建立骨通路</span>
+      <span class="chip" onclick="quickAddMeasure('骨髓腔输液','EZ-IO快速输液')">骨髓腔输液</span>
       <span class="chip" onclick="quickAddMeasure('心电监护','连接监护仪')">心电监护</span>
       <span class="chip" onclick="quickAddMeasure('除颤','电击复律')">除颤</span>
       <span class="chip" onclick="quickAddMeasure('心肺复苏','CPR')">心肺复苏(CPR)</span>
       <span class="chip" onclick="quickAddMeasure('体外按压','持续胸外按压')">体外按压</span>
       <span class="chip" onclick="quickAddMeasure('建立中心静脉通路','CVC')">中心静脉通路</span>
+      <span class="chip" onclick="quickAddMeasure('动脉穿刺置管','ABP监测/血气')">动脉穿刺置管</span>
+      <span class="chip" onclick="quickAddMeasure('体外心脏起搏','经皮起搏')">体外起搏</span>
+      <span class="chip" onclick="quickAddMeasure('加压输液泵','快速补液输血')">加压输液泵</span>
     </div>
     <textarea id="meas-note-cir" rows="2" placeholder="补充循环/复苏处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
     <div class="pe-section-title">创伤处理</div>
     <div class="chip-bar" id="meas-chip-trauma">
       <span class="chip" onclick="quickAddMeasure('止血包扎','创面加压包扎')">止血包扎</span>
-      <span class="chip" onclick="quickAddMeasure('加压止血','加压包扎/止血带')">加压止血</span>
+      <span class="chip" onclick="quickAddMeasure('止血带应用','记录上带时间')">止血带应用</span>
+      <span class="chip" onclick="quickAddMeasure('加压止血','加压包扎/填塞')">加压止血</span>
       <span class="chip" onclick="quickAddMeasure('骨折临时固定','夹板/颈托')">骨折临时固定</span>
       <span class="chip" onclick="quickAddMeasure('颈椎固定','颈托固定')">颈椎固定(颈托)</span>
       <span class="chip" onclick="quickAddMeasure('脊柱板固定','铲式担架/脊柱板')">脊柱板固定</span>
+      <span class="chip" onclick="quickAddMeasure('骨盆带固定','骨盆外固定带')">骨盆带固定</span>
       <span class="chip" onclick="quickAddMeasure('清创缝合','急诊清创')">清创缝合</span>
+      <span class="chip" onclick="quickAddMeasure('烧伤创面处理','无菌敷料覆盖')">烧伤创面处理</span>
       <span class="chip" onclick="quickAddMeasure('胸腔闭式引流','创伤性气胸')">胸腔闭式引流</span>
+      <span class="chip" onclick="quickAddMeasure('负压封闭引流','VSD')">负压引流(VSD)</span>
     </div>
     <textarea id="meas-note-trauma" rows="2" placeholder="补充创伤处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
     <div class="pe-section-title">其他常用措施</div>
     <div class="chip-bar" id="meas-chip-other">
       <span class="chip" onclick="quickAddMeasure('导尿','留置导尿管')">导尿</span>
       <span class="chip" onclick="quickAddMeasure('胃肠减压','留置胃管')">胃肠减压(胃管)</span>
+      <span class="chip" onclick="quickAddMeasure('洗胃','急诊洗胃')">洗胃</span>
       <span class="chip" onclick="quickAddMeasure('采血化验','血常规/生化/凝血')">采血化验</span>
+      <span class="chip" onclick="quickAddMeasure('末梢血糖监测','快速血糖')">血糖监测</span>
+      <span class="chip" onclick="quickAddMeasure('动脉血气分析','ABG')">血气分析(ABG)</span>
+      <span class="chip" onclick="quickAddMeasure('18导联心电图','ACS/心律失常')">18导心电图</span>
       <span class="chip" onclick="quickAddMeasure('床旁超声','FAST/肺部超声')">床旁超声(FAST)</span>
       <span class="chip" onclick="quickAddMeasure('建立有创血压监测','ABP')">有创血压监测</span>
       <span class="chip" onclick="quickAddMeasure('保暖','保温毯/加温液体')">保暖</span>
       <span class="chip" onclick="quickAddMeasure('抬高患肢','骨折/包扎')">抬高患肢</span>
+      <span class="chip" onclick="quickAddMeasure('约束带保护性约束','防止非计划拔管')">约束保护</span>
+      <span class="chip" onclick="quickAddMeasure('紧急备皮','术前准备')">备皮</span>
     </div>
   </div>
 
@@ -1319,7 +1373,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <div class="card">
     <div class="card-header"><h3>自定义添加措施</h3></div>
     <div class="form-row form-row-4">
-      <div class="form-group"><label>时间点</label><input type="text" id="meas-time" placeholder="点击自动填入"></div>
+      <div class="form-group"><label>时间点</label><input type="text" id="meas-time" placeholder="例：10:35"></div>
       <div class="form-group"><label>措施名称</label><input type="text" id="meas-name" placeholder="例：气管插管"></div>
       <div class="form-group"><label>详情/备注</label><input type="text" id="meas-detail" placeholder="例：7.5# 深度22cm"></div>
       <div class="form-group"><label>类别</label><select id="meas-cat"><option>气道/呼吸</option><option>循环/复苏</option><option>创伤处理</option><option>其他</option></select></div>
@@ -1364,13 +1418,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <span class="chip" onclick="quickAddTube('静脉通路','18G 外周静脉留置针','通畅')">外周静脉 18G</span>
       <span class="chip" onclick="quickAddTube('静脉通路','20G 外周静脉留置针','通畅')">外周静脉 20G</span>
       <span class="chip" onclick="quickAddTube('中心静脉导管','右颈内静脉 7Fr','通畅')">中心静脉(颈内)</span>
+      <span class="chip" onclick="quickAddTube('中心静脉导管','右锁骨下静脉 7Fr','通畅')">中心静脉(锁骨下)</span>
       <span class="chip" onclick="quickAddTube('中心静脉导管','股静脉 7Fr','通畅')">中心静脉(股静脉)</span>
+      <span class="chip" onclick="quickAddTube('动脉导管','桡动脉 20G','波形好')">桡动脉导管</span>
+      <span class="chip" onclick="quickAddTube('动脉导管','股动脉 20G','波形好')">股动脉导管</span>
       <span class="chip" onclick="quickAddTube('气管插管','7.5# 深度约22cm','气囊压25cmH2O')">气管插管 7.5#</span>
       <span class="chip" onclick="quickAddTube('气管插管','8.0# 深度约24cm','气囊压25cmH2O')">气管插管 8.0#</span>
       <span class="chip" onclick="quickAddTube('胃管','鼻胃管 16Fr','在位通畅')">鼻胃管</span>
+      <span class="chip" onclick="quickAddTube('鼻肠管','螺旋型鼻肠管','营养支持')">鼻肠管(营养)</span>
       <span class="chip" onclick="quickAddTube('导尿管','16Fr 气囊导尿管','尿色清')">导尿管 16Fr</span>
       <span class="chip" onclick="quickAddTube('胸腔引流管','单侧胸腔闭式引流','引流畅')">胸腔引流管</span>
-      <span class="chip" onclick="quickAddTube('动脉导管','桡动脉 20G','波形好')">桡动脉导管</span>
+      <span class="chip" onclick="quickAddTube('腹腔引流管','腹腔引流管','引流畅')">腹腔引流管</span>
+      <span class="chip" onclick="quickAddTube('腰大池引流管','腰大池持续引流','引流畅')">腰大池引流</span>
+      <span class="chip" onclick="quickAddTube('血液透析导管','临时血透管','通畅')">血透导管</span>
+      <span class="chip" onclick="quickAddTube('PICC','经外周中心静脉导管','通畅')">PICC</span>
       <span class="chip" onclick="quickAddTube('— 拔出 —','','')">🗑️ 记录拔管</span>
     </div>
   </div>
@@ -1379,7 +1440,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="card-header"><h3>自定义添加管道</h3></div>
     <div class="form-row form-row-4">
       <div class="form-group"><label>时间点</label><input type="text" id="tube-time" placeholder="例：10:35"></div>
-      <div class="form-group"><label>管道类型</label><select id="tube-type"><option>静脉通路</option><option>中心静脉导管</option><option>动脉导管</option><option>气管插管</option><option>胃管</option><option>导尿管</option><option>胸腔引流管</option><option>其他</option><option>— 拔出 —</option></select></div>
+      <div class="form-group"><label>管道类型</label><select id="tube-type"><option>静脉通路</option><option>中心静脉导管</option><option>动脉导管</option><option>气管插管</option><option>胃管</option><option>鼻肠管</option><option>导尿管</option><option>胸腔引流管</option><option>腹腔引流管</option><option>腰大池引流管</option><option>血液透析导管</option><option>PICC</option><option>其他</option><option>— 拔出 —</option></select></div>
       <div class="form-group"><label>部位/规格</label><input type="text" id="tube-site" placeholder="例：左前臂 18G留置针"></div>
       <div class="form-group"><label>备注</label><input type="text" id="tube-note" placeholder="通畅/固定好/渗出等"></div>
     </div>
@@ -1864,8 +1925,8 @@ function nowTime() {
   return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
 }
 
-// Auto-fill time on focus
-['med-time','meas-time','vital-time','tube-time'].forEach(function(id) {
+// Auto-fill time on focus (vital-time only)
+['vital-time'].forEach(function(id) {
   var el = document.getElementById(id);
   if (el) {
     el.addEventListener('focus', function() {
@@ -1875,8 +1936,7 @@ function nowTime() {
 });
 
 function quickAddMed(name, detail, cat) {
-  var t = nowTime();
-  medRecords.push({ time: t, cat: cat || '药物', name: name, detail: detail || '' });
+  medRecords.push({ time: '', cat: cat || '药物', name: name, detail: detail || '' });
   renderMeds();
 }
 
@@ -1885,7 +1945,7 @@ function addMed() {
   var name = document.getElementById('med-name').value.trim();
   var detail = document.getElementById('med-detail').value.trim();
   var cat = document.getElementById('med-cat').value;
-  if (!t || !name) { alert('请至少填写时间点和药物名称'); return; }
+  if (!name) { alert('请至少填写药物名称'); return; }
   medRecords.push({ time: t, cat: cat, name: name, detail: detail });
   renderMeds();
   document.getElementById('med-time').value = '';
@@ -1902,7 +1962,7 @@ function renderMeds() {
   }
   list.innerHTML = medRecords.map(function(r, i) {
     return '<div class="timeline-item">' +
-      '<span class="time">' + r.time + '</span>' +
+      (r.time ? '<span class="time">' + r.time + '</span>' : '') +
       '<span class="content"><b>[' + r.cat + ']</b> ' +
         '<span contenteditable="true" class="editable-field" data-idx="' + i + '" data-field="name" data-arr="medRecords" onblur="updateField(this)" title="点击编辑药物名称">' + r.name + '</span>' +
         (r.detail ? ' — <span contenteditable="true" class="editable-field" data-idx="' + i + '" data-field="detail" data-arr="medRecords" onblur="updateField(this)" title="点击编辑剂量/用法">' + r.detail + '</span>' : '') +
@@ -1916,8 +1976,7 @@ function renderMeds() {
 var measureRecords = [];
 
 function quickAddMeasure(name, detail, cat) {
-  var t = nowTime();
-  measureRecords.push({ time: t, cat: cat || '其他', name: name, detail: detail || '' });
+  measureRecords.push({ time: '', cat: cat || '其他', name: name, detail: detail || '' });
   renderMeasures();
 }
 
@@ -1926,7 +1985,7 @@ function addMeasure() {
   var name = document.getElementById('meas-name').value.trim();
   var detail = document.getElementById('meas-detail').value.trim();
   var cat = document.getElementById('meas-cat').value;
-  if (!t || !name) { alert('请至少填写时间点和措施名称'); return; }
+  if (!name) { alert('请至少填写措施名称'); return; }
   measureRecords.push({ time: t, cat: cat, name: name, detail: detail });
   renderMeasures();
   document.getElementById('meas-time').value = '';
@@ -1943,7 +2002,7 @@ function renderMeasures() {
   }
   list.innerHTML = measureRecords.map(function(r, i) {
     return '<div class="timeline-item">' +
-      '<span class="time">' + r.time + '</span>' +
+      (r.time ? '<span class="time">' + r.time + '</span>' : '') +
       '<span class="content"><b>[' + r.cat + ']</b> ' +
         '<span contenteditable="true" class="editable-field" data-idx="' + i + '" data-field="name" data-arr="measureRecords" onblur="updateField(this)" title="点击编辑措施名称">' + r.name + '</span>' +
         (r.detail ? ' — <span contenteditable="true" class="editable-field" data-idx="' + i + '" data-field="detail" data-arr="measureRecords" onblur="updateField(this)" title="点击编辑详情">' + r.detail + '</span>' : '') +
@@ -1997,8 +2056,7 @@ function renderVitals() {
 var tubeRecords = [];
 
 function quickAddTube(type, site, note) {
-  var t = nowTime();
-  tubeRecords.push({ time: t, type: type, site: site || '', note: note || '' });
+  tubeRecords.push({ time: '', type: type, site: site || '', note: note || '' });
   renderTubes();
 }
 
@@ -2007,7 +2065,7 @@ function addTube() {
   var ty = document.getElementById('tube-type').value;
   var s = document.getElementById('tube-site').value.trim();
   var n = document.getElementById('tube-note').value.trim();
-  if (!t || !ty) { alert('请至少填写时间点和管道类型'); return; }
+  if (!ty) { alert('请填写管道类型'); return; }
   tubeRecords.push({ time: t, type: ty, site: s, note: n });
   renderTubes();
   document.getElementById('tube-time').value = '';
@@ -2025,7 +2083,7 @@ function renderTubes() {
   list.innerHTML = tubeRecords.map(function(r, i) {
     var isRemove = r.type === '\u2014  \u62D4\u51FA \u2014';
     return '<div class="timeline-item">' +
-      '<span class="time">' + r.time + '</span>' +
+      (r.time ? '<span class="time">' + r.time + '</span>' : '') +
       '<span class="content" style="color:' + (isRemove ? 'var(--danger)' : 'inherit') + '"><b>' + (isRemove ? '\u62D4\u51FA' : '\u7F6E\u5165') + '</b> ' + r.type +
         (r.site ? ' \u2014 <span contenteditable="true" class="editable-field" data-idx="' + i + '" data-field="site" data-arr="tubeRecords" onblur="updateField(this)" title="\u70B9\u51FB\u7F16\u8F91\u90E8\u4F4D/\u89C4\u683C">' + r.site + '</span>' : '') +
         (r.note ? ' (<span contenteditable="true" class="editable-field" data-idx="' + i + '" data-field="note" data-arr="tubeRecords" onblur="updateField(this)" title="\u70B9\u51FB\u7F16\u8F91\u5907\u6CE8">' + r.note + '</span>)' : '') +
@@ -2320,7 +2378,7 @@ function generateHandover() {
     html += '<div class="section-title">药物</div>';
     html += '<table style="font-size:13px;"><tr><th>时间</th><th>名称</th><th>剂量/用法</th></tr>';
     medRecords.forEach(function(r) {
-      html += '<tr><td>' + r.time + '</td><td>' + r.name + '</td><td>' + (r.detail || '') + '</td></tr>';
+      html += '<tr><td>' + (r.time || '--') + '</td><td>' + r.name + '</td><td>' + (r.detail || '') + '</td></tr>';
     });
     html += '</table>';
   }
@@ -2340,14 +2398,14 @@ function generateHandover() {
       html += '<table style="font-size:13px;"><tr><th>时间</th><th>项目</th><th>详情</th></tr>';
       if (hasMeasures) {
         measureRecords.forEach(function(r) {
-          html += '<tr><td>' + r.time + '</td><td>' + r.name + '</td><td>' + (r.detail || '') + '</td></tr>';
+          html += '<tr><td>' + (r.time || '--') + '</td><td>' + r.name + '</td><td>' + (r.detail || '') + '</td></tr>';
         });
       }
       if (hasTubes) {
         tubeRecords.forEach(function(r) {
           var isRemove = r.type === '—  拔出 —';
           var op = isRemove ? '拔除' : '置入';
-          html += '<tr><td>' + r.time + '</td><td>' + op + r.type + '</td><td>' + (r.site||'') + (r.note?' ('+r.note+')':'') + '</td></tr>';
+          html += '<tr><td>' + (r.time || '--') + '</td><td>' + op + r.type + '</td><td>' + (r.site||'') + (r.note?' ('+r.note+')':'') + '</td></tr>';
         });
       }
       html += '</table>';
