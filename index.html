@@ -277,15 +277,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="subtitle">Pre-hospital Assessment & Handover System</div>
   </div>
   <div class="sidebar-nav">
-    <div class="nav-section">患者信息</div>
-    <div class="nav-item active" data-section="patient"><span class="icon">👤</span><span class="nav-text"> 患者基本信息</span><span class="nav-label">患者</span></div>
-    <div class="nav-section">体格检查</div>
-    <div class="nav-item" data-section="physical"><span class="icon">🩺</span><span class="nav-text"> 体格检查</span><span class="nav-label">查体</span></div>
     <div class="nav-section">评估中心</div>
-    <div class="nav-item" data-section="trauma"><span class="icon">🦴</span><span class="nav-text"> 创伤中心</span><span class="nav-label">创伤</span></div>
-    <div class="nav-item" data-section="chestpain"><span class="icon">❤️</span><span class="nav-text"> 胸痛中心</span><span class="nav-label">胸痛</span></div>
+    <div class="nav-item active" data-section="trauma"><span class="icon">🦴</span><span class="nav-text"> 创伤中心</span><span class="nav-label">创伤</span></div>
     <div class="nav-item" data-section="stroke"><span class="icon">🧠</span><span class="nav-text"> 卒中中心</span><span class="nav-label">卒中</span></div>
-    <div class="nav-item" data-section="ugib"><span class="icon">🩸</span><span class="nav-text"> 上消化道出血</span><span class="nav-label">出血</span></div>
     <div class="nav-item" data-section="general"><span class="icon">📋</span><span class="nav-text"> 通用评估工具</span><span class="nav-label">通用</span></div>
     <div class="nav-section">院前处置</div>
     <div class="nav-item" data-section="medication"><span class="icon">💊</span><span class="nav-text"> 急救药物</span><span class="nav-label">药物</span></div>
@@ -309,195 +303,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </div>
 
-<!-- ==================== 患者基本信息 ==================== -->
-<section id="section-patient" class="section active">
-  <div class="page-header"><h2>👤 患者基本信息</h2><span class="meta">*必填</span></div>
-  <div class="card">
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>姓名 *</label><input type="text" id="pt-name" placeholder="患者姓名"></div>
-      <div class="form-group"><label>性别 *</label><select id="pt-gender"><option value="">请选择</option><option>男</option><option>女</option></select></div>
-      <div class="form-group"><label>年龄 *</label><input type="text" id="pt-age" placeholder="如：25岁、约30岁、不详"></div>
-    </div>
-    <div class="form-row form-row-3" style="margin-top:12px">
-      <div class="form-group"><label>就诊号/病历号</label><input type="text" id="pt-mrn" placeholder="MRN"></div>
-      <div class="form-group"><label>联系电话</label><input type="tel" id="pt-phone" placeholder="联系电话"></div>
-      <div class="form-group"><label>到达方式</label><select id="pt-arrival"><option value="">请选择</option><option>120救护车</option><option>自行来院</option><option>转院</option><option>其他</option></select></div>
-    </div>
-    <div class="form-row" style="margin-top:12px">
-      <div class="form-group"><label>主诉</label><input type="text" id="pt-chief" placeholder="主要症状及持续时间"></div>
-    </div>
-    <div class="form-row form-row-2" style="margin-top:12px">
-      <div class="form-group"><label>既往史</label><textarea id="pt-pmh" placeholder="高血压、糖尿病、冠心病、卒中史等"></textarea></div>
-      <div class="form-group"><label>过敏史</label><textarea id="pt-allergy" placeholder="药物、食物过敏史"></textarea></div>
-    </div>
-    <div class="form-row form-row-3" style="margin-top:12px">
-      <div class="form-group"><label>接诊时间</label><input type="datetime-local" id="pt-receive-time"></div>
-      <div class="form-group"><label>接诊医师</label><input type="text" id="pt-doctor" placeholder="接诊医师姓名"></div>
-      <div class="form-group"><label>接诊护士</label><input type="text" id="pt-nurse" placeholder="接诊护士姓名"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== 体格检查 ==================== -->
-<section id="section-physical" class="section">
-  <div class="page-header"><h2>🩺 体格检查</h2><span class="meta">按院前急救指南设计，点击选中有或无</span></div>
-
-  <!-- 生命体征已独立，此处为查体 -->
-  <div class="card">
-    <div class="card-header"><h3>一般情况及意识状态</h3></div>
-    <div class="pe-section-title">神志 & 精神状态</div>
-    <div class="pe-grid" id="pe-consciousness">
-      <div class="pe-item" data-group="consciousness" data-val="清醒" onclick="togglePE(this)">清醒</div>
-      <div class="pe-item" data-group="consciousness" data-val="嗜睡" onclick="togglePE(this)">嗜睡</div>
-      <div class="pe-item" data-group="consciousness" data-val="昏睡" onclick="togglePE(this)">昏睡</div>
-      <div class="pe-item" data-group="consciousness" data-val="昏迷" onclick="togglePE(this)">昏迷</div>
-      <div class="pe-item" data-group="consciousness" data-val="烦躁不安" onclick="togglePE(this)">烦躁不安</div>
-      <div class="pe-item" data-group="consciousness" data-val="谵妄" onclick="togglePE(this)">谵妄</div>
-    </div>
-    <div class="pe-section-title">瞳孔</div>
-    <div class="form-row form-row-4" style="margin-top:6px;">
-      <div class="form-group"><label>左瞳大小 (mm)</label><input type="text" id="pe-pupil-l" placeholder="例：3"></div>
-      <div class="form-group"><label>右瞳大小 (mm)</label><input type="text" id="pe-pupil-r" placeholder="例：3"></div>
-      <div class="form-group"><label>对光反射（左）</label><select id="pe-pupil-lr"><option value="">请选择</option><option>灵敏</option><option>迟钝</option><option>消失</option></select></div>
-      <div class="form-group"><label>对光反射（右）</label><select id="pe-pupil-rr"><option value="">请选择</option><option>灵敏</option><option>迟钝</option><option>消失</option></select></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><h3>头面部及颈部</h3></div>
-    <div class="pe-section-title">头部</div>
-    <div class="pe-grid" id="pe-head">
-      <div class="pe-item" data-group="head" data-val="头皮血肿" onclick="togglePE(this)">头皮血肿</div>
-      <div class="pe-item" data-group="head" data-val="头皮裂伤" onclick="togglePE(this)">头皮裂伤</div>
-      <div class="pe-item" data-group="head" data-val="耳鼻流血/液" onclick="togglePE(this)">耳鼻流血/液（脑脊液漏？）</div>
-      <div class="pe-item" data-group="head" data-val="眶周瘀斑（熊猫眼）" onclick="togglePE(this)">眶周瘀斑（熊猫眼）</div>
-      <div class="pe-item" data-group="head" data-val="乳突区瘀斑（Battle征）" onclick="togglePE(this)">乳突区瘀斑（Battle征）</div>
-    </div>
-    <div class="pe-section-title">面部</div>
-    <div class="pe-grid" id="pe-face">
-      <div class="pe-item" data-group="face" data-val="面部畸形" onclick="togglePE(this)">面部畸形</div>
-      <div class="pe-item" data-group="face" data-val="颌面部裂伤" onclick="togglePE(this)">颌面部裂伤</div>
-      <div class="pe-item" data-group="face" data-val="张口受限" onclick="togglePE(this)">张口受限</div>
-    </div>
-    <div class="pe-section-title">颈部</div>
-    <div class="pe-grid" id="pe-neck">
-      <div class="pe-item" data-group="neck" data-val="颈强直" onclick="togglePE(this)">颈强直</div>
-      <div class="pe-item" data-group="neck" data-val="颈动脉搏动正常" onclick="togglePE(this)">颈动脉搏动正常</div>
-      <div class="pe-item" data-group="neck" data-val="颈静脉怒张" onclick="togglePE(this)">颈静脉怒张</div>
-      <div class="pe-item" data-group="neck" data-val="气管居中" onclick="togglePE(this)">气管居中</div>
-      <div class="pe-item" data-group="neck" data-val="气管偏移" onclick="togglePE(this)">气管偏移</div>
-      <div class="pe-item" data-group="neck" data-val="颈椎压痛/活动受限" onclick="togglePE(this)">颈椎压痛/活动受限</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><h3>胸部及心肺</h3></div>
-    <div class="pe-section-title">胸部视诊 & 触诊</div>
-    <div class="pe-grid" id="pe-chest">
-      <div class="pe-item" data-group="chest" data-val="胸壁挫伤/瘀斑" onclick="togglePE(this)">胸壁挫伤/瘀斑</div>
-      <div class="pe-item" data-group="chest" data-val="胸廓畸形" onclick="togglePE(this)">胸廓畸形</div>
-      <div class="pe-item" data-group="chest" data-val="胸骨压痛" onclick="togglePE(this)">胸骨压痛</div>
-      <div class="pe-item" data-group="chest" data-val="肋骨压痛" onclick="togglePE(this)">肋骨压痛</div>
-      <div class="pe-item" data-group="chest" data-val="皮下气肿" onclick="togglePE(this)">皮下气肿</div>
-    </div>
-    <div class="pe-section-title">呼吸</div>
-    <div class="pe-grid" id="pe-breath">
-      <div class="pe-item" data-group="breath" data-val="呼吸急促" onclick="togglePE(this)">呼吸急促</div>
-      <div class="pe-item" data-group="breath" data-val="呼吸缓慢" onclick="togglePE(this)">呼吸缓慢</div>
-      <div class="pe-item" data-group="breath" data-val="呼吸节律不齐" onclick="togglePE(this)">呼吸节律不齐</div>
-      <div class="pe-item" data-group="breath" data-val="三凹征阳性" onclick="togglePE(this)">三凹征阳性</div>
-      <div class="pe-item" data-group="breath" data-val="辅助呼吸肌参与" onclick="togglePE(this)">辅助呼吸肌参与</div>
-    </div>
-    <div class="pe-section-title">心肺听诊</div>
-    <div class="pe-grid" id="pe-auscultation">
-      <div class="pe-item" data-group="auscultation" data-val="双肺呼吸音清" onclick="togglePE(this)">双肺呼吸音清</div>
-      <div class="pe-item" data-group="auscultation" data-val="双肺呼吸音粗" onclick="togglePE(this)">双肺呼吸音粗</div>
-      <div class="pe-item" data-group="auscultation" data-val="湿啰音" onclick="togglePE(this)">湿啰音</div>
-      <div class="pe-item" data-group="auscultation" data-val="干啰音/哮鸣音" onclick="togglePE(this)">干啰音/哮鸣音</div>
-      <div class="pe-item" data-group="auscultation" data-val="呼吸音消失" onclick="togglePE(this)">呼吸音消失</div>
-      <div class="pe-item" data-group="auscultation" data-val="心音有力" onclick="togglePE(this)">心音有力</div>
-      <div class="pe-item" data-group="auscultation" data-val="心音低钝" onclick="togglePE(this)">心音低钝</div>
-      <div class="pe-item" data-group="auscultation" data-val="心律齐" onclick="togglePE(this)">心律齐</div>
-      <div class="pe-item" data-group="auscultation" data-val="心律不齐" onclick="togglePE(this)">心律不齐</div>
-      <div class="pe-item" data-group="auscultation" data-val="病理性杂音" onclick="togglePE(this)">病理性杂音</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><h3>腹部</h3></div>
-    <div class="pe-section-title">腹部视诊 & 触诊</div>
-    <div class="pe-grid" id="pe-abdomen">
-      <div class="pe-item" data-group="abdomen" data-val="腹部膨隆" onclick="togglePE(this)">腹部膨隆</div>
-      <div class="pe-item" data-group="abdomen" data-val="腹部平坦" onclick="togglePE(this)">腹部平坦</div>
-      <div class="pe-item" data-group="abdomen" data-val="腹肌紧张" onclick="togglePE(this)">腹肌紧张</div>
-      <div class="pe-item" data-group="abdomen" data-val="压痛" onclick="togglePE(this)">压痛</div>
-      <div class="pe-item" data-group="abdomen" data-val="反跳痛" onclick="togglePE(this)">反跳痛</div>
-      <div class="pe-item" data-group="abdomen" data-val="移动性浊音阳性" onclick="togglePE(this)">移动性浊音阳性</div>
-      <div class="pe-item" data-group="abdomen" data-val="肠鸣音正常" onclick="togglePE(this)">肠鸣音正常</div>
-      <div class="pe-item" data-group="abdomen" data-val="肠鸣音亢进" onclick="togglePE(this)">肠鸣音亢进</div>
-      <div class="pe-item" data-group="abdomen" data-val="肠鸣音消失" onclick="togglePE(this)">肠鸣音消失</div>
-      <div class="pe-item" data-group="abdomen" data-val="肝区叩击痛" onclick="togglePE(this)">肝区叩击痛</div>
-    </div>
-    <div class="pe-section-title">直肠指检（必要时）</div>
-    <div class="pe-grid" id="pe-dre">
-      <div class="pe-item" data-group="dre" data-val="未查" onclick="togglePE(this)">未查</div>
-      <div class="pe-item" data-group="dre" data-val="直肠指检阴性" onclick="togglePE(this)">直肠指检阴性</div>
-      <div class="pe-item" data-group="dre" data-val="指套染血" onclick="togglePE(this)">指套染血</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><h3>四肢、脊柱及神经系统</h3></div>
-    <div class="pe-section-title">四肢 & 骨盆</div>
-    <div class="pe-grid" id="pe-limb">
-      <div class="pe-item" data-group="limb" data-val="四肢活动正常" onclick="togglePE(this)">四肢活动正常</div>
-      <div class="pe-item" data-group="limb" data-val="肢体瘫痪" onclick="togglePE(this)">肢体瘫痪</div>
-      <div class="pe-item" data-group="limb" data-val="肢体骨折畸形" onclick="togglePE(this)">肢体骨折畸形</div>
-      <div class="pe-item" data-group="limb" data-val="骨盆挤压痛" onclick="togglePE(this)">骨盆挤压痛</div>
-      <div class="pe-item" data-group="limb" data-val="肢端温暖" onclick="togglePE(this)">肢端温暖</div>
-      <div class="pe-item" data-group="limb" data-val="肢端湿冷" onclick="togglePE(this)">肢端湿冷</div>
-      <div class="pe-item" data-group="limb" data-val="足背动脉搏动存在" onclick="togglePE(this)">足背动脉搏动存在</div>
-      <div class="pe-item" data-group="limb" data-val="足背动脉搏动减弱/消失" onclick="togglePE(this)">足背动脉搏动减弱/消失</div>
-    </div>
-    <div class="pe-section-title">脊柱</div>
-    <div class="pe-grid" id="pe-spine">
-      <div class="pe-item" data-group="spine" data-val="脊柱压痛" onclick="togglePE(this)">脊柱压痛</div>
-      <div class="pe-item" data-group="spine" data-val="脊柱畸形" onclick="togglePE(this)">脊柱畸形</div>
-      <div class="pe-item" data-group="spine" data-val="脊柱活动正常" onclick="togglePE(this)">脊柱活动正常</div>
-    </div>
-    <div class="pe-section-title">神经系统</div>
-    <div class="pe-grid" id="pe-neuro">
-      <div class="pe-item" data-group="neuro" data-val="双侧肌力对称" onclick="togglePE(this)">双侧肌力对称</div>
-      <div class="pe-item" data-group="neuro" data-val="左侧肌力下降" onclick="togglePE(this)">左侧肌力下降</div>
-      <div class="pe-item" data-group="neuro" data-val="右侧肌力下降" onclick="togglePE(this)">右侧肌力下降</div>
-      <div class="pe-item" data-group="neuro" data-val="感觉异常" onclick="togglePE(this)">感觉异常</div>
-      <div class="pe-item" data-group="neuro" data-val="巴宾斯基征阳性" onclick="togglePE(this)">巴宾斯基征阳性</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><h3>皮肤及黏膜</h3></div>
-    <div class="pe-grid" id="pe-skin">
-      <div class="pe-item" data-group="skin" data-val="面色正常" onclick="togglePE(this)">面色正常</div>
-      <div class="pe-item" data-group="skin" data-val="面色苍白" onclick="togglePE(this)">面色苍白</div>
-      <div class="pe-item" data-group="skin" data-val="面色发绀" onclick="togglePE(this)">面色发绀</div>
-      <div class="pe-item" data-group="skin" data-val="面色潮红" onclick="togglePE(this)">面色潮红</div>
-      <div class="pe-item" data-group="skin" data-val="皮肤湿冷" onclick="togglePE(this)">皮肤湿冷</div>
-      <div class="pe-item" data-group="skin" data-val="皮肤花斑" onclick="togglePE(this)">皮肤花斑</div>
-      <div class="pe-item" data-group="skin" data-val="皮肤破损/裂伤" onclick="togglePE(this)">皮肤破损/裂伤</div>
-      <div class="pe-item" data-group="skin" data-val="瘀点/瘀斑" onclick="togglePE(this)">瘀点/瘀斑</div>
-      <div class="pe-item" data-group="skin" data-val="黏膜苍白" onclick="togglePE(this)">黏膜苍白</div>
-      <div class="pe-item" data-group="skin" data-val="巩膜黄染" onclick="togglePE(this)">巩膜黄染</div>
-    </div>
-    <div class="form-group" style="margin-top:12px;">
-      <label>查体其他备注（可自由填写）</label>
-      <textarea id="pe-remark" placeholder="补充其他查体发现..."></textarea>
-    </div>
-  </div>
-</section>
 
 <!-- ==================== 创伤中心 (ATMIST) ==================== -->
-<section id="section-trauma" class="section">
+<section id="section-trauma" class="section active">
   <div class="page-header" style="position:relative;">
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <div style="background:linear-gradient(135deg,#d93025,#c5221f);color:#fff;padding:4px 14px;border-radius:20px;font-weight:700;font-size:14px;animation:pulse-alert 2s infinite;display:flex;align-items:center;gap:4px;">
@@ -780,175 +588,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </section>
 
-<!-- ==================== 胸痛中心 ==================== -->
-<section id="section-chestpain" class="section">
-  <div class="page-header"><h2>❤️ 胸痛中心评估 · CHEST PAIN 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">C→H→E→S→T→P→A→I→N 逐项填写</span></div>
-
-  <!-- C: 胸痛特征 -->
-  <div class="card" style="border-left:4px solid var(--danger);">
-    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">C</span> 胸痛特征 (Chest Pain)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setChestpainCx('压榨样/压迫感')">🔴 压榨样</span>
-      <span class="chip" onclick="setChestpainCx('针刺样/锐痛')">📌 针刺样</span>
-      <span class="chip" onclick="setChestpainCx('烧灼感')">🔥 烧灼感</span>
-      <span class="chip" onclick="setChestpainCx('撕裂样')">💥 撕裂样</span>
-      <span class="chip" onclick="setChestpainCx('闷痛/不适')">😤 闷痛</span>
-    </div>
-    <div class="form-row form-row-2">
-      <div class="form-group"><label>疼痛部位</label><input type="text" id="cp-location" placeholder="如：胸骨后、左前胸、上腹部"></div>
-      <div class="form-group"><label>放射部位</label><input type="text" id="cp-radiation" placeholder="如：左肩/臂、下颌、后背"></div>
-    </div>
-    <div class="form-group"><label>胸痛特征描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="cp-character" rows="2" placeholder="描述胸痛性质、部位、放射..."></textarea>
-    </div>
-  </div>
-
-  <!-- H: 病史与危险因素 -->
-  <div class="card" style="border-left:4px solid var(--warning);">
-    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">H</span> 病史与危险因素 (History)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setChestpainHx('高血压')">💓 高血压</span>
-      <span class="chip" onclick="setChestpainHx('糖尿病')">🍬 糖尿病</span>
-      <span class="chip" onclick="setChestpainHx('高脂血症')">🧈 高脂血症</span>
-      <span class="chip" onclick="setChestpainHx('吸烟')">🚬 吸烟</span>
-      <span class="chip" onclick="setChestpainHx('冠心病家族史')">👨‍👩‍👧 家族史</span>
-      <span class="chip" onclick="setChestpainHx('既往心梗')">💔 既往心梗</span>
-      <span class="chip" onclick="setChestpainHx('PCI术后')">🫀 PCI术后</span>
-      <span class="chip" onclick="setChestpainHx('CABG术后')">🔪 CABG术后</span>
-    </div>
-    <div class="form-group"><label>病史/危险因素描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="cp-history" rows="2" placeholder="描述既往史、危险因素..."></textarea>
-    </div>
-  </div>
-
-  <!-- E: ECG发现 -->
-  <div class="card" style="border-left:4px solid var(--primary);">
-    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> ECG发现 (ECG)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setChestpainEcg('ST段抬高（前壁）')">📈 ST抬高-前壁</span>
-      <span class="chip" onclick="setChestpainEcg('ST段抬高（下壁）')">📈 ST抬高-下壁</span>
-      <span class="chip" onclick="setChestpainEcg('ST段抬高（侧壁）')">📈 ST抬高-侧壁</span>
-      <span class="chip" onclick="setChestpainEcg('ST段压低')">📉 ST压低</span>
-      <span class="chip" onclick="setChestpainEcg('T波倒置')">↕️ T波倒置</span>
-      <span class="chip" onclick="setChestpainEcg('新发LBBB')">🔀 新发LBBB</span>
-      <span class="chip" onclick="setChestpainEcg('正常/无特殊')">✅ 正常</span>
-    </div>
-    <div class="form-group"><label>ECG描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="cp-ecg" rows="2" placeholder="描述心电图发现..."></textarea>
-    </div>
-  </div>
-
-  <!-- S: 伴随症状与体征 -->
-  <div class="card" style="border-left:4px solid var(--success);">
-    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">S</span> 伴随症状与体征 (Symptoms)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setChestpainSx('呼吸困难')">🫁 呼吸困难</span>
-      <span class="chip" onclick="setChestpainSx('大汗淋漓')">💧 大汗</span>
-      <span class="chip" onclick="setChestpainSx('恶心/呕吐')">🤢 恶心/呕吐</span>
-      <span class="chip" onclick="setChestpainSx('心悸')">💗 心悸</span>
-      <span class="chip" onclick="setChestpainSx('晕厥/黑矇')">😵 晕厥</span>
-      <span class="chip" onclick="setChestpainSx('双肺湿啰音')">🫧 湿啰音</span>
-      <span class="chip" onclick="setChestpainSx('颈静脉怒张')">🩸 颈静脉怒张</span>
-    </div>
-    <div class="form-group"><label>伴随症状描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="cp-symptoms" rows="2" placeholder="描述伴随症状..."></textarea>
-    </div>
-  </div>
-
-  <!-- T: 时间 -->
-  <div class="card" style="border-left:4px solid #17a2b8;">
-    <div class="card-header"><h3><span style="background:#17a2b8;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">T</span> 时间节点 (Timing)</h3></div>
-    <div class="form-row form-row-2">
-      <div class="form-group"><label>胸痛发作时间 <span style="color:var(--danger);">*</span></label><input type="datetime-local" id="cp-onset-time"></div>
-      <div class="form-group"><label>首次医疗接触时间</label><input type="datetime-local" id="cp-fmc-time"></div>
-    </div>
-  </div>
-
-  <!-- P: 院前处置 -->
-  <div class="card" style="border-left:4px solid #e67e22;">
-    <div class="card-header"><h3><span style="background:#e67e22;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">P</span> 院前处置 (Pre-hospital Rx)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setChestpainRx('阿司匹林300mg嚼服')">💊 阿司匹林300mg</span>
-      <span class="chip" onclick="setChestpainRx('替格瑞洛180mg口服')">💊 替格瑞洛180mg</span>
-      <span class="chip" onclick="setChestpainRx('硝酸甘油舌下含服')">💊 硝酸甘油</span>
-      <span class="chip" onclick="setChestpainRx('吗啡镇痛')">💉 吗啡</span>
-      <span class="chip" onclick="setChestpainRx('吸氧')">🫁 吸氧</span>
-      <span class="chip" onclick="setChestpainRx('肝素抗凝')">💉 肝素</span>
-    </div>
-    <div class="form-group"><label>院前处置描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="cp-treatment" rows="2" placeholder="描述院前已给予的药物和措施..."></textarea>
-    </div>
-  </div>
-
-  <!-- A: 评估量表 -->
-  <div class="card" style="border-left:4px solid #6c5ce7;">
-    <div class="card-header"><h3><span style="background:#6c5ce7;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">A</span> 评估量表 (Assessment Scores)</h3></div>
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-      <!-- GRACE -->
-      <div id="grace-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GRACE 评分</strong><span class="score-badge score-low" id="grace-score-badge">--</span><span id="grace-total" style="display:none;">--</span></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="grace-age" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">&lt;30</option><option value="8">30-39</option><option value="25">40-49</option><option value="41">50-59</option><option value="58">60-69</option><option value="75">70-79</option><option value="91">80-89</option><option value="100">≥90</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>心率</label><select id="grace-hr" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">&lt;50</option><option value="3">50-69</option><option value="9">70-89</option><option value="15">90-109</option><option value="24">110-149</option><option value="38">150-199</option><option value="46">≥200</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>SBP</label><select id="grace-sbp" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="58">&lt;80</option><option value="53">80-99</option><option value="43">100-119</option><option value="34">120-139</option><option value="24">140-159</option><option value="10">160-199</option><option value="0">≥200</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>肌酐</label><select id="grace-cr" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="1">0-0.39</option><option value="4">0.4-0.79</option><option value="7">0.8-1.19</option><option value="10">1.2-1.59</option><option value="13">1.6-1.99</option><option value="21">2.0-3.99</option><option value="28">≥4.0</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>Killip</label><select id="grace-killip" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">I</option><option value="20">II</option><option value="39">III</option><option value="59">IV</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>心脏骤停</label><select id="grace-arrest" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">无</option><option value="39">有</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>ST偏移</label><select id="grace-st" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">无</option><option value="28">有</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>心肌酶↑</label><select id="grace-enzyme" onchange="calcGRACE()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="14">是</option></select></div>
-        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">≤108低危 | 109-140中危 | &gt;140高危</div>
-      </div>
-      <!-- TIMI -->
-      <div id="timi-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">TIMI 评分</strong><span class="score-badge score-low" id="timi-score-badge">--</span><span id="timi-total" style="display:none;">--</span></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄≥65</label><select id="timi-age" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>≥3个CAD危险因素</label><select id="timi-risk" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>已知CAD≥50%</label><select id="timi-cad" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>7天用阿司匹林</label><select id="timi-asa" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>严重心绞痛24h≥2次</label><select id="timi-angina" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>ST偏移≥0.5mm</label><select id="timi-st" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>心肌标志物↑</label><select id="timi-marker" onchange="calcTIMI()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">否</option><option value="1">是</option></select></div>
-        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0-2低危 | 3-4中危 | 5-7高危</div>
-      </div>
-      <!-- HEART -->
-      <div id="heart-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">HEART 评分</strong><span class="score-badge score-low" id="heart-score-badge">--</span><span id="heart-total" style="display:none;">--</span></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>病史</label><select id="heart-hist" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-非特异</option><option value="1">1-混合型</option><option value="2">2-典型心绞痛</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>ECG</label><select id="heart-ecg" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-正常</option><option value="1">1-非特异</option><option value="2">2-ST偏移</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="heart-age" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-&lt;45</option><option value="1">1-45-65</option><option value="2">2-&gt;65</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>危险因素</label><select id="heart-risk" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-无</option><option value="1">1-1~2项</option><option value="2">2-≥3项</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>肌钙蛋白</label><select id="heart-trop" onchange="calcHEART()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0-正常</option><option value="1">1-1~3倍</option><option value="2">2-&gt;3倍</option></select></div>
-        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0-3低危 | 4-6中危 | 7-10高危</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- I: 初步印象 -->
-  <div class="card" style="border-left:4px solid var(--danger);">
-    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">I</span> 初步印象 (Impression)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setChestpainImp('STEMI（前壁）')">🔴 STEMI-前壁</span>
-      <span class="chip" onclick="setChestpainImp('STEMI（下壁）')">🔴 STEMI-下壁</span>
-      <span class="chip" onclick="setChestpainImp('STEMI（侧壁/后壁）')">🔴 STEMI-侧/后壁</span>
-      <span class="chip" onclick="setChestpainImp('NSTEMI')">🟡 NSTEMI</span>
-      <span class="chip" onclick="setChestpainImp('不稳定性心绞痛')">🟢 UA</span>
-      <span class="chip" onclick="setChestpainImp('主动脉夹层待排')">⚠️ 夹层待排</span>
-      <span class="chip" onclick="setChestpainImp('肺栓塞待排')">⚠️ PE待排</span>
-    </div>
-    <div class="form-group"><label>初步印象（可点击上方快速选择或自由输入）</label>
-      <textarea id="cp-impression" rows="2" placeholder="初步诊断印象..."></textarea>
-    </div>
-  </div>
-
-  <!-- N: 备注 -->
-  <div class="card" style="border-left:4px solid #6c757d;">
-    <div class="card-header"><h3><span style="background:#6c757d;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">N</span> 备注与下一步 (Notes)</h3></div>
-    <div class="form-group">
-      <textarea id="cp-notes" rows="2" placeholder="补充说明、特殊注意事项、下一步计划..."></textarea>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== 卒中中心 ==================== -->
+<!-- ====================\ 卒中中心\ ====================\ \-\->
 <section id="section-stroke" class="section">
   <div class="page-header"><h2>🧠 卒中中心评估 · STROKE 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">S→T→R→O→K→E 逐项填写</span></div>
 
@@ -1028,7 +668,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     </div>
     <div class="form-group" style="margin-top:4px;">
       <label>瞳孔检查</label>
-      <input type="text" id="stroke-pupil" placeholder="如：双侧瞳孔等大等圆、对光反射灵敏">
+      <select id="stroke-pupil">
+        <option value="">-- 请选择 --</option>
+        <option>双侧瞳孔等大等圆、对光反射灵敏</option>
+        <option>双侧瞳孔等大等圆、对光反射迟钝</option>
+        <option>双侧瞳孔不等大</option>
+        <option>双侧瞳孔散大固定</option>
+        <option>双侧瞳孔缩小</option>
+        <option>左侧瞳孔散大</option>
+        <option>右侧瞳孔散大</option>
+      </select>
     </div>
     <div class="form-group" style="margin-top:4px;">
       <label>查体备注</label>
@@ -1126,107 +775,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </section>
 
-<!-- ==================== 上消化道出血中心 ==================== -->
-<section id="section-ugib" class="section">
-  <div class="page-header"><h2>🩸 上消化道出血中心 · BLEED 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">B→L→E→E→D 逐项填写</span></div>
-
-  <!-- B: 出血表现 -->
-  <div class="card" style="border-left:4px solid var(--danger);">
-    <div class="card-header"><h3><span style="background:var(--danger);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">B</span> 出血表现 (Bleeding)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setBleedB('呕鲜血')">🩸 呕鲜血</span>
-      <span class="chip" onclick="setBleedB('呕咖啡渣样物')">☕ 咖啡渣样</span>
-      <span class="chip" onclick="setBleedB('黑便')">⬛ 黑便</span>
-      <span class="chip" onclick="setBleedB('暗红色血便')">🔴 暗红血便</span>
-      <span class="chip" onclick="setBleedB('鲜血便')">🩸 鲜血便</span>
-      <span class="chip" onclick="setBleedB('休克表现')">⚠️ 休克表现</span>
-    </div>
-    <div class="form-row form-row-2">
-      <div class="form-group"><label>出血起始时间</label><input type="datetime-local" id="bleed-onset"></div>
-      <div class="form-group"><label>估计出血量（mL）</label><input type="text" id="bleed-volume" placeholder="如：500mL、不详"></div>
-    </div>
-    <div class="form-group"><label>出血表现描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="bleed-presentation" rows="2" placeholder="描述出血表现..."></textarea>
-    </div>
-  </div>
-
-  <!-- L: 实验室指标 -->
-  <div class="card" style="border-left:4px solid var(--primary);">
-    <div class="card-header"><h3><span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">L</span> 实验室指标 (Labs)</h3></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label>Hb (g/L)</label><input type="text" id="bleed-hb" placeholder="如：85"></div>
-      <div class="form-group"><label>BUN (mmol/L)</label><input type="text" id="bleed-bun" placeholder="如：12.5"></div>
-      <div class="form-group"><label>INR</label><input type="text" id="bleed-inr" placeholder="如：1.2"></div>
-      <div class="form-group"><label>血小板 (×10⁹/L)</label><input type="text" id="bleed-plt" placeholder="如：150"></div>
-    </div>
-  </div>
-
-  <!-- E: 病因/诱因 -->
-  <div class="card" style="border-left:4px solid var(--warning);">
-    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 病因/诱因 (Etiology)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setBleedE('已知食管静脉曲张')">🟣 静脉曲张</span>
-      <span class="chip" onclick="setBleedE('消化性溃疡病史')">🩹 溃疡病史</span>
-      <span class="chip" onclick="setBleedE('服用NSAIDs/阿司匹林')">💊 NSAIDs</span>
-      <span class="chip" onclick="setBleedE('服用抗凝药')">💊 抗凝药</span>
-      <span class="chip" onclick="setBleedE('饮酒史')">🍺 饮酒史</span>
-      <span class="chip" onclick="setBleedE('肝硬化病史')">🫁 肝硬化</span>
-      <span class="chip" onclick="setBleedE('近期应激/手术')">🏥 应激/手术</span>
-      <span class="chip" onclick="setBleedE('Mallory-Weiss综合征')">🤮 Mallory-Weiss</span>
-    </div>
-    <div class="form-group"><label>病因/诱因描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="bleed-etiology" rows="2" placeholder="描述可能的病因和诱因..."></textarea>
-    </div>
-  </div>
-
-  <!-- E: 体格检查 -->
-  <div class="card" style="border-left:4px solid var(--success);">
-    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">E</span> 体格检查 (Examination)</h3></div>
-    <div class="chip-bar" style="margin-bottom:8px;">
-      <span class="chip" onclick="setBleedEx('体位性低血压')">📉 体位性低血压</span>
-      <span class="chip" onclick="setBleedEx('腹部压痛')">🤚 腹部压痛</span>
-      <span class="chip" onclick="setBleedEx('腹水征')">🫧 腹水征</span>
-      <span class="chip" onclick="setBleedEx('肝性脑病征')">🧠 肝性脑病</span>
-      <span class="chip" onclick="setBleedEx('皮肤瘀斑/黄疸')">🟡 瘀斑/黄疸</span>
-      <span class="chip" onclick="setBleedEx('毛细血管再充盈延迟')">⏱️ CRT延迟</span>
-    </div>
-    <div class="form-group"><label>体格检查描述（可点击上方快速选择或自由输入）</label>
-      <textarea id="bleed-exam" rows="2" placeholder="描述体格检查发现..."></textarea>
-    </div>
-  </div>
-
-  <!-- D: 决策评分 -->
-  <div class="card" style="border-left:4px solid #6c5ce7;">
-    <div class="card-header"><h3><span style="background:#6c5ce7;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">D</span> 决策评分 (Decision Scores)</h3></div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <!-- GBS -->
-      <div id="gbs-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">GBS Glasgow-Blatchford 评分</strong><span class="score-badge score-low" id="gbs-score-badge">--</span><span id="gbs-total" style="display:none;">--</span></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>BUN</label><select id="gbs-bun" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: &lt;6.5</option><option value="2">2: 6.5-7.9</option><option value="3">3: 8.0-9.9</option><option value="4">4: 10.0-24.9</option><option value="6">6: ≥25.0</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>Hb 男</label><select id="gbs-hb" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: ≥130</option><option value="1">1: 120-129</option><option value="3">3: 100-119</option><option value="6">6: &lt;100</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>SBP</label><select id="gbs-sbp" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: ≥110</option><option value="1">1: 100-109</option><option value="2">2: 90-99</option><option value="3">3: &lt;90</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>心率≥100</label><select id="gbs-hr" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 否</option><option value="1">1: 是</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>黑便</label><select id="gbs-melena" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="1">1: 有</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>晕厥</label><select id="gbs-syncope" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>肝脏疾病</label><select id="gbs-liver" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>心力衰竭</label><select id="gbs-hf" onchange="calcGBS()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 有</option></select></div>
-        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0=低危（可门诊）| ≥1=需干预（0-23）</div>
-      </div>
-      <!-- Rockall -->
-      <div id="rockall-card" style="border:1px solid var(--border); border-radius:var(--radius); padding:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong style="font-size:13px;">Rockall 风险评分</strong><span class="score-badge score-low" id="rockall-score-badge">--</span><span id="rockall-total" style="display:none;">--</span></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>年龄</label><select id="rockall-age" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: &lt;60</option><option value="1">1: 60-79</option><option value="2">2: ≥80</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>休克</label><select id="rockall-shock" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="1">1: 心动过速</option><option value="2">2: 低血压</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>合并症</label><select id="rockall-comorb" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 心衰/IHD</option><option value="3">3: 肾衰/肝衰/转移癌</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>内镜诊断</label><select id="rockall-dx" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: MW/无病变</option><option value="1">1: 其他</option><option value="2">2: 恶性肿瘤</option></select></div>
-        <div class="form-group" style="margin:0 0 6px 0;"><label>出血征象</label><select id="rockall-stigmata" onchange="calcRockall()" style="font-size:11px;padding:4px;"><option value="">--</option><option value="0">0: 无/暗斑</option><option value="2">2: 活动性/血管显露</option></select></div>
-        <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">0-2低危 | 3-4中危 | ≥5高危（0-11）</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== 通用评估工具 ==================== -->
+<!-- ====================\ 通用评估工具\ ====================\ \-\->
 <section id="section-general" class="section">
   <div class="page-header"><h2>📋 通用评估工具</h2></div>
   <div class="card" id="news-card">
@@ -1721,7 +1270,6 @@ function calcGRACE() {
   var score = age + hr + sbp + cr + killip + arrest + st + enzyme;
   var anySet = document.getElementById('grace-age').value!=='' || document.getElementById('grace-killip').value!=='';
 
-  document.getElementById('grace-total').textContent = anySet ? score : '--';
   var badge = document.getElementById('grace-score-badge');
   if (anySet) {
     badge.textContent = score;
@@ -1740,7 +1288,6 @@ function calcTIMI() {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
-  document.getElementById('timi-total').textContent = allEmpty ? '--' : total;
   var badge = document.getElementById('timi-score-badge');
   if (!allEmpty) {
     badge.textContent = total;
@@ -1756,7 +1303,6 @@ function calcHEART() {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
-  document.getElementById('heart-total').textContent = allEmpty ? '--' : total;
   var badge = document.getElementById('heart-score-badge');
   if (!allEmpty) {
     badge.textContent = total;
@@ -1804,7 +1350,6 @@ function calcGBS() {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
-  document.getElementById('gbs-total').textContent = allEmpty ? '--' : total;
   var badge = document.getElementById('gbs-score-badge');
   if (!allEmpty) {
     badge.textContent = total;
@@ -1820,7 +1365,6 @@ function calcRockall() {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
-  document.getElementById('rockall-total').textContent = allEmpty ? '--' : total;
   var badge = document.getElementById('rockall-score-badge');
   if (!allEmpty) {
     badge.textContent = total;
@@ -2180,18 +1724,6 @@ function renderTubes() {
 /* ==================== Handover Generation ==================== */
 function generateHandover() {
   try {
-  var name = document.getElementById('pt-name').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var gender = document.getElementById('pt-gender').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var age = document.getElementById('pt-age').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var mrn = document.getElementById('pt-mrn').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var phone = document.getElementById('pt-phone').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var arrival = document.getElementById('pt-arrival').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var chief = document.getElementById('pt-chief').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var pmh = document.getElementById('pt-pmh').value || '\u65E0\u7279\u6B8A';
-  var allergy = document.getElementById('pt-allergy').value || '\u65E0';
-  var receiveTime = document.getElementById('pt-receive-time').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var doctor = document.getElementById('pt-doctor').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
-  var nurse = document.getElementById('pt-nurse').value || '\uFF3F\uFF3F\uFF3F\uFF3F';
 
   // Collect scores
   var scores = [];
@@ -2201,20 +1733,10 @@ function generateHandover() {
   if (rts !== '--') scores.push({ name: 'RTS', val: rts, cat: '\u521B\u4F24' });
   var iss = document.getElementById('iss-total').textContent;
   if (iss !== '--') scores.push({ name: 'ISS', val: iss, cat: '\u521B\u4F24' });
-  var grace = document.getElementById('grace-total').textContent;
-  if (grace !== '--') scores.push({ name: 'GRACE', val: grace, cat: '\u80f8\u75db' });
-  var timi = document.getElementById('timi-total').textContent;
-  if (timi !== '--') scores.push({ name: 'TIMI', val: timi, cat: '\u80f8\u75db' });
-  var heart = document.getElementById('heart-total').textContent;
-  if (heart !== '--') scores.push({ name: 'HEART', val: heart, cat: '\u80f8\u75db' });
   var gfast = document.getElementById('gfast-total').textContent;
   if (gfast !== '--') scores.push({ name: 'G-FAST', val: gfast, cat: '\u5352\u4E2D' });
   var nihss = document.getElementById('nihss-total').textContent;
   if (nihss !== '--') scores.push({ name: 'NIHSS', val: nihss, cat: '\u5352\u4E2D' });
-  var gbs = document.getElementById('gbs-total').textContent;
-  if (gbs !== '--') scores.push({ name: 'GBS', val: gbs, cat: '\u4E0A\u6D88\u5316\u9053\u51FA\u8840' });
-  var rockall = document.getElementById('rockall-total').textContent;
-  if (rockall !== '--') scores.push({ name: 'Rockall', val: rockall, cat: '\u4E0A\u6D88\u5316\u9053\u51FA\u8840' });
   var news = document.getElementById('news-total').textContent;
   if (news !== '--') scores.push({ name: 'NEWS', val: news, cat: '\u901A\u7528' });
   var sofa = document.getElementById('sofa-total').textContent;
@@ -2227,28 +1749,9 @@ function generateHandover() {
     // Build HTML — compact format
   var html = '';
 
-  // 1. 基本信息
-  html += '<div class="section-title">基本信息</div>';
-  html += '<table style="font-size:13px;">';
-  html += '<tr><th>姓名</th><td>' + name + '</td><th>性别</th><td>' + gender + '</td><th>年龄</th><td>' + age + '岁</td></tr>';
-  html += '<tr><th>主诉</th><td colspan="5">' + chief + '</td></tr>';
-  html += '<tr><th>既往史</th><td colspan="3">' + pmh + '</td><th>过敏</th><td>' + allergy + '</td></tr>';
-  if (arrival !== '____') html += '<tr><th>来院</th><td>' + arrival + '</td><th>接诊</th><td colspan="3">' + receiveTime + '</td></tr>';
-  html += '</table>';
 
-  // 2. 查体——仅显示查体模块内容
-  var peSummary = getPESummary();
-  var pupilL = document.getElementById('pe-pupil-l').value;
-  var pupilR = document.getElementById('pe-pupil-r').value;
-  var pupilLR = document.getElementById('pe-pupil-lr').value;
-  var pupilRR = document.getElementById('pe-pupil-rr').value;
-  html += '<div class="section-title">查体</div>';
-  html += '<table style="font-size:13px;">';
-  if (pupilL || pupilR) {
-    html += '<tr><th>瞳孔</th><td colspan="5">左 ' + (pupilL || '?') + 'mm 对光' + (pupilLR || '?') + '　右 ' + (pupilR || '?') + 'mm 对光' + (pupilRR || '?') + '</td></tr>';
-  }
-  html += '<tr><th>查体</th><td colspan="5">' + (peSummary || '未见明显异常') + '</td></tr>';
-  html += '</table>';
+
+
 
   // 2.1 生命体征（独立成节）
   if (vitalRecords.length > 0) {
@@ -2298,63 +1801,100 @@ function generateHandover() {
   if (hasATMIST) {
     html += '<div class="section-title" style="color:#d93025;">ATMIST</div>';
     html += '<div style="display:inline-block;background:linear-gradient(135deg,#d93025,#c5221f);color:#fff;padding:3px 12px;border-radius:16px;font-weight:700;font-size:12px;margin-bottom:8px;animation:pulse-alert 2s infinite;"><span style="font-size:14px;">🚨</span> 创伤预警</div>';
-    html += '<table style="font-size:13px;">';
-    // A - Age (from ATMIST section input)
+    html += '<div style="background:#fff5f5;border-left:3px solid #d93025;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.9;">';
+    html += '<p style="margin:0 0 8px 0;font-weight:700;color:#d93025;">接收急诊创伤团队，ATMIST交接：</p>';
+
+    // A
     var atmName = document.getElementById('atm-name');
     var atmGender = document.getElementById('atm-gender');
-    html += '<tr><th>A</th><td>' + (atmName ? atmName.value.trim() || '____' : '____') + ' ' + (atmGender ? atmGender.value || '' : '') + ' ' + (atmAge && atmAge.value ? atmAge.value + '岁' : '') + '</td><th>T</th><td colspan="3">' + (traumaTime && traumaTime.value ? traumaTime.value.replace('T',' ') : '____') + '</td></tr>';
+    var aParts = [];
+    if (atmName && atmName.value.trim()) aParts.push(atmName.value.trim());
+    if (atmGender && atmGender.value) aParts.push(atmGender.value);
+    if (atmAge && atmAge.value) aParts.push(atmAge.value + '岁');
+    if (aParts.length > 0) {
+      html += '<p style="margin:4px 0;"><b style="color:#d93025;">A</b>：' + aParts.join('，') + '，既往体健</p>';
+    }
+
+    // T - Time
+    if (traumaTime && traumaTime.value) {
+      html += '<p style="margin:4px 0;"><b style="color:#f9ab00;">T</b>：受伤时间' + traumaTime.value.replace('T',' ') + '</p>';
+    }
+
     // M - Mechanism
-    html += '<tr><th>M</th><td colspan="5">' + (traumaMech ? traumaMech.value.trim() : '____') + '</td></tr>';
-    var traumaState = document.getElementById('trauma-state');
-    if (traumaState && traumaState.value) {
-      html += '<tr><th>受伤时状态</th><td colspan="5">' + traumaState.value + '</td></tr>';
+    if (traumaMech && traumaMech.value.trim()) {
+      html += '<p style="margin:4px 0;"><b style="color:#d93025;">M</b>：' + traumaMech.value.trim();
+      var traumaMechDetail = document.getElementById('trauma-mech-detail');
+      if (traumaMechDetail && traumaMechDetail.value.trim()) {
+        html += '，' + traumaMechDetail.value.trim();
+      }
+      html += '</p>';
     }
-    var traumaMechDetail = document.getElementById('trauma-mech-detail');
-    if (traumaMechDetail && traumaMechDetail.value.trim()) {
-      html += '<tr><th>机制详情</th><td colspan="5">' + traumaMechDetail.value.trim() + '</td></tr>';
-    }
-    // I - Injuries (reads from select elements + side selectors)
-    html += '<tr><th>I</th><td colspan="5">';
+
+    // I - Injuries
     var injFields = [
-      { id: 'trauma-inj-head', label: '头部/颅脑', side: null },
+      { id: 'trauma-inj-head', label: '头部', side: null },
       { id: 'trauma-inj-face', label: '面部', side: 'trauma-inj-face-side' },
-      { id: 'trauma-inj-neck', label: '颈部/颈椎', side: null },
+      { id: 'trauma-inj-neck', label: '颈部', side: null },
       { id: 'trauma-inj-chest', label: '胸部', side: 'trauma-inj-chest-side' },
-      { id: 'trauma-inj-abdomen', label: '腹部/盆腔', side: null },
+      { id: 'trauma-inj-abdomen', label: '腹部', side: null },
       { id: 'trauma-inj-spine', label: '脊柱', side: null },
       { id: 'trauma-inj-uparm', label: '上肢', side: 'trauma-inj-uparm-side' },
       { id: 'trauma-inj-leg', label: '下肢', side: 'trauma-inj-leg-side' },
       { id: 'trauma-inj-pelvis', label: '骨盆', side: null },
-      { id: 'trauma-inj-surface', label: '体表/烧伤', side: null }
+      { id: 'trauma-inj-surface', label: '体表', side: null }
     ];
     var injParts = [];
     injFields.forEach(function(f) {
       var el = document.getElementById(f.id);
-      if (el && el.value) {
+      if (el && el.value && el.value !== '无异常') {
         var sideEl = f.side ? document.getElementById(f.side) : null;
         var sideVal = sideEl && sideEl.value ? sideEl.value : '';
-        injParts.push('<b>' + f.label + '</b>：' + (sideVal ? sideVal : '') + el.value);
+        injParts.push((sideVal ? sideVal : '') + f.label + el.value);
       }
     });
-    html += (injParts.length > 0 ? injParts.join('；<br>') : '未记录') + '</td></tr>';
+    if (injParts.length > 0) {
+      html += '<p style="margin:4px 0;"><b style="color:#188038;">I</b>：' + injParts.join('，') + '</p>';
+    }
     if (traumaInjSummary && traumaInjSummary.value.trim()) {
-      html += '<tr><th>损伤总结</th><td colspan="5"><b>' + traumaInjSummary.value.trim() + '</b></td></tr>';
+      html += '<p style="margin:4px 0;">' + traumaInjSummary.value.trim() + '</p>';
     }
-    // T - Treatment (textarea)
+
+    // S - Signs / Vitals
+    var sParts = [];
+    if (vitalRecords.length > 0) {
+      var latestVV = vitalRecords[vitalRecords.length - 1];
+      if (latestVV.sbp) sParts.push('BP ' + latestVV.sbp + '/' + (latestVV.dbp || '?') + 'mmHg');
+      if (latestVV.hr) sParts.push('HR ' + latestVV.hr + '次/分');
+      if (latestVV.spo2) sParts.push('SPO₂ ' + latestVV.spo2 + '%');
+    }
+    var gcsEl = document.getElementById('gcs-total');
+    if (gcsEl && gcsEl.textContent !== '--') sParts.push('GCS ' + gcsEl.textContent + '分');
+    var traumaState = document.getElementById('trauma-state');
+    if (traumaState && traumaState.value) sParts.push(traumaState.value);
+    if (sParts.length > 0) {
+      html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">S</b>：' + sParts.join('，') + '</p>';
+    }
+
+    // T - Treatment
+    var tTreatParts = [];
     if (traumaTreatment && traumaTreatment.value.trim()) {
-      html += '<tr><th>T</th><td colspan="5">' + traumaTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      tTreatParts.push(traumaTreatment.value.trim().replace(/\n/g, '，'));
     }
+    if (tTreatParts.length > 0) {
+      html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b>：' + tTreatParts.join('，') + '，即刻到院，请启动创伤绿色通道</p>';
+    }
+
     // 预警原因
     var alertReason = document.getElementById('trauma-alert-reason');
     if (alertReason && alertReason.value.trim()) {
-      html += '<tr style="background:#fff5f5;"><th style="color:#c5221f;">预警</th><td colspan="5" style="color:#c5221f;">' + alertReason.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<p style="margin:4px 0;color:#c5221f;">⚠ ' + alertReason.value.trim().replace(/\n/g, '，') + '</p>';
     }
-    // 呼叫会诊科室
+    // 呼叫会诊
     var consult = document.getElementById('trauma-consult');
     if (consult && consult.value.trim()) {
-      html += '<tr style="background:#f0f7ff;"><th style="color:#1a73e8;">会诊</th><td colspan="5" style="color:#1a73e8;">' + consult.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<p style="margin:4px 0;color:#1a73e8;">📞 ' + consult.value.trim().replace(/\n/g, '，') + '</p>';
     }
-    html += '</table>';
+    html += '</div>';
   }
 
   // 2.6 STROKE 卒中结构化交班（仅当有卒中数据时显示）
@@ -2399,11 +1939,9 @@ function generateHandover() {
     html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">S</b><br>';
     var lastNormalT = strokeLastNormal && strokeLastNormal.value ? strokeLastNormal.value.replace('T',' ') : '不详';
     var onsetT = strokeOnset && strokeOnset.value ? strokeOnset.value.replace('T',' ') : '不详';
-    html += '患者最后正常时间 ' + lastNormalT + '，' + onsetT + ' 突发神经缺损症状。';
+    html += '患者最后正常时间 ' + lastNormalT + '，' + onsetT + ' 突发。';
     if (strokeOnsetDesc && strokeOnsetDesc.value.trim()) {
       html += strokeOnsetDesc.value.trim().replace(/\n/g, '；');
-    } else {
-      html += '症状持续无缓解，无明显间断好转。';
     }
     html += '</p>';
 
@@ -2411,9 +1949,7 @@ function generateHandover() {
     html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b><br>';
     var typeText = strokeTypeText && strokeTypeText.value.trim() ? strokeTypeText.value.trim() : '';
     if (typeText) {
-      html += '现场 BEFAST 筛查阳性：' + typeText.replace(/\n/g, ' / ') + '。';
-    } else {
-      html += '现场 BEFAST 筛查阳性：待补充。';
+      html += typeText.replace(/\n/g, ' / ') + '。';
     }
     if (strokeMuscle && strokeMuscle.value) {
       html += '查体患侧肌力 ' + strokeMuscle.value + '。';
@@ -2475,94 +2011,13 @@ function generateHandover() {
     }
     html += '转运途中症状' + (strokeETreatment && strokeETreatment.value && strokeETreatment.value.indexOf('加重') !== -1 ? '进行性加重' : '无明显加重') + '。';
     if (strokeEta && strokeEta.value.trim()) {
-      html += '预估 ' + strokeEta.value.trim() + ' 抵达医院。';
+      html += '约 ' + strokeEta.value.trim() + ' 抵达。';
     }
     if (strokeGreen && strokeGreen.checked) html += '建议启动<b style="color:#188038;">卒中绿色通道</b>。';
     if (strokeCt && strokeCt.checked) html += '请备好<b>头颅 CT</b>。';
     html += '</p>';
 
     html += '</div>';
-  }
-
-  // 2.7 CHEST PAIN 胸痛结构化交班（仅当有胸痛数据时显示）
-  var cpCharacter = document.getElementById('cp-character');
-  var cpLocation = document.getElementById('cp-location');
-  var cpRadiation = document.getElementById('cp-radiation');
-  var cpHistory = document.getElementById('cp-history');
-  var cpEcg = document.getElementById('cp-ecg');
-  var cpSymptoms = document.getElementById('cp-symptoms');
-  var cpOnsetTime = document.getElementById('cp-onset-time');
-  var cpFmcTime = document.getElementById('cp-fmc-time');
-  var cpTreatment = document.getElementById('cp-treatment');
-  var cpImpression = document.getElementById('cp-impression');
-  var cpNotes = document.getElementById('cp-notes');
-  var hasCHESTPAIN = (cpCharacter && cpCharacter.value.trim()) || (cpHistory && cpHistory.value.trim()) || (cpEcg && cpEcg.value.trim()) || (cpSymptoms && cpSymptoms.value.trim()) || (cpOnsetTime && cpOnsetTime.value) || (cpTreatment && cpTreatment.value.trim()) || (cpImpression && cpImpression.value.trim());
-  if (hasCHESTPAIN) {
-    html += '<div class="section-title" style="color:#d93025;">CHEST PAIN</div>';
-    html += '<table style="font-size:13px;">';
-    // C: 胸痛特征（合并 character + location + radiation）
-    var cpCx = [];
-    if (cpCharacter && cpCharacter.value.trim()) cpCx.push(cpCharacter.value.trim());
-    if (cpLocation && cpLocation.value.trim()) cpCx.push('部位：' + cpLocation.value.trim());
-    if (cpRadiation && cpRadiation.value.trim()) cpCx.push('放射：' + cpRadiation.value.trim());
-    if (cpCx.length > 0) {
-      html += '<tr><th>C</th><td colspan="5">' + cpCx.join('；') + '</td></tr>';
-    }
-    if (cpHistory && cpHistory.value.trim()) {
-      html += '<tr><th>H</th><td colspan="5">' + cpHistory.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    if (cpEcg && cpEcg.value.trim()) {
-      html += '<tr><th>E</th><td colspan="5">' + cpEcg.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    if (cpSymptoms && cpSymptoms.value.trim()) {
-      html += '<tr><th>S</th><td colspan="5">' + cpSymptoms.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    html += '<tr><th>T</th><td colspan="5">胸痛发作：' + (cpOnsetTime && cpOnsetTime.value ? cpOnsetTime.value.replace('T',' ') : '____') + '　首次医疗接触：' + (cpFmcTime && cpFmcTime.value ? cpFmcTime.value.replace('T',' ') : '____') + '</td></tr>';
-    if (cpTreatment && cpTreatment.value.trim()) {
-      html += '<tr><th>P</th><td colspan="5">' + cpTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    if (cpImpression && cpImpression.value.trim()) {
-      html += '<tr><th>I</th><td colspan="5">' + cpImpression.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    if (cpNotes && cpNotes.value.trim()) {
-      html += '<tr><th>N</th><td colspan="5">' + cpNotes.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    html += '</table>';
-  }
-
-  // 2.8 BLEED 上消化道出血结构化交班（仅当有出血数据时显示）
-  var bleedPresentation = document.getElementById('bleed-presentation');
-  var bleedOnset = document.getElementById('bleed-onset');
-  var bleedVolume = document.getElementById('bleed-volume');
-  var bleedHb = document.getElementById('bleed-hb');
-  var bleedBun = document.getElementById('bleed-bun');
-  var bleedInr = document.getElementById('bleed-inr');
-  var bleedPlt = document.getElementById('bleed-plt');
-  var bleedEtiology = document.getElementById('bleed-etiology');
-  var bleedExam = document.getElementById('bleed-exam');
-  var hasBLEED = (bleedPresentation && bleedPresentation.value.trim()) || (bleedOnset && bleedOnset.value) || (bleedEtiology && bleedEtiology.value.trim()) || (bleedExam && bleedExam.value.trim());
-  if (hasBLEED) {
-    html += '<div class="section-title" style="color:#c5221f;">BLEED</div>';
-    html += '<table style="font-size:13px;">';
-    if (bleedPresentation && bleedPresentation.value.trim()) {
-      html += '<tr><th>B</th><td colspan="5">' + bleedPresentation.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    html += '<tr><th>B</th><td colspan="5">起始：' + (bleedOnset && bleedOnset.value ? bleedOnset.value.replace('T',' ') : '____') + '　估计血量：' + (bleedVolume && bleedVolume.value ? bleedVolume.value : '____') + '</td></tr>';
-    var labParts = [];
-    if (bleedHb && bleedHb.value) labParts.push('Hb ' + bleedHb.value + ' g/L');
-    if (bleedBun && bleedBun.value) labParts.push('BUN ' + bleedBun.value + ' mmol/L');
-    if (bleedInr && bleedInr.value) labParts.push('INR ' + bleedInr.value);
-    if (bleedPlt && bleedPlt.value) labParts.push('PLT ' + bleedPlt.value + '×10⁹/L');
-    if (labParts.length > 0) {
-      html += '<tr><th>L</th><td colspan="5">' + labParts.join('　') + '</td></tr>';
-    }
-    if (bleedEtiology && bleedEtiology.value.trim()) {
-      html += '<tr><th>E</th><td colspan="5">' + bleedEtiology.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    if (bleedExam && bleedExam.value.trim()) {
-      html += '<tr><th>E</th><td colspan="5">' + bleedExam.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
-    }
-    html += '</table>';
   }
 
   // 3. 药物
@@ -2762,18 +2217,14 @@ function loadHistoryToForm(id) {
   if (!confirm('将把该历史记录的数据加载到当前表单（不会覆盖未保存的修改），确定？')) return;
 
   // 填充患者基本信息
-  if (record.name) document.getElementById('pt-name').value = record.name;
-  if (record.gender) document.getElementById('pt-gender').value = record.gender;
-  if (record.age) document.getElementById('pt-age').value = record.age;
-  if (record.mrn) document.getElementById('pt-mrn').value = record.mrn;
 
-  // 切换到患者信息页
+  // 切换到创伤评估页
   document.querySelectorAll('.nav-item').forEach(function(item) { item.classList.remove('active'); });
   document.querySelectorAll('.section').forEach(function(sec) { sec.classList.remove('active'); });
-  document.querySelector('[data-section="patient"]').classList.add('active');
-  document.getElementById('section-patient').classList.add('active');
+  document.querySelector('[data-section="trauma"]').classList.add('active');
+  document.getElementById('section-trauma').classList.add('active');
 
-  alert('已加载患者基本信息，交班记录内容请在「交班记录」页面查看');
+  alert('已加载历史记录数据');
 }
 
 function deleteHistoryRecord(id) {
@@ -3022,7 +2473,6 @@ function exportHandoverWord() {
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.href = url;
-  var nm = ((document.getElementById('pt-name')||{}).value || '未知患者').replace(/[\\/:*?"<>|]/g, '_');
   var d = new Date();
   var ds = d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
   a.download = '交班记录_' + nm + '_' + ds + '.doc';
@@ -3036,7 +2486,6 @@ function exportHandoverWord() {
 document.addEventListener('DOMContentLoaded', function() {
   var now = new Date();
   var local = now.getFullYear() + '-' + ('0' + (now.getMonth()+1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2) + 'T' + ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
-  document.getElementById('pt-receive-time').value = local;
   // 自动填充ATMIST接诊时间
   autoSetTraumaReceiveTime();
 });
