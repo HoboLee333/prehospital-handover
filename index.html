@@ -140,7 +140,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
 
 /* ===== Responsive ===== */
 
-
 /* ===== Mobile Top Bar (inside .main, right of sidebar) ===== */
 .mobile-top-bar { display: none; }
 @media (max-width:1024px) {
@@ -247,34 +246,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   .hamburger { display: none !important; }
 }
 
-/* ===== Floating Demo Button ===== */
-.fab-demo {
-  position: fixed; bottom: 24px; right: 24px; z-index: 999;
-  width: 56px; height: 56px; border-radius: 50%;
-  background: linear-gradient(135deg, #1a73e8, #1557b0);
-  color: #fff; border: none; cursor: pointer;
-  font-size: 24px; box-shadow: 0 4px 16px rgba(26,115,232,0.35);
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s; overflow: hidden;
-}
-.fab-demo:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(26,115,232,0.45); }
-.fab-demo:active { transform: scale(0.95); }
-.fab-demo .fab-text { display: none; }
-/* Expanded FAB on hover */
-.fab-demo:hover { width: auto; border-radius: 28px; padding: 0 20px; }
-.fab-demo:hover .fab-text { display: inline; font-size: 14px; font-weight: 600; margin-left: 6px; white-space: nowrap; }
-@media (max-width: 1024px) {
-  .fab-demo { bottom: 16px; right: 12px; width: 48px; height: 48px; font-size: 20px; }
-}
-
-/* Pulse animation for demo button */
-@keyframes pulse-demo {
-  0%, 100% { box-shadow: 0 4px 16px rgba(26,115,232,0.35); }
-  50% { box-shadow: 0 4px 24px rgba(26,115,232,0.6), 0 0 0 8px rgba(26,115,232,0.1); }
-}
-.fab-demo { animation: pulse-demo 2.5s ease-in-out infinite; }
-.fab-demo:hover { animation: none; }
-
 @media print {
   body { background: #fff; }
   /* 隐藏不需要打印的元素 */
@@ -318,7 +289,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="nav-item" data-section="handover"><span class="icon">📝</span><span class="nav-text"> 交班记录</span><span class="nav-label">交班</span></div>
     <div class="nav-item" data-section="history"><span class="icon">📋</span><span class="nav-text"> 历史记录</span><span class="nav-label">历史</span></div>
     <div class="nav-section">快捷操作</div>
-    <div class="nav-item" onclick="loadDemoCase()" style="background:rgba(26,115,232,0.2);border-left:3px solid var(--primary);"><span class="icon">🎯</span><span class="nav-text"> 一键示范案例</span><span class="nav-label">示范</span></div>
+
   </div>
 </nav>
 
@@ -332,7 +303,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <button class="btn-icon" onclick="navToHandover()" title="交班记录">📝</button>
   </div>
 </div>
-
 
 <!-- ==================== 创伤中心 (ATMIST) ==================== -->
 <section id="section-trauma" class="section active">
@@ -2029,10 +1999,6 @@ function generateHandover() {
     // Build HTML — compact format
   var html = '';
 
-
-
-
-
   // 评分（独立成节，含GCS明细）
   if (scores.length > 0 || document.getElementById('gcs-total').textContent !== '--') {
     html += '<div class="section-title">评分</div>';
@@ -2936,232 +2902,6 @@ function exportHandoverWord() {
   setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
-/* ==================== 一键示范案例 ==================== */
-function loadDemoCase() {
-  if (!confirm('将加载演示案例数据到所有模块，并自动生成交班记录。\n\n此操作不会覆盖历史记录，确定继续？')) return;
-  try {
-    var now = new Date();
-    var fmt = function(d) {
-      return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2) + 'T' + ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
-    };
-    var h2 = new Date(now - 2*3600000);    // 2h ago
-    var h25 = new Date(now - 2.5*3600000); // 2.5h ago
-    var h3 = new Date(now - 3*3600000);    // 3h ago
-    var h05 = new Date(now - 30*60000);    // 30min ago
-    var h1 = new Date(now - 1*3600000);    // 1h ago
-    var t1030 = ('0'+now.getHours()).slice(-2) + ':30';
-    var t1045 = ('0'+now.getHours()).slice(-2) + ':45';
-
-    // ===== 创伤中心 ATMIST =====
-    document.getElementById('atm-name').value = '张建国';
-    document.getElementById('atm-gender').value = '男';
-    document.getElementById('atm-age').value = '45';
-    document.getElementById('atm-past-history').value = '既往体健';
-    document.getElementById('trauma-time').value = fmt(h2);
-    document.getElementById('trauma-mechanism').value = '交通事故';
-    document.getElementById('trauma-state').value = '困在车内';
-    document.getElementById('trauma-mech-detail').value = '高速追尾，驾驶员未系安全带，方向盘撞击胸部，车速约80km/h';
-    // 伤情
-    document.getElementById('trauma-inj-head').value = '裂伤/破损';
-    document.getElementById('trauma-inj-face').value = '挫伤';
-    document.getElementById('trauma-inj-face-side').value = '左侧';
-    document.getElementById('trauma-inj-neck').value = '颈部活动受限';
-    document.getElementById('trauma-inj-chest').value = '胸廓畸形';
-    document.getElementById('trauma-inj-chest-side').value = '左侧';
-    document.getElementById('trauma-inj-abdomen').value = '腹部膨隆';
-    document.getElementById('trauma-inj-spine').value = '脊柱活动受限';
-    document.getElementById('trauma-inj-uparm').value = '无异常';
-    document.getElementById('trauma-inj-leg').value = '畸形';
-    document.getElementById('trauma-inj-leg-side').value = '右侧';
-    document.getElementById('trauma-inj-pelvis').value = '挤压痛';
-    document.getElementById('trauma-inj-surface').value = '挫伤';
-    document.getElementById('trauma-inj-summary').value = '多发伤：颅脑损伤+左胸多发肋骨骨折伴气胸+脾破裂+右股骨骨折';
-    // GCS: E3 V4 M5
-    document.getElementById('gcs-eye').value = '3';
-    document.getElementById('gcs-verbal').value = '4';
-    document.getElementById('gcs-motor').value = '5';
-    calcGCS();
-    // RTS
-    document.getElementById('rts-gcs').value = '4';
-    document.getElementById('rts-sbp').value = '3';
-    document.getElementById('rts-rr').value = '4';
-    calcRTS();
-    // ISS
-    document.getElementById('iss-hn').value = '3';
-    document.getElementById('iss-face').value = '0';
-    document.getElementById('iss-chest').value = '4';
-    document.getElementById('iss-abd').value = '3';
-    document.getElementById('iss-ext').value = '3';
-    document.getElementById('iss-surf').value = '1';
-    calcISS();
-    // Trauma S vitals
-    document.getElementById('trauma-s-bp-sys').value = '85';
-    document.getElementById('trauma-s-bp-dia').value = '50';
-    document.getElementById('trauma-s-hr').value = '120';
-    document.getElementById('trauma-s-spo2').value = '92';
-    document.getElementById('trauma-s-rr').value = '24';
-    // Treatment
-    document.getElementById('trauma-treatment').value = '颈托固定\n脊柱板搬运\n右下肢夹板固定\n头部加压包扎\n氨甲环酸1g IV\n晶体液500ml快速静滴';
-    document.getElementById('trauma-t-note').value = '创伤绿色通道已启动';
-    document.getElementById('trauma-alert-reason').value = 'ISS>15严重创伤\n多发伤\n颅脑损伤 GCS≤8\n高速交通事故\n需要紧急手术';
-    document.getElementById('trauma-consult').value = '骨一科\n脑病科\n外一科\nICU\n手术室';
-
-    // ===== 胸痛中心 CHEST =====
-    document.getElementById('chest-name').value = '李秀英';
-    document.getElementById('chest-gender').value = '女';
-    document.getElementById('chest-age').value = '62';
-    document.getElementById('chest-c').value = '突发胸骨后压榨样胸痛\n胸痛放射至左肩\n伴全身大汗\n胸闷憋气';
-    document.getElementById('chest-h').value = '既往高血压\n糖尿病\n长期吸烟\n冠心病史\n有支架植入史';
-    document.getElementById('chest-onset-time').value = fmt(h05);
-    document.getElementById('chest-duration').value = '约20分钟';
-    document.getElementById('chest-trigger').value = '劳累后发作';
-    document.getElementById('chest-e').value = '12导心电图提示下壁ST段抬高\n含服硝酸甘油无法缓解';
-    document.getElementById('chest-bp-sys').value = '145';
-    document.getElementById('chest-bp-dia').value = '90';
-    document.getElementById('chest-hr').value = '108';
-    document.getElementById('chest-spo2').value = '95';
-    document.getElementById('chest-rhythm').value = '心律齐';
-    document.getElementById('chest-s').value = '意识清楚，心律齐，无心力衰竭表现';
-    document.getElementById('chest-t').value = '已吸氧\n卧床制动\n嚼服阿司匹林300mg\n建立静脉通路\n心电监护';
-    document.getElementById('chest-t-note').value = '约10分钟抵达';
-    document.getElementById('chest-green-channel').checked = true;
-    document.getElementById('chest-cath-ready').checked = true;
-
-    // ===== 卒中中心 STROKE =====
-    document.getElementById('stroke-name').value = '王德发';
-    document.getElementById('stroke-gender').value = '男';
-    document.getElementById('stroke-age').value = '65';
-    document.getElementById('stroke-last-normal').value = fmt(h3);
-    document.getElementById('stroke-onset-time').value = fmt(h25);
-    document.getElementById('stroke-onset-desc').value = '突发左侧肢体无力伴口角歪斜，症状持续无缓解，无明显间断好转';
-    document.getElementById('stroke-type-text').value = '单侧肢体无力\n口角歪斜\n言语障碍';
-    // Stroke GCS: E3 V4 M5
-    document.getElementById('stroke-gcs-eye').value = '3';
-    document.getElementById('stroke-gcs-verbal').value = '4';
-    document.getElementById('stroke-gcs-motor').value = '5';
-    calcStrokeGCS();
-    document.getElementById('stroke-muscle').value = '3级 抗重力';
-    document.getElementById('stroke-seizure').value = '无抽搐';
-    document.getElementById('stroke-vomit').value = '无剧烈呕吐';
-    document.getElementById('stroke-risk').value = '既往高血压\n糖尿病\n房颤\n长期吸烟\n房颤未规范抗凝';
-    document.getElementById('stroke-bp-sys').value = '160';
-    document.getElementById('stroke-bp-dia').value = '95';
-    document.getElementById('stroke-hr').value = '78';
-    document.getElementById('stroke-spo2').value = '96';
-    document.getElementById('stroke-glu').value = '7.2';
-    document.getElementById('stroke-pupil').value = '双侧瞳孔等大等圆、对光反射灵敏';
-    document.getElementById('stroke-o-note').value = '左侧鼻唇沟变浅，伸舌偏左';
-    document.getElementById('stroke-meds-long').value = '长期口服降压药\n口服利伐沙班';
-    document.getElementById('stroke-allergy').value = '无药物过敏史';
-    document.getElementById('stroke-e-treatment').value = '已开放外周静脉通路\n吸氧维持血氧\n卧床制动保护气道\n心电监护';
-    document.getElementById('stroke-e-note').value = '约15分钟抵达';
-    document.getElementById('stroke-green-channel').checked = true;
-    document.getElementById('stroke-ct-ready').checked = true;
-    // G-FAST
-    document.getElementById('gfast-gaze').value = '1';
-    document.getElementById('gfast-face').value = '1';
-    document.getElementById('gfast-arm').value = '1';
-    document.getElementById('gfast-speech').value = '1';
-    document.getElementById('gfast-time').value = '约2.5小时';
-    calcGFAST();
-    // NIHSS
-    document.getElementById('nihss-1a').value = '0';
-    document.getElementById('nihss-1b').value = '1';
-    document.getElementById('nihss-1c').value = '0';
-    document.getElementById('nihss-2').value = '0';
-    document.getElementById('nihss-3').value = '1';
-    document.getElementById('nihss-4').value = '1';
-    document.getElementById('nihss-5a').value = '2';
-    document.getElementById('nihss-5b').value = '1';
-    document.getElementById('nihss-6a').value = '2';
-    document.getElementById('nihss-6b').value = '1';
-    document.getElementById('nihss-7').value = '0';
-    document.getElementById('nihss-8').value = '1';
-    document.getElementById('nihss-9').value = '1';
-    document.getElementById('nihss-10').value = '1';
-    document.getElementById('nihss-11').value = '0';
-    calcNIHSS();
-
-    // ===== 消化道出血 BLEED =====
-    document.getElementById('bleed-name').value = '赵明辉';
-    document.getElementById('bleed-gender').value = '男';
-    document.getElementById('bleed-age').value = '52';
-    document.getElementById('bleed-b').value = '突发呕鲜红色血液约500ml\n伴柏油样黑便\n自觉头晕乏力\n面色苍白\n四肢湿冷';
-    document.getElementById('bleed-onset-time').value = fmt(h1);
-    document.getElementById('bleed-duration').value = '约30分钟';
-    document.getElementById('bleed-nature').value = '活动性反复出血';
-    // Lab auto-fill
-    document.getElementById('bleed-lab-hb').value = '72';
-    document.getElementById('bleed-lab-hct').value = '22';
-    document.getElementById('bleed-lab-plt').value = '85';
-    document.getElementById('bleed-lab-pt').value = '18';
-    document.getElementById('bleed-lab-inr').value = '1.8';
-    updateBleedLab();
-    document.getElementById('bleed-e1').value = '既往肝硬化失代偿期\n食管胃底静脉曲张病史\n发病前大量饮酒';
-    document.getElementById('bleed-bp-sys').value = '80';
-    document.getElementById('bleed-bp-dia').value = '45';
-    document.getElementById('bleed-hr').value = '130';
-    document.getElementById('bleed-spo2').value = '93';
-    document.getElementById('bleed-conscious').value = '意识清楚';
-    document.getElementById('bleed-e2').value = '面色苍白、四肢湿冷，存在明显失血性休克表现';
-    document.getElementById('bleed-d').value = '无药物过敏\n未长期服药\n头偏一侧防误吸\n禁食\n已吸氧\n快速静脉输注晶体液500ml';
-    document.getElementById('bleed-d-note').value = '约15分钟抵达';
-    document.getElementById('bleed-emergency').checked = true;
-    document.getElementById('bleed-endoscopy').checked = true;
-
-    // ===== 通用评分 =====
-    // NEWS
-    document.getElementById('news-rr').value = '2';
-    document.getElementById('news-spo2').value = '1';
-    document.getElementById('news-o2').value = '2';
-    document.getElementById('news-sbp').value = '2';
-    document.getElementById('news-hr').value = '2';
-    document.getElementById('news-avpu').value = '0';
-    document.getElementById('news-temp').value = '0';
-    calcNEWS();
-
-    // ===== 急救药物 =====
-    medRecords = [
-      { time: t1030, cat: '药物', name: '氨甲环酸', detail: '1g 静滴' },
-      { time: t1035, cat: '药物', name: '阿司匹林', detail: '300mg 嚼服' },
-      { time: t1035, cat: '药物', name: '吗啡', detail: '3mg 静推 镇痛' },
-      { time: t1030, cat: '液体', name: 'NS 500mL', detail: '快速静滴' },
-      { time: t1040, cat: '液体', name: '乳酸林格氏液', detail: '500mL 静滴' }
-    ];
-    renderMeds();
-
-    // ===== 急救措施 =====
-    measureRecords = [
-      { time: t1030, cat: '气道/呼吸', name: '吸氧', detail: '面罩 8L/min' },
-      { time: t1030, cat: '循环/复苏', name: '建立静脉通路', detail: '18G留置针×2' },
-      { time: t1030, cat: '循环/复苏', name: '心电监护', detail: '持续监测' },
-      { time: t1030, cat: '创伤处理', name: '颈椎固定', detail: '颈托' },
-      { time: t1030, cat: '创伤处理', name: '脊柱板固定', detail: '铲式担架' },
-      { time: t1035, cat: '创伤处理', name: '加压包扎', detail: '头部创面' }
-    ];
-    renderMeasures();
-
-    // ===== 管道管理 =====
-    tubeRecords = [
-      { time: t1030, type: '静脉通路', site: '左前臂 18G留置针', note: '通畅' },
-      { time: t1030, type: '静脉通路', site: '右前臂 20G留置针', note: '通畅' }
-    ];
-    renderTubes();
-
-    // ===== 补充描述 =====
-    document.getElementById('meas-note-airway').value = '气道通畅，无分泌物阻塞';
-    document.getElementById('meas-note-cir').value = '双通道静脉通路建立顺利';
-    document.getElementById('meas-note-trauma').value = '右下肢夹板固定稳固，末梢循环良好';
-
-    // 导航到交班记录页并生成
-    navigateTo('handover');
-    setTimeout(function() { generateHandover(); }, 200);
-
-    showCopyToastMsg('✅ 示范案例已加载，交班记录已自动生成');
-  } catch(e) {
-    alert('加载示范案例出错: ' + e.message);
-    console.error(e);
-  }
 }
 
 function showCopyToastMsg(msg) {
@@ -3226,11 +2966,6 @@ function printHistoryDetail() {
   setTimeout(function(){ win.print(); }, 300);
 }
 </script>
-
-<!-- Floating Demo Button -->
-<button class="fab-demo no-print" onclick="loadDemoCase()" title="一键加载示范案例">
-  🎯<span class="fab-text">一键示范</span>
-</button>
 
 </body>
 </html>
