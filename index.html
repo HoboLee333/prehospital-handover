@@ -2159,10 +2159,7 @@ function generateHandover() {
   document.getElementById('handover-content').innerHTML = html;
 
   } catch(e) {
-    var msg = "生成交班记录出错:
-" + e.message + "
-行号: " + (e.lineNumber||"?");
-    alert(msg);
+    alert("生成交班记录出错: " + e.message);
     console.error(e);
   }
 
