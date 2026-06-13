@@ -1181,6 +1181,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <span class="chip" onclick="quickAddMed('NS 500mL 静滴','开放静脉通路','液体')">NS 500mL</span>
       <span class="chip" onclick="quickAddMed('乳酸林格氏液','500mL 静滴','液体')">乳酸林格氏液</span>
     </div>
+    <textarea id="meas-note-other" rows="2" placeholder="补充其他处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
   </div>
 
   <!-- 自定义添加 -->
@@ -1218,6 +1219,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <span class="chip" onclick="quickAddMeasure('环甲膜穿刺/切开','紧急气道')">环甲膜穿刺</span>
       <span class="chip" onclick="quickAddMeasure('吸痰','清理气道')">吸痰</span>
     </div>
+    <textarea id="meas-note-airway" rows="2" placeholder="补充气道/呼吸处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
     <div class="pe-section-title">循环 & 复苏</div>
     <div class="chip-bar" id="meas-chip-cir">
       <span class="chip" onclick="quickAddMeasure('建立静脉通路','大口径留置针')">建立静脉通路</span>
@@ -1228,6 +1230,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <span class="chip" onclick="quickAddMeasure('体外按压','持续胸外按压')">体外按压</span>
       <span class="chip" onclick="quickAddMeasure('建立中心静脉通路','CVC')">中心静脉通路</span>
     </div>
+    <textarea id="meas-note-cir" rows="2" placeholder="补充循环/复苏处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
     <div class="pe-section-title">创伤处理</div>
     <div class="chip-bar" id="meas-chip-trauma">
       <span class="chip" onclick="quickAddMeasure('止血包扎','创面加压包扎')">止血包扎</span>
@@ -1238,6 +1241,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <span class="chip" onclick="quickAddMeasure('清创缝合','急诊清创')">清创缝合</span>
       <span class="chip" onclick="quickAddMeasure('胸腔闭式引流','创伤性气胸')">胸腔闭式引流</span>
     </div>
+    <textarea id="meas-note-trauma" rows="2" placeholder="补充创伤处置描述..." style="margin-top:6px;width:100%;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:13px;font-family:inherit;"></textarea>
     <div class="pe-section-title">其他常用措施</div>
     <div class="chip-bar" id="meas-chip-other">
       <span class="chip" onclick="quickAddMeasure('导尿','留置导尿管')">导尿</span>
@@ -2019,7 +2023,7 @@ function generateHandover() {
   if (arrival !== '____') html += '<tr><th>来院</th><td>' + arrival + '</td><th>接诊</th><td colspan="3">' + receiveTime + '</td></tr>';
   html += '</table>';
 
-  // 2. 查体（含瞳孔+查体要点+生命体征+评分）
+  // 2. 查体——仅显示查体模块内容
   var peSummary = getPESummary();
   var pupilL = document.getElementById('pe-pupil-l').value;
   var pupilR = document.getElementById('pe-pupil-r').value;
@@ -2031,37 +2035,45 @@ function generateHandover() {
     html += '<tr><th>瞳孔</th><td colspan="5">左 ' + (pupilL || '?') + 'mm 对光' + (pupilLR || '?') + '　右 ' + (pupilR || '?') + 'mm 对光' + (pupilRR || '?') + '</td></tr>';
   }
   html += '<tr><th>查体</th><td colspan="5">' + (peSummary || '未见明显异常') + '</td></tr>';
-
-  // Vitals compact (latest)
-  if (vitalRecords.length > 0) {
-    var latestV = vitalRecords[vitalRecords.length - 1];
-    var vParts = [];
-    if (latestV.sbp) vParts.push('BP ' + latestV.sbp + '/' + (latestV.dbp || '?'));
-    if (latestV.hr) vParts.push('P ' + latestV.hr);
-    if (latestV.rr) vParts.push('R ' + latestV.rr);
-    if (latestV.spo2) vParts.push('SpO₂ ' + latestV.spo2 + '%');
-    if (latestV.temp) vParts.push('T ' + latestV.temp + '℃');
-    if (latestV.glu) vParts.push('Glu ' + latestV.glu);
-    if (vParts.length > 0) {
-      html += '<tr><th>生命体征</th><td colspan="5">' + vParts.join('　') + '　(' + latestV.time + ')</td></tr>';
-    }
-  }
-
-  // Scores compact
-  if (scores.length > 0) {
-    var scParts = scores.map(function(s) { return s.name + ' ' + s.val; });
-    html += '<tr><th>评分</th><td colspan="5">' + scParts.join('　') + '</td></tr>';
-  }
-  // GCS detail
-  if (document.getElementById('gcs-total').textContent !== '--') {
-    var gcsE = parseInt(document.getElementById('gcs-eye').value) || 0;
-    var gcsV = parseInt(document.getElementById('gcs-verbal').value) || 0;
-    var gcsM = parseInt(document.getElementById('gcs-motor').value) || 0;
-    if (gcsE + gcsV + gcsM > 0) {
-      html += '<tr><th>GCS</th><td colspan="5">E' + gcsE + ' V' + gcsV + ' M' + gcsM + '</td></tr>';
-    }
-  }
   html += '</table>';
+
+  // 2.1 生命体征（独立成节）
+  if (vitalRecords.length > 0) {
+    var latestVV = vitalRecords[vitalRecords.length - 1];
+    var vParts = [];
+    if (latestVV.sbp) vParts.push('BP ' + latestVV.sbp + '/' + (latestVV.dbp || '?'));
+    if (latestVV.hr) vParts.push('P ' + latestVV.hr);
+    if (latestVV.rr) vParts.push('R ' + latestVV.rr);
+    if (latestVV.spo2) vParts.push('SpO₂ ' + latestVV.spo2 + '%');
+    if (latestVV.temp) vParts.push('T ' + latestVV.temp + '℃');
+    if (latestVV.glu) vParts.push('Glu ' + latestVV.glu);
+    if (vParts.length > 0) {
+      html += '<div class="section-title">生命体征</div>';
+      html += '<table style="font-size:13px;">';
+      html += '<tr><td colspan="5">' + vParts.join('　') + '　(' + latestVV.time + ')</td></tr>';
+      html += '</table>';
+    }
+  }
+
+  // 2.2 评分（独立成节，含GCS明细）
+  if (scores.length > 0 || document.getElementById('gcs-total').textContent !== '--') {
+    html += '<div class="section-title">评分</div>';
+    html += '<table style="font-size:13px;">';
+    if (scores.length > 0) {
+      var scParts = scores.map(function(s) { return s.name + ' ' + s.val; });
+      html += '<tr><td colspan="5">' + scParts.join('　') + '</td></tr>';
+    }
+    // GCS detail
+    if (document.getElementById('gcs-total').textContent !== '--') {
+      var gcsE = parseInt(document.getElementById('gcs-eye').value) || 0;
+      var gcsV = parseInt(document.getElementById('gcs-verbal').value) || 0;
+      var gcsM = parseInt(document.getElementById('gcs-motor').value) || 0;
+      if (gcsE + gcsV + gcsM > 0) {
+        html += '<tr><td colspan="5">GCS: E' + gcsE + ' V' + gcsV + ' M' + gcsM + '</td></tr>';
+      }
+    }
+    html += '</table>';
+  }
 
   // 2.5 ATMIST创伤结构化交班（仅当有创伤数据时显示）
   var traumaMech = document.getElementById('trauma-mechanism');
@@ -2117,6 +2129,106 @@ function generateHandover() {
     // T - Treatment (textarea)
     if (traumaTreatment && traumaTreatment.value.trim()) {
       html += '<tr><th>T - 院前处置</th><td colspan="5">' + traumaTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    html += '</table>';
+  }
+
+  // 2.6 STROKE 卒中结构化交班（仅当有卒中数据时显示）
+  var strokeOnset = document.getElementById('stroke-onset-time');
+  var strokeLastNormal = document.getElementById('stroke-last-normal');
+  var strokeSymptoms = document.getElementById('stroke-symptoms');
+  var strokeMedsHx = document.getElementById('stroke-meds-hx');
+  var hasSTROKE = (strokeOnset && strokeOnset.value) || (strokeSymptoms && strokeSymptoms.value.trim()) || (strokeMedsHx && strokeMedsHx.value.trim());
+  if (hasSTROKE) {
+    html += '<div class="section-title" style="color:#1a73e8;">STROKE 卒中交班</div>';
+    html += '<table style="font-size:13px;">';
+    html += '<tr><th>T - 发病时间</th><td colspan="5">症状发作：' + (strokeOnset && strokeOnset.value ? strokeOnset.value.replace('T',' ') : '____') + '　最后正常：' + (strokeLastNormal && strokeLastNormal.value ? strokeLastNormal.value.replace('T',' ') : '____') + '</td></tr>';
+    if (strokeSymptoms && strokeSymptoms.value.trim()) {
+      html += '<tr><th>R - 症状体征</th><td colspan="5">' + strokeSymptoms.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    if (strokeMedsHx && strokeMedsHx.value.trim()) {
+      html += '<tr><th>O - 用药/既往史</th><td colspan="5">' + strokeMedsHx.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    html += '</table>';
+  }
+
+  // 2.7 CHEST PAIN 胸痛结构化交班（仅当有胸痛数据时显示）
+  var cpCharacter = document.getElementById('cp-character');
+  var cpLocation = document.getElementById('cp-location');
+  var cpRadiation = document.getElementById('cp-radiation');
+  var cpHistory = document.getElementById('cp-history');
+  var cpEcg = document.getElementById('cp-ecg');
+  var cpSymptoms = document.getElementById('cp-symptoms');
+  var cpOnsetTime = document.getElementById('cp-onset-time');
+  var cpFmcTime = document.getElementById('cp-fmc-time');
+  var cpTreatment = document.getElementById('cp-treatment');
+  var cpImpression = document.getElementById('cp-impression');
+  var cpNotes = document.getElementById('cp-notes');
+  var hasCHESTPAIN = (cpCharacter && cpCharacter.value.trim()) || (cpHistory && cpHistory.value.trim()) || (cpEcg && cpEcg.value.trim()) || (cpSymptoms && cpSymptoms.value.trim()) || (cpOnsetTime && cpOnsetTime.value) || (cpTreatment && cpTreatment.value.trim()) || (cpImpression && cpImpression.value.trim());
+  if (hasCHESTPAIN) {
+    html += '<div class="section-title" style="color:#d93025;">CHEST PAIN 胸痛交班</div>';
+    html += '<table style="font-size:13px;">';
+    // C: 胸痛特征（合并 character + location + radiation）
+    var cpCx = [];
+    if (cpCharacter && cpCharacter.value.trim()) cpCx.push(cpCharacter.value.trim());
+    if (cpLocation && cpLocation.value.trim()) cpCx.push('部位：' + cpLocation.value.trim());
+    if (cpRadiation && cpRadiation.value.trim()) cpCx.push('放射：' + cpRadiation.value.trim());
+    if (cpCx.length > 0) {
+      html += '<tr><th>C - 胸痛特征</th><td colspan="5">' + cpCx.join('；') + '</td></tr>';
+    }
+    if (cpHistory && cpHistory.value.trim()) {
+      html += '<tr><th>H - 病史/危险因素</th><td colspan="5">' + cpHistory.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    if (cpEcg && cpEcg.value.trim()) {
+      html += '<tr><th>E - ECG发现</th><td colspan="5">' + cpEcg.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    if (cpSymptoms && cpSymptoms.value.trim()) {
+      html += '<tr><th>S - 伴随症状</th><td colspan="5">' + cpSymptoms.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    html += '<tr><th>T - 时间节点</th><td colspan="5">胸痛发作：' + (cpOnsetTime && cpOnsetTime.value ? cpOnsetTime.value.replace('T',' ') : '____') + '　首次医疗接触：' + (cpFmcTime && cpFmcTime.value ? cpFmcTime.value.replace('T',' ') : '____') + '</td></tr>';
+    if (cpTreatment && cpTreatment.value.trim()) {
+      html += '<tr><th>P - 院前处置</th><td colspan="5">' + cpTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    if (cpImpression && cpImpression.value.trim()) {
+      html += '<tr><th>I - 初步印象</th><td colspan="5">' + cpImpression.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    if (cpNotes && cpNotes.value.trim()) {
+      html += '<tr><th>N - 备注</th><td colspan="5">' + cpNotes.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    html += '</table>';
+  }
+
+  // 2.8 BLEED 上消化道出血结构化交班（仅当有出血数据时显示）
+  var bleedPresentation = document.getElementById('bleed-presentation');
+  var bleedOnset = document.getElementById('bleed-onset');
+  var bleedVolume = document.getElementById('bleed-volume');
+  var bleedHb = document.getElementById('bleed-hb');
+  var bleedBun = document.getElementById('bleed-bun');
+  var bleedInr = document.getElementById('bleed-inr');
+  var bleedPlt = document.getElementById('bleed-plt');
+  var bleedEtiology = document.getElementById('bleed-etiology');
+  var bleedExam = document.getElementById('bleed-exam');
+  var hasBLEED = (bleedPresentation && bleedPresentation.value.trim()) || (bleedOnset && bleedOnset.value) || (bleedEtiology && bleedEtiology.value.trim()) || (bleedExam && bleedExam.value.trim());
+  if (hasBLEED) {
+    html += '<div class="section-title" style="color:#c5221f;">BLEED 上消化道出血交班</div>';
+    html += '<table style="font-size:13px;">';
+    if (bleedPresentation && bleedPresentation.value.trim()) {
+      html += '<tr><th>B - 出血表现</th><td colspan="5">' + bleedPresentation.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    html += '<tr><th>B - 起始/血量</th><td colspan="5">起始：' + (bleedOnset && bleedOnset.value ? bleedOnset.value.replace('T',' ') : '____') + '　估计血量：' + (bleedVolume && bleedVolume.value ? bleedVolume.value : '____') + '</td></tr>';
+    var labParts = [];
+    if (bleedHb && bleedHb.value) labParts.push('Hb ' + bleedHb.value + ' g/L');
+    if (bleedBun && bleedBun.value) labParts.push('BUN ' + bleedBun.value + ' mmol/L');
+    if (bleedInr && bleedInr.value) labParts.push('INR ' + bleedInr.value);
+    if (bleedPlt && bleedPlt.value) labParts.push('PLT ' + bleedPlt.value + '×10⁹/L');
+    if (labParts.length > 0) {
+      html += '<tr><th>L - 实验室</th><td colspan="5">' + labParts.join('　') + '</td></tr>';
+    }
+    if (bleedEtiology && bleedEtiology.value.trim()) {
+      html += '<tr><th>E - 病因/诱因</th><td colspan="5">' + bleedEtiology.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    if (bleedExam && bleedExam.value.trim()) {
+      html += '<tr><th>E - 体格检查</th><td colspan="5">' + bleedExam.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     html += '</table>';
   }
