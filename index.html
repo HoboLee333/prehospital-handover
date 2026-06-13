@@ -2243,25 +2243,49 @@ function generateHandover() {
     html += '</table>';
   }
 
-  // 4. 措施（含管道）
+  // 4. 措施（含管道 + 各类别补充描述）
   var hasMeasures = measureRecords.length > 0;
   var hasTubes = tubeRecords.length > 0;
-  if (hasMeasures || hasTubes) {
+  var airwayNote = (document.getElementById('meas-note-airway') || {}).value || '';
+  var cirNote = (document.getElementById('meas-note-cir') || {}).value || '';
+  var traumaNote = (document.getElementById('meas-note-trauma') || {}).value || '';
+  var otherNote = (document.getElementById('meas-note-other') || {}).value || '';
+  var hasNotes = (airwayNote + cirNote + traumaNote + otherNote).trim().length > 0;
+
+  if (hasMeasures || hasTubes || hasNotes) {
     html += '<div class="section-title">措施</div>';
-    html += '<table style="font-size:13px;"><tr><th>时间</th><th>项目</th><th>详情</th></tr>';
-    if (hasMeasures) {
-      measureRecords.forEach(function(r) {
-        html += '<tr><td>' + r.time + '</td><td>' + r.name + '</td><td>' + (r.detail || '') + '</td></tr>';
-      });
+    if (hasMeasures || hasTubes) {
+      html += '<table style="font-size:13px;"><tr><th>时间</th><th>项目</th><th>详情</th></tr>';
+      if (hasMeasures) {
+        measureRecords.forEach(function(r) {
+          html += '<tr><td>' + r.time + '</td><td>' + r.name + '</td><td>' + (r.detail || '') + '</td></tr>';
+        });
+      }
+      if (hasTubes) {
+        tubeRecords.forEach(function(r) {
+          var isRemove = r.type === '—  拔出 —';
+          var op = isRemove ? '拔除' : '置入';
+          html += '<tr><td>' + r.time + '</td><td>' + op + r.type + '</td><td>' + (r.site||'') + (r.note?' ('+r.note+')':'') + '</td></tr>';
+        });
+      }
+      html += '</table>';
     }
-    if (hasTubes) {
-      tubeRecords.forEach(function(r) {
-        var isRemove = r.type === '—  拔出 —';
-        var op = isRemove ? '拔除' : '置入';
-        html += '<tr><td>' + r.time + '</td><td>' + op + r.type + '</td><td>' + (r.site||'') + (r.note?' ('+r.note+')':'') + '</td></tr>';
-      });
+    if (hasNotes) {
+      html += '<table style="font-size:13px;margin-top:6px;">';
+      if (airwayNote.trim()) {
+        html += '<tr><th>气道/呼吸补充</th><td colspan="5">' + airwayNote.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      }
+      if (cirNote.trim()) {
+        html += '<tr><th>循环/复苏补充</th><td colspan="5">' + cirNote.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      }
+      if (traumaNote.trim()) {
+        html += '<tr><th>创伤处理补充</th><td colspan="5">' + traumaNote.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      }
+      if (otherNote.trim()) {
+        html += '<tr><th>其他措施补充</th><td colspan="5">' + otherNote.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      }
+      html += '</table>';
     }
-    html += '</table>';
   }
 
   // 5. 备注
