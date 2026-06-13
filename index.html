@@ -2274,21 +2274,80 @@ function generateHandover() {
   }
 
   // 2.6 STROKE 卒中结构化交班（仅当有卒中数据时显示）
+  var strokeName = document.getElementById('stroke-name');
+  var strokeGender = document.getElementById('stroke-gender');
+  var strokeAge = document.getElementById('stroke-age');
   var strokeOnset = document.getElementById('stroke-onset-time');
   var strokeLastNormal = document.getElementById('stroke-last-normal');
   var strokeSymptoms = document.getElementById('stroke-symptoms');
   var strokeMedsHx = document.getElementById('stroke-meds-hx');
-  var hasSTROKE = (strokeOnset && strokeOnset.value) || (strokeSymptoms && strokeSymptoms.value.trim()) || (strokeMedsHx && strokeMedsHx.value.trim());
+  var hasSTROKE = (strokeName && strokeName.value.trim()) || (strokeOnset && strokeOnset.value) || (strokeSymptoms && strokeSymptoms.value.trim()) || (strokeMedsHx && strokeMedsHx.value.trim());
   if (hasSTROKE) {
     html += '<div class="section-title" style="color:#1a73e8;">STROKE 卒中交班</div>';
     html += '<table style="font-size:13px;">';
-    html += '<tr><th>T - 发病时间</th><td colspan="5">症状发作：' + (strokeOnset && strokeOnset.value ? strokeOnset.value.replace('T',' ') : '____') + '　最后正常：' + (strokeLastNormal && strokeLastNormal.value ? strokeLastNormal.value.replace('T',' ') : '____') + '</td></tr>';
+    // S - 患者信息
+    html += '<tr><th>S - 患者信息</th><td colspan="5">' + (strokeName && strokeName.value.trim() ? strokeName.value.trim() : '____') + '　' + (strokeGender && strokeGender.value ? strokeGender.value : '') + '　' + (strokeAge && strokeAge.value.trim() ? strokeAge.value.trim() + '岁' : '') + '</td></tr>';
+    // T - 发病时间
+    var onsetStr = strokeOnset && strokeOnset.value ? strokeOnset.value.replace('T',' ') : '____';
+    var lastNormalStr = strokeLastNormal && strokeLastNormal.value ? strokeLastNormal.value.replace('T',' ') : '____';
+    // 计算时间窗
+    var windowNote = '';
+    if (strokeOnset && strokeOnset.value) {
+      try {
+        var onsetMs = new Date(strokeOnset.value).getTime();
+        var nowMs = Date.now();
+        var diffMin = Math.round((nowMs - onsetMs) / 60000);
+        if (diffMin > 0) {
+          windowNote = ' （距发病约' + (diffMin >= 60 ? Math.floor(diffMin/60) + 'h' + (diffMin%60 ? diffMin%60 + 'min' : '') : diffMin + 'min') + '）';
+          if (diffMin <= 270) windowNote += ' <b style="color:#188038;">⚠ 在溶栓时间窗内</b>';
+          else if (diffMin <= 360) windowNote += ' <b style="color:#e37400;">可能适合取栓</b>';
+          else windowNote += ' <b style="color:#d93025;">超时间窗</b>';
+        }
+      } catch(e) {}
+    }
+    html += '<tr><th>T - 发病时间</th><td colspan="5">症状发作：' + onsetStr + '　最后正常：' + lastNormalStr + windowNote + '</td></tr>';
+    // R - 症状体征
     if (strokeSymptoms && strokeSymptoms.value.trim()) {
       html += '<tr><th>R - 症状体征</th><td colspan="5">' + strokeSymptoms.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    } else {
+      html += '<tr><th>R - 症状体征</th><td colspan="5">未记录</td></tr>';
     }
+    // O - 用药/既往史
     if (strokeMedsHx && strokeMedsHx.value.trim()) {
       html += '<tr><th>O - 用药/既往史</th><td colspan="5">' + strokeMedsHx.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    } else {
+      html += '<tr><th>O - 用药/既往史</th><td colspan="5">未提供</td></tr>';
     }
+    // K - 关键评分 (G-FAST + NIHSS)
+    var gfastScore = document.getElementById('gfast-total').textContent;
+    var nihssScore = document.getElementById('nihss-total').textContent;
+    var scorePartsK = [];
+    if (gfastScore !== '--') scorePartsK.push('G-FAST: <b>' + gfastScore + '/4分</b>' + (parseInt(gfastScore) >= 3 ? ' <span style="color:#d93025;">⚠ 高度疑似大血管闭塞</span>' : ''));
+    if (nihssScore !== '--') {
+      var n = parseInt(nihssScore);
+      var sev = '';
+      if (n >= 21) sev = '重度';
+      else if (n >= 16) sev = '中重度';
+      else if (n >= 5) sev = '中度';
+      else if (n >= 2) sev = '轻度';
+      else sev = '正常/极轻';
+      scorePartsK.push('NIHSS: <b>' + nihssScore + '/42分</b>（' + sev + '）');
+    }
+    if (scorePartsK.length > 0) {
+      html += '<tr style="background:#f5f0ff;"><th style="color:#7b1fa2;">K - 关键评分</th><td colspan="5" style="color:#7b1fa2;">' + scorePartsK.join('　') + '</td></tr>';
+    }
+    // E - 院前评估小结
+    html += '<tr><th>E - 院前评估</th><td colspan="5">';
+    var evalParts = [];
+    if (strokeOnset && strokeOnset.value && diffMin !== undefined) {
+      if (diffMin <= 270) evalParts.push('✅ 发病' + (diffMin >= 60 ? Math.floor(diffMin/60) + '小时' + (diffMin%60 ? diffMin%60 + '分钟' : '') : diffMin + '分钟') + '，在4.5h溶栓时间窗内，建议启动绿色通道');
+      else evalParts.push('⚠ 发病' + (diffMin >= 60 ? Math.floor(diffMin/60) + '小时' + (diffMin%60 ? diffMin%60 + '分钟' : '') : diffMin + '分钟') + '，已超溶栓时间窗');
+    }
+    if (gfastScore !== '--' && parseInt(gfastScore) >= 3) evalParts.push('G-FAST ≥3分，高度疑似大血管闭塞（LVO），建议直达高级卒中中心');
+    if (strokeMedsHx && strokeMedsHx.value.trim() && (strokeMedsHx.value.indexOf('华法林') !== -1 || strokeMedsHx.value.indexOf('抗凝') !== -1)) {
+      evalParts.push('⚠ 正在使用抗凝药物，溶栓需谨慎评估');
+    }
+    html += (evalParts.length > 0 ? evalParts.join('<br>') : '建议完善评估') + '</td></tr>';
     html += '</table>';
   }
 
