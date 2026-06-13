@@ -2296,15 +2296,15 @@ function generateHandover() {
   var atmAge = document.getElementById('atm-age');
   var hasATMIST = (traumaMech && traumaMech.value.trim()) || (traumaTime && traumaTime.value) || (traumaInjSummary && traumaInjSummary.value.trim()) || (traumaTreatment && traumaTreatment.value.trim()) || (atmAge && atmAge.value);
   if (hasATMIST) {
-    html += '<div class="section-title" style="color:#d93025;">ATMIST 创伤交班</div>';
+    html += '<div class="section-title" style="color:#d93025;">ATMIST</div>';
     html += '<div style="display:inline-block;background:linear-gradient(135deg,#d93025,#c5221f);color:#fff;padding:3px 12px;border-radius:16px;font-weight:700;font-size:12px;margin-bottom:8px;animation:pulse-alert 2s infinite;"><span style="font-size:14px;">🚨</span> 创伤预警</div>';
     html += '<table style="font-size:13px;">';
     // A - Age (from ATMIST section input)
     var atmName = document.getElementById('atm-name');
     var atmGender = document.getElementById('atm-gender');
-    html += '<tr><th>A - 年龄</th><td>' + (atmName ? atmName.value.trim() || '____' : '____') + ' ' + (atmGender ? atmGender.value || '' : '') + ' ' + (atmAge && atmAge.value ? atmAge.value + '岁' : '') + '</td><th>T - 受伤时间</th><td colspan="3">' + (traumaTime && traumaTime.value ? traumaTime.value.replace('T',' ') : '____') + '</td></tr>';
+    html += '<tr><th>A</th><td>' + (atmName ? atmName.value.trim() || '____' : '____') + ' ' + (atmGender ? atmGender.value || '' : '') + ' ' + (atmAge && atmAge.value ? atmAge.value + '岁' : '') + '</td><th>T</th><td colspan="3">' + (traumaTime && traumaTime.value ? traumaTime.value.replace('T',' ') : '____') + '</td></tr>';
     // M - Mechanism
-    html += '<tr><th>M - 受伤机制</th><td colspan="5">' + (traumaMech ? traumaMech.value.trim() : '____') + '</td></tr>';
+    html += '<tr><th>M</th><td colspan="5">' + (traumaMech ? traumaMech.value.trim() : '____') + '</td></tr>';
     var traumaState = document.getElementById('trauma-state');
     if (traumaState && traumaState.value) {
       html += '<tr><th>受伤时状态</th><td colspan="5">' + traumaState.value + '</td></tr>';
@@ -2314,7 +2314,7 @@ function generateHandover() {
       html += '<tr><th>机制详情</th><td colspan="5">' + traumaMechDetail.value.trim() + '</td></tr>';
     }
     // I - Injuries (reads from select elements + side selectors)
-    html += '<tr><th>I - 伤情损伤</th><td colspan="5">';
+    html += '<tr><th>I</th><td colspan="5">';
     var injFields = [
       { id: 'trauma-inj-head', label: '头部/颅脑', side: null },
       { id: 'trauma-inj-face', label: '面部', side: 'trauma-inj-face-side' },
@@ -2342,17 +2342,17 @@ function generateHandover() {
     }
     // T - Treatment (textarea)
     if (traumaTreatment && traumaTreatment.value.trim()) {
-      html += '<tr><th>T - 院前处置</th><td colspan="5">' + traumaTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>T</th><td colspan="5">' + traumaTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     // 预警原因
     var alertReason = document.getElementById('trauma-alert-reason');
     if (alertReason && alertReason.value.trim()) {
-      html += '<tr style="background:#fff5f5;"><th style="color:#c5221f;">⚠ 预警原因</th><td colspan="5" style="color:#c5221f;">' + alertReason.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr style="background:#fff5f5;"><th style="color:#c5221f;">预警</th><td colspan="5" style="color:#c5221f;">' + alertReason.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     // 呼叫会诊科室
     var consult = document.getElementById('trauma-consult');
     if (consult && consult.value.trim()) {
-      html += '<tr style="background:#f0f7ff;"><th style="color:#1a73e8;">📞 呼叫会诊</th><td colspan="5" style="color:#1a73e8;">' + consult.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr style="background:#f0f7ff;"><th style="color:#1a73e8;">会诊</th><td colspan="5" style="color:#1a73e8;">' + consult.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     html += '</table>';
   }
@@ -2384,7 +2384,7 @@ function generateHandover() {
 
   var hasSTROKE = (strokeName && strokeName.value.trim()) || (strokeOnset && strokeOnset.value) || (strokeTypeText && strokeTypeText.value.trim()) || (strokeRisk && strokeRisk.value.trim());
   if (hasSTROKE) {
-    html += '<div class="section-title" style="color:#1a73e8;">STROKE 卒中交班</div>';
+    html += '<div class="section-title" style="color:#1a73e8;">STROKE</div>';
     html += '<div style="background:#f0f7ff;border-left:3px solid #1a73e8;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.9;">';
 
     // 开场白
@@ -2396,7 +2396,7 @@ function generateHandover() {
     html += '<p style="margin:0 0 10px 0;font-weight:700;color:#1a73e8;">接收卒中中心，现交接' + patientInfo + '急性卒中患者，按 STROKE 汇报：</p>';
 
     // S - 发病时间
-    html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">S（Symptom onset time）发病时间</b><br>';
+    html += '<p style="margin:4px 0;"><b style="color:#1a73e8;">S</b><br>';
     var lastNormalT = strokeLastNormal && strokeLastNormal.value ? strokeLastNormal.value.replace('T',' ') : '不详';
     var onsetT = strokeOnset && strokeOnset.value ? strokeOnset.value.replace('T',' ') : '不详';
     html += '患者最后正常时间 ' + lastNormalT + '，' + onsetT + ' 突发神经缺损症状。';
@@ -2408,7 +2408,7 @@ function generateHandover() {
     html += '</p>';
 
     // T - 症状类型
-    html += '<p style="margin:4px 0;"><b style="color:#e37400;">T（Type of symptoms）症状类型</b><br>';
+    html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b><br>';
     var typeText = strokeTypeText && strokeTypeText.value.trim() ? strokeTypeText.value.trim() : '';
     if (typeText) {
       html += '现场 BEFAST 筛查阳性：' + typeText.replace(/\n/g, ' / ') + '。';
@@ -2427,7 +2427,7 @@ function generateHandover() {
     html += seizureTxt + '，' + vomitTxt + '。</p>';
 
     // R - 高危危险因素
-    html += '<p style="margin:4px 0;"><b style="color:#d93025;">R（Risk factors）高危危险因素</b><br>';
+    html += '<p style="margin:4px 0;"><b style="color:#d93025;">R</b><br>';
     if (strokeRisk && strokeRisk.value.trim()) {
       html += strokeRisk.value.trim().replace(/\n/g, '、') + '。</p>';
     } else {
@@ -2435,7 +2435,7 @@ function generateHandover() {
     }
 
     // O - 生命体征与查体
-    html += '<p style="margin:4px 0;"><b style="color:#188038;">O（Observations & vital signs）生命体征与查体</b><br>转运时';
+    html += '<p style="margin:4px 0;"><b style="color:#188038;">O</b><br>转运时';
     var hasVitals = false;
     if (strokeBp && strokeBp.value.trim()) { html += '血压 ' + strokeBp.value.trim() + 'mmHg'; hasVitals = true; }
     if (strokeHr && strokeHr.value.trim()) { html += (hasVitals ? '，' : '') + '心率 ' + strokeHr.value.trim() + ' 次/分'; hasVitals = true; }
@@ -2454,7 +2454,7 @@ function generateHandover() {
     html += '</p>';
 
     // K - 长期用药与过敏
-    html += '<p style="margin:4px 0;"><b style="color:#7b1fa2;">K（Known medications & allergies）长期用药与过敏</b><br>';
+    html += '<p style="margin:4px 0;"><b style="color:#7b1fa2;">K</b><br>';
     if (strokeMedsLong && strokeMedsLong.value.trim()) {
       html += strokeMedsLong.value.trim().replace(/\n/g, '、') + '。';
     } else {
@@ -2467,7 +2467,7 @@ function generateHandover() {
     }
 
     // E - 院前处置
-    html += '<p style="margin:4px 0;"><b style="color:#e37400;">E（Emergency pre-hospital treatment）院前处置</b><br>';
+    html += '<p style="margin:4px 0;"><b style="color:#e37400;">E</b><br>';
     if (strokeETreatment && strokeETreatment.value.trim()) {
       html += strokeETreatment.value.trim().replace(/\n/g, '；') + '。';
     } else {
@@ -2498,7 +2498,7 @@ function generateHandover() {
   var cpNotes = document.getElementById('cp-notes');
   var hasCHESTPAIN = (cpCharacter && cpCharacter.value.trim()) || (cpHistory && cpHistory.value.trim()) || (cpEcg && cpEcg.value.trim()) || (cpSymptoms && cpSymptoms.value.trim()) || (cpOnsetTime && cpOnsetTime.value) || (cpTreatment && cpTreatment.value.trim()) || (cpImpression && cpImpression.value.trim());
   if (hasCHESTPAIN) {
-    html += '<div class="section-title" style="color:#d93025;">CHEST PAIN 胸痛交班</div>';
+    html += '<div class="section-title" style="color:#d93025;">CHEST PAIN</div>';
     html += '<table style="font-size:13px;">';
     // C: 胸痛特征（合并 character + location + radiation）
     var cpCx = [];
@@ -2506,26 +2506,26 @@ function generateHandover() {
     if (cpLocation && cpLocation.value.trim()) cpCx.push('部位：' + cpLocation.value.trim());
     if (cpRadiation && cpRadiation.value.trim()) cpCx.push('放射：' + cpRadiation.value.trim());
     if (cpCx.length > 0) {
-      html += '<tr><th>C - 胸痛特征</th><td colspan="5">' + cpCx.join('；') + '</td></tr>';
+      html += '<tr><th>C</th><td colspan="5">' + cpCx.join('；') + '</td></tr>';
     }
     if (cpHistory && cpHistory.value.trim()) {
-      html += '<tr><th>H - 病史/危险因素</th><td colspan="5">' + cpHistory.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>H</th><td colspan="5">' + cpHistory.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     if (cpEcg && cpEcg.value.trim()) {
-      html += '<tr><th>E - ECG发现</th><td colspan="5">' + cpEcg.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>E</th><td colspan="5">' + cpEcg.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     if (cpSymptoms && cpSymptoms.value.trim()) {
-      html += '<tr><th>S - 伴随症状</th><td colspan="5">' + cpSymptoms.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>S</th><td colspan="5">' + cpSymptoms.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
-    html += '<tr><th>T - 时间节点</th><td colspan="5">胸痛发作：' + (cpOnsetTime && cpOnsetTime.value ? cpOnsetTime.value.replace('T',' ') : '____') + '　首次医疗接触：' + (cpFmcTime && cpFmcTime.value ? cpFmcTime.value.replace('T',' ') : '____') + '</td></tr>';
+    html += '<tr><th>T</th><td colspan="5">胸痛发作：' + (cpOnsetTime && cpOnsetTime.value ? cpOnsetTime.value.replace('T',' ') : '____') + '　首次医疗接触：' + (cpFmcTime && cpFmcTime.value ? cpFmcTime.value.replace('T',' ') : '____') + '</td></tr>';
     if (cpTreatment && cpTreatment.value.trim()) {
-      html += '<tr><th>P - 院前处置</th><td colspan="5">' + cpTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>P</th><td colspan="5">' + cpTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     if (cpImpression && cpImpression.value.trim()) {
-      html += '<tr><th>I - 初步印象</th><td colspan="5">' + cpImpression.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>I</th><td colspan="5">' + cpImpression.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     if (cpNotes && cpNotes.value.trim()) {
-      html += '<tr><th>N - 备注</th><td colspan="5">' + cpNotes.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>N</th><td colspan="5">' + cpNotes.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     html += '</table>';
   }
@@ -2542,25 +2542,25 @@ function generateHandover() {
   var bleedExam = document.getElementById('bleed-exam');
   var hasBLEED = (bleedPresentation && bleedPresentation.value.trim()) || (bleedOnset && bleedOnset.value) || (bleedEtiology && bleedEtiology.value.trim()) || (bleedExam && bleedExam.value.trim());
   if (hasBLEED) {
-    html += '<div class="section-title" style="color:#c5221f;">BLEED 上消化道出血交班</div>';
+    html += '<div class="section-title" style="color:#c5221f;">BLEED</div>';
     html += '<table style="font-size:13px;">';
     if (bleedPresentation && bleedPresentation.value.trim()) {
-      html += '<tr><th>B - 出血表现</th><td colspan="5">' + bleedPresentation.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>B</th><td colspan="5">' + bleedPresentation.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
-    html += '<tr><th>B - 起始/血量</th><td colspan="5">起始：' + (bleedOnset && bleedOnset.value ? bleedOnset.value.replace('T',' ') : '____') + '　估计血量：' + (bleedVolume && bleedVolume.value ? bleedVolume.value : '____') + '</td></tr>';
+    html += '<tr><th>B</th><td colspan="5">起始：' + (bleedOnset && bleedOnset.value ? bleedOnset.value.replace('T',' ') : '____') + '　估计血量：' + (bleedVolume && bleedVolume.value ? bleedVolume.value : '____') + '</td></tr>';
     var labParts = [];
     if (bleedHb && bleedHb.value) labParts.push('Hb ' + bleedHb.value + ' g/L');
     if (bleedBun && bleedBun.value) labParts.push('BUN ' + bleedBun.value + ' mmol/L');
     if (bleedInr && bleedInr.value) labParts.push('INR ' + bleedInr.value);
     if (bleedPlt && bleedPlt.value) labParts.push('PLT ' + bleedPlt.value + '×10⁹/L');
     if (labParts.length > 0) {
-      html += '<tr><th>L - 实验室</th><td colspan="5">' + labParts.join('　') + '</td></tr>';
+      html += '<tr><th>L</th><td colspan="5">' + labParts.join('　') + '</td></tr>';
     }
     if (bleedEtiology && bleedEtiology.value.trim()) {
-      html += '<tr><th>E - 病因/诱因</th><td colspan="5">' + bleedEtiology.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>E</th><td colspan="5">' + bleedEtiology.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     if (bleedExam && bleedExam.value.trim()) {
-      html += '<tr><th>E - 体格检查</th><td colspan="5">' + bleedExam.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+      html += '<tr><th>E</th><td colspan="5">' + bleedExam.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     html += '</table>';
   }
