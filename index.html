@@ -115,6 +115,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
 /* ===== Handover ===== */
 .handover { border:1px solid var(--border); border-radius:var(--radius); padding:24px; background:#fff; }
 .handover h2 { text-align:center; font-size:20px; margin-bottom:20px; }
+@keyframes pulse-alert {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217,48,37,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(217,48,37,0); }
+}
 .handover .section-title { font-size:14px; font-weight:700; color:var(--primary); border-bottom:2px solid var(--primary); padding-bottom:4px; margin:14px 0 8px; }
 .ho-block { position:relative; margin-bottom:2px; padding:6px 8px 6px 12px; border-radius:6px; transition:background .2s; }
 .ho-block:hover { background:#f8f9fa; }
@@ -494,7 +498,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
 
 <!-- ==================== 创伤中心 (ATMIST) ==================== -->
 <section id="section-trauma" class="section">
-  <div class="page-header"><h2>🦴 创伤中心评估 · ATMIST 标准化交接</h2><span class="meta" style="font-size:11px;color:var(--danger);">A→T→M→I→S→T 逐项填写</span></div>
+  <div class="page-header" style="position:relative;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div style="background:linear-gradient(135deg,#d93025,#c5221f);color:#fff;padding:4px 14px;border-radius:20px;font-weight:700;font-size:14px;animation:pulse-alert 2s infinite;display:flex;align-items:center;gap:4px;">
+        <span style="font-size:18px;">🚨</span> 创伤预警
+      </div>
+      <h2 style="margin:0;">🦴 创伤中心评估 · ATMIST 标准化交接</h2>
+    </div>
+    <span class="meta" style="font-size:11px;color:var(--danger);margin-top:6px;display:block;">A→T→M→I→S→T 逐项填写</span>
+  </div>
 
   <!-- A: 年龄 -->
   <div class="card" style="border-left:4px solid var(--primary);">
@@ -720,6 +732,50 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="form-group">
       <label>院前已采取的创伤处置措施</label>
       <textarea id="trauma-treatment" rows="3" placeholder="可点击上方快速选择或自由输入..."></textarea>
+    </div>
+  </div>
+
+  <!-- 预警原因 -->
+  <div class="card" style="border-left:4px solid #c5221f;background:#fff5f5;">
+    <div class="card-header"><h3>⚠️ 预警原因 (Alert Reason)</h3></div>
+    <div class="chip-bar" style="margin-bottom:10px;">
+      <span class="chip" onclick="setAlertReason('ISS>15严重创伤')">📊 ISS>15</span>
+      <span class="chip" onclick="setAlertReason('多发伤')">🦴 多发伤</span>
+      <span class="chip" onclick="setAlertReason('颅脑损伤 GCS≤8')">🧠 颅脑 GCS≤8</span>
+      <span class="chip" onclick="setAlertReason('休克 SBP<90')">💔 休克 SBP<90</span>
+      <span class="chip" onclick="setAlertReason('穿透伤（颈/胸/腹）')">🔪 穿透伤</span>
+      <span class="chip" onclick="setAlertReason('连枷胸')">🫁 连枷胸</span>
+      <span class="chip" onclick="setAlertReason('不稳定骨盆骨折')">🔴 骨盆骨折</span>
+      <span class="chip" onclick="setAlertReason('肢体毁损/离断')">🦵 肢体毁损</span>
+      <span class="chip" onclick="setAlertReason('坠落>5米')">🪜 坠落>5m</span>
+      <span class="chip" onclick="setAlertReason('高速交通事故')">🚗 高速事故</span>
+      <span class="chip" onclick="setAlertReason('老年/儿童严重创伤')">👴 老年/儿童</span>
+      <span class="chip" onclick="setAlertReason('需要紧急手术')">🏥 紧急手术</span>
+    </div>
+    <div class="form-group">
+      <label>预警原因（可多选快速标签或自由输入）</label>
+      <textarea id="trauma-alert-reason" rows="3" placeholder="可点击上方快速选择或自由输入预警原因..."></textarea>
+    </div>
+  </div>
+
+  <!-- 呼叫会诊科室 -->
+  <div class="card" style="border-left:4px solid #1a73e8;background:#f0f7ff;">
+    <div class="card-header"><h3>📞 呼叫会诊科室 (Consultation)</h3></div>
+    <div class="chip-bar" style="margin-bottom:10px;">
+      <span class="chip" onclick="setTraumaConsult('骨一科')">🦴 骨一科</span>
+      <span class="chip" onclick="setTraumaConsult('骨二科')">🦴 骨二科</span>
+      <span class="chip" onclick="setTraumaConsult('骨三科')">🦴 骨三科</span>
+      <span class="chip" onclick="setTraumaConsult('脑病科')">🧠 脑病科</span>
+      <span class="chip" onclick="setTraumaConsult('外一科')">🔪 外一科</span>
+      <span class="chip" onclick="setTraumaConsult('外二科')">🔪 外二科</span>
+      <span class="chip" onclick="setTraumaConsult('外三科')">🔪 外三科</span>
+      <span class="chip" onclick="setTraumaConsult('ICU')">🩺 ICU</span>
+      <span class="chip" onclick="setTraumaConsult('手术室')">🏥 手术室</span>
+      <span class="chip" onclick="setTraumaConsult('检验科')">🔬 检验科</span>
+    </div>
+    <div class="form-group">
+      <label>呼叫会诊科室（可多选快速标签或自由输入）</label>
+      <textarea id="trauma-consult" rows="3" placeholder="可点击上方快速选择或自由输入其他需要的科室..."></textarea>
     </div>
   </div>
 </section>
@@ -1701,6 +1757,16 @@ function setMechanism(val) {
   if (targetChip) targetChip.classList.add('selected');
 }
 
+function setAlertReason(val) {
+  var textarea = document.getElementById('trauma-alert-reason');
+  var current = textarea.value.trim();
+  textarea.value = current ? current + '\n' + val : val;
+}
+function setTraumaConsult(val) {
+  var textarea = document.getElementById('trauma-consult');
+  var current = textarea.value.trim();
+  textarea.value = current ? current + '\n' + val : val;
+}
 function updateATMIST() {
   // A - 已独立填写，无需同步
   // 仅保留函数以向后兼容
@@ -2134,6 +2200,16 @@ function generateHandover() {
     // T - Treatment (textarea)
     if (traumaTreatment && traumaTreatment.value.trim()) {
       html += '<tr><th>T - 院前处置</th><td colspan="5">' + traumaTreatment.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    // 预警原因
+    var alertReason = document.getElementById('trauma-alert-reason');
+    if (alertReason && alertReason.value.trim()) {
+      html += '<tr style="background:#fff5f5;"><th style="color:#c5221f;">⚠ 预警原因</th><td colspan="5" style="color:#c5221f;">' + alertReason.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
+    }
+    // 呼叫会诊科室
+    var consult = document.getElementById('trauma-consult');
+    if (consult && consult.value.trim()) {
+      html += '<tr style="background:#f0f7ff;"><th style="color:#1a73e8;">📞 呼叫会诊</th><td colspan="5" style="color:#1a73e8;">' + consult.value.trim().replace(/\n/g, '<br>') + '</td></tr>';
     }
     html += '</table>';
   }
