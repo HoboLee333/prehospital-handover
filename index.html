@@ -625,12 +625,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   <!-- NRS 疼痛评分 -->
   <div class="card" id="nrs-card">
     <div class="card-header"><h3>NRS 疼痛数字评分</h3><span class="score-badge score-low" id="nrs-score-badge">--</span></div>
-    <div style="display:flex;align-items:center;gap:16px;margin:10px 0;">
-      <span style="font-size:13px;color:var(--text-secondary)">0 无痛</span>
-      <input type="range" id="nrs-val" min="0" max="10" value="0" oninput="calcNRS()" style="flex:1;">
-      <span style="font-size:13px;color:var(--text-secondary)">10 剧痛</span>
+    <div class="form-group" style="margin:10px 0;">
+      <label>疼痛评分（0-10分）</label>
+      <select id="nrs-val" onchange="calcNRS()">
+        <option value="">-- 请选择 --</option>
+        <option value="0">0 - 无痛</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3 - 轻度疼痛</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6 - 中度疼痛</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10 - 剧痛（无法忍受）</option>
+      </select>
     </div>
-    <div class="score-display"><div class="score-value" id="nrs-total">0</div><div class="score-label">NRS疼痛评分：0=无痛 | 1-3=轻度 | 4-6=中度 | 7-10=重度</div></div>
+    <div class="score-display"><div class="score-value" id="nrs-total">--</div><div class="score-label">NRS疼痛评分：0=无痛 | 1-3=轻度 | 4-6=中度 | 7-10=重度</div></div>
   </div>
 </section>
 
@@ -754,6 +766,66 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       </div>
     </div>
   </div>
+  <!-- GRACE 评分 -->
+  <div class="card" id="grace-card">
+    <div class="card-header"><h3>GRACE 出院/6月死亡风险评分</h3><span class="score-badge score-low" id="grace-score-badge">--</span></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>年龄 (岁)</label><select id="grace-age" onchange="calcGRACE()"><option value="">--</option><option value="0"><40</option><option value="18">40-49</option><option value="36">50-59</option><option value="55">60-69</option><option value="73">70-79</option><option value="91">80-89</option><option value="100">>=90</option></select></div>
+      <div class="form-group"><label>心率 (次/分)</label><select id="grace-hr" onchange="calcGRACE()"><option value="">--</option><option value="0"><70</option><option value="7">70-89</option><option value="11">90-109</option><option value="19">110-149</option><option value="36">150-199</option><option value="46">>=200</option></select></div>
+      <div class="form-group"><label>收缩压 (mmHg)</label><select id="grace-sbp" onchange="calcGRACE()"><option value="">--</option><option value="63"><80</option><option value="58">80-99</option><option value="47">100-119</option><option value="37">120-139</option><option value="26">140-159</option><option value="11">160-199</option><option value="0">>=200</option></select></div>
+      <div class="form-group"><label>肌酐 (mg/dL)</label><select id="grace-cr" onchange="calcGRACE()"><option value="">--</option><option value="2">0-0.39</option><option value="5">0.4-0.79</option><option value="8">0.8-1.19</option><option value="11">1.2-1.59</option><option value="14">1.6-1.99</option><option value="23">2.0-3.99</option><option value="31">>=4.0</option></select></div>
+      <div class="form-group"><label>Killip分级</label><select id="grace-killip" onchange="calcGRACE()"><option value="">--</option><option value="0">I级</option><option value="21">II级</option><option value="43">III级</option><option value="64">IV级</option></select></div>
+      <div class="form-group"><label>入院时心跳骤停</label><select id="grace-arrest" onchange="calcGRACE()"><option value="">--</option><option value="0">否</option><option value="43">是</option></select></div>
+      <div class="form-group"><label>ST段偏移</label><select id="grace-st" onchange="calcGRACE()"><option value="">--</option><option value="0">无</option><option value="30">有</option></select></div>
+      <div class="form-group"><label>心肌酶升高</label><select id="grace-enzyme" onchange="calcGRACE()"><option value="">--</option><option value="0">无</option><option value="15">有</option></select></div>
+    </div>
+    <div class="score-display"><div class="score-value" id="grace-total">--</div><div class="score-label">GRACE评分：<=108低危 | 109-140中危 | >140高危（院内死亡风险显著升高）</div></div>
+  </div>
+
+  <!-- Killip 分级 -->
+  <div class="card" id="killip-card">
+    <div class="card-header"><h3>Killip 心功能分级</h3><span class="score-badge score-low" id="killip-score-badge">--</span></div>
+    <div class="form-group">
+      <label>Killip 分级（适用于急性心肌梗死患者）</label>
+      <select id="killip-val" onchange="calcKillip()">
+        <option value="">-- 请选择 --</option>
+        <option value="I">I级 - 无心力衰竭征象</option>
+        <option value="II">II级 - 轻度心衰（肺底啰音＜1/2肺野，S3奔马律）</option>
+        <option value="III">III级 - 急性肺水肿（全肺湿啰音）</option>
+        <option value="IV">IV级 - 心源性休克（收缩压＜90mmHg，少尿，皮肤湿冷）</option>
+      </select>
+    </div>
+    <div class="score-display"><div class="score-value" id="killip-total">--</div><div class="score-label">Killip分级：I级住院死亡率约6% | II级约17% | III级约38% | IV级约81%</div></div>
+  </div>
+
+  <!-- TIMI 评分 -->
+  <div class="card" id="timi-card">
+    <div class="card-header"><h3>TIMI 风险评分（UA/NSTEMI）</h3><span class="score-badge score-low" id="timi-score-badge">--</span></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>年龄>=65岁</label><select id="timi-age" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+      <div class="form-group"><label>>=3个冠心病危险因素</label><select id="timi-risk" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+      <div class="form-group"><label>已知冠心病(狭窄>=50%)</label><select id="timi-cad" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+      <div class="form-group"><label>7天内使用阿司匹林</label><select id="timi-asa" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+      <div class="form-group"><label>24h内>=2次心绞痛</label><select id="timi-angina" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+      <div class="form-group"><label>ST段偏移>=0.5mm</label><select id="timi-st" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+      <div class="form-group"><label>心肌标志物升高</label><select id="timi-marker" onchange="calcTIMI()"><option value="">--</option><option value="0">否 (0)</option><option value="1">是 (1)</option></select></div>
+    </div>
+    <div class="score-display"><div class="score-value" id="timi-total">--</div><div class="score-label">TIMI评分：0-2分低危(14天事件率<8%) | 3-4分中危 | 5-7分高危(14天事件率>26%)</div></div>
+  </div>
+
+  <!-- HEART 评分 -->
+  <div class="card" id="heart-card">
+    <div class="card-header"><h3>HEART 胸痛评分</h3><span class="score-badge score-low" id="heart-score-badge">--</span></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>病史 (History)</label><select id="heart-hist" onchange="calcHEART()"><option value="">--</option><option value="0">0-非特异性</option><option value="1">1-轻度可疑</option><option value="2">2-高度可疑</option></select></div>
+      <div class="form-group"><label>心电图 (ECG)</label><select id="heart-ecg" onchange="calcHEART()"><option value="">--</option><option value="0">0-正常</option><option value="1">1-非特异性复极异常</option><option value="2">2-显著ST段偏移</option></select></div>
+      <div class="form-group"><label>年龄 (Age)</label><select id="heart-age" onchange="calcHEART()"><option value="">--</option><option value="0">0-<45岁</option><option value="1">1-45-64岁</option><option value="2">2->=65岁</option></select></div>
+      <div class="form-group"><label>危险因素 (Risk)</label><select id="heart-risk" onchange="calcHEART()"><option value="">--</option><option value="0">0-无已知危险因素</option><option value="1">1-1-2个危险因素</option><option value="2">2->=3个或有动脉粥样硬化</option></select></div>
+      <div class="form-group"><label>肌钙蛋白 (Troponin)</label><select id="heart-trop" onchange="calcHEART()"><option value="">--</option><option value="0">0-正常</option><option value="1">1-正常上限1-3倍</option><option value="2">2->正常上限3倍</option></select></div>
+    </div>
+    <div class="score-display"><div class="score-value" id="heart-total">--</div><div class="score-label">HEART评分：0-3分低危(可离院) | 4-6分中危(观察) | 7-10分高危(立即介入)</div></div>
+  </div>
+
   <!-- NEWS 早期预警评分 -->
   <div class="card" id="news-card">
     <div class="card-header"><h3>NEWS 国家早期预警评分</h3><span class="score-badge score-low" id="news-score-badge">--</span></div>
@@ -910,7 +982,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
       <div class="form-group"><label>MAP (mmHg)</label><select id="apache-map" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 70-109</option><option value="1">1: 50-69 / 110-129</option><option value="2">2: 130-159</option><option value="3">3: 40-54 / ≥160</option><option value="4">4: ≤49</option></select></div>
       <div class="form-group"><label>心率（次/分）</label><select id="apache-hr" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 70-109</option><option value="1">1: 55-69 / 110-139</option><option value="2">2: 40-54 / 140-179</option><option value="3">3: ≤39 / ≥180</option></select></div>
       <div class="form-group"><label>呼吸频率</label><select id="apache-rr" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 12-24</option><option value="1">1: 10-11 / 25-34</option><option value="2">2: 6-9</option><option value="3">3: 35-49</option><option value="4">4: ≤5 / ≥50</option></select></div>
-      <div class="form-group"><label>GCS</label><input type="number" id="apache-gcs" min="3" max="15" onchange="calcAPACHE()" placeholder="3-15"></div>
+      <div class="form-group"><label>GCS</label><select id="apache-gcs" onchange="calcAPACHE()"><option value="">--</option><option value="0">15 (0分)</option><option value="1">13-14 (1分)</option><option value="2">10-12 (2分)</option><option value="3">6-9 (3分)</option><option value="4">3-5 (4分)</option></select></div>
       <div class="form-group"><label>年龄</label><select id="apache-age" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: <44岁</option><option value="2">2: 45-54岁</option><option value="3">3: 55-64岁</option><option value="5">5: 65-74岁</option><option value="6">6: ≥75岁</option></select></div>
       <div class="form-group"><label>慢性健康状况</label><select id="apache-chronic" onchange="calcAPACHE()"><option value="">--</option><option value="0">0: 无</option><option value="2">2: 择期术后</option><option value="5">5: 非手术或急诊术后</option></select></div>
     </div>
@@ -970,6 +1042,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
         <div class="form-group"><label>睁眼 (E)</label><select id="stroke-gcs-eye" onchange="calcStrokeGCS()"><option value="">--</option><option value="4">4-自主睁眼</option><option value="3">3-呼唤睁眼</option><option value="2">2-疼痛睁眼</option><option value="1">1-无反应</option></select></div>
         <div class="form-group"><label>言语 (V)</label><select id="stroke-gcs-verbal" onchange="calcStrokeGCS()"><option value="">--</option><option value="5">5-回答切题</option><option value="4">4-回答不切题</option><option value="3">3-用词不当</option><option value="2">2-难以理解</option><option value="1">1-无反应</option></select></div>
         <div class="form-group"><label>运动 (M)</label><select id="stroke-gcs-motor" onchange="calcStrokeGCS()"><option value="">--</option><option value="6">6-遵嘱动作</option><option value="5">5-疼痛定位</option><option value="4">4-疼痛回缩</option><option value="3">3-异常屈曲</option><option value="2">2-异常伸展</option><option value="1">1-无反应</option></select></div>
+      </div>
+    </div>
+    <!-- 瞳孔检查 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-top:10px;">
+      <b style="font-size:14px;">瞳孔检查</b>
+      <div class="form-row form-row-3" style="margin-top:8px;">
+        <div class="form-group"><label>瞳孔状况</label><select id="stroke-pupil"><option value="">-- 请选择 --</option><option>双侧瞳孔等大等圆、对光反射灵敏</option><option>双侧瞳孔等大等圆、对光反射迟钝</option><option>双侧瞳孔不等大</option><option>双侧瞳孔散大固定</option><option>双侧瞳孔缩小（针尖样）</option><option>左侧瞳孔散大</option><option>右侧瞳孔散大</option></select></div>
+        <div class="form-group"><label>左瞳孔直径 (mm)</label><input type="text" id="stroke-pupil-left" placeholder="如：3.0"></div>
+        <div class="form-group"><label>右瞳孔直径 (mm)</label><input type="text" id="stroke-pupil-right" placeholder="如：3.0"></div>
       </div>
     </div>
   </div>
@@ -1767,21 +1848,16 @@ function calcISS() {
 
 /* ==================== GRACE ==================== */
 function calcGRACE() {
-  var age = parseInt(document.getElementById('grace-age').value) || 0;
-  var hr = parseInt(document.getElementById('grace-hr').value) || 0;
-  var sbp = parseInt(document.getElementById('grace-sbp').value) || 0;
-  var cr = parseInt(document.getElementById('grace-cr').value) || 0;
-  var killip = parseInt(document.getElementById('grace-killip').value) || 0;
-  var arrest = parseInt(document.getElementById('grace-arrest').value) || 0;
-  var st = parseInt(document.getElementById('grace-st').value) || 0;
-  var enzyme = parseInt(document.getElementById('grace-enzyme').value) || 0;
+  var ids = ['grace-age','grace-hr','grace-sbp','grace-cr','grace-killip','grace-arrest','grace-st','grace-enzyme'];
+  var score = 0, allEmpty = true;
+  ids.forEach(function(id) {
+    var v = parseInt(document.getElementById(id).value);
+    if (!isNaN(v)) { score += v; allEmpty = false; }
+  });
 
-  // Selects now carry predefined risk scores directly
-  var score = age + hr + sbp + cr + killip + arrest + st + enzyme;
-  var anySet = document.getElementById('grace-age').value!=='' || document.getElementById('grace-killip').value!=='';
-
+  document.getElementById('grace-total').textContent = allEmpty ? '--' : score;
   var badge = document.getElementById('grace-score-badge');
-  if (anySet) {
+  if (!allEmpty) {
     badge.textContent = score;
     badge.className = 'score-badge ' + (score <= 108 ? 'score-low' : score <= 140 ? 'score-mid' : 'score-high');
   } else {
@@ -1798,9 +1874,10 @@ function calcTIMI() {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
+  document.getElementById('timi-total').textContent = allEmpty ? '--' : total;
   var badge = document.getElementById('timi-score-badge');
+  badge.textContent = allEmpty ? '--' : total;
   if (!allEmpty) {
-    badge.textContent = total;
     badge.className = 'score-badge ' + (total <= 2 ? 'score-low' : total <= 4 ? 'score-mid' : 'score-high');
   }
 }
@@ -1813,9 +1890,10 @@ function calcHEART() {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
+  document.getElementById('heart-total').textContent = allEmpty ? '--' : total;
   var badge = document.getElementById('heart-score-badge');
+  badge.textContent = allEmpty ? '--' : total;
   if (!allEmpty) {
-    badge.textContent = total;
     badge.className = 'score-badge ' + (total <= 3 ? 'score-low' : total <= 6 ? 'score-mid' : 'score-high');
   }
 }
@@ -1916,14 +1994,12 @@ function calcSOFA() {
 
 /* ==================== APACHE II ==================== */
 function calcAPACHE() {
-  var ids = ['apache-temp','apache-map','apache-hr','apache-rr'];
+  var ids = ['apache-temp','apache-map','apache-hr','apache-rr','apache-gcs'];
   var total = 0, allEmpty = true;
   ids.forEach(function(id) {
     var v = parseInt(document.getElementById(id).value);
     if (!isNaN(v)) { total += v; allEmpty = false; }
   });
-  var gcsRaw = parseInt(document.getElementById('apache-gcs').value);
-  if (!isNaN(gcsRaw) && gcsRaw > 0) { total += (15 - gcsRaw); allEmpty = false; }
   var age = parseInt(document.getElementById('apache-age').value);
   if (!isNaN(age)) { total += age; allEmpty = false; }
   var chronic = parseInt(document.getElementById('apache-chronic').value);
@@ -1944,6 +2020,19 @@ function calcNRS() {
   badge.textContent = v;
   badge.className = 'score-badge ' + (v <= 3 ? 'score-low' : v <= 6 ? 'score-mid' : 'score-high');
 }
+function calcKillip() {
+  var el = document.getElementById('killip-val');
+  var v = el.value;
+  document.getElementById('killip-total').textContent = v || '--';
+  var badge = document.getElementById('killip-score-badge');
+  badge.textContent = v || '--';
+  if (v === 'I') badge.className = 'score-badge score-low';
+  else if (v === 'II') badge.className = 'score-badge score-mid';
+  else if (v === 'III') badge.className = 'score-badge score-warn';
+  else if (v === 'IV') badge.className = 'score-badge score-high';
+  else badge.className = 'score-badge score-low';
+}
+
 
 /* ==================== ATMIST Helper Functions ==================== */
 function setMechanism(val) {
@@ -2495,9 +2584,15 @@ function generateHandover() {
     if (!hasVitals) html += '生命体征待补充';
     html += '。';
     if (strokePupil && strokePupil.value.trim()) {
-      html += strokePupil.value.trim() + '。';
+      html += strokePupil.value.trim();
+      var pupilL = document.getElementById('stroke-pupil-left');
+      var pupilR = document.getElementById('stroke-pupil-right');
+      if (pupilL && pupilL.value.trim() && pupilR && pupilR.value.trim()) {
+        html += '（左' + pupilL.value.trim() + 'mm，右' + pupilR.value.trim() + 'mm）';
+      }
+      html += '。';
     } else {
-      html += '双侧瞳孔等大等圆、对光反射灵敏。';
+      html += '瞳孔检查未做。';
     }
     if (strokeONote && strokeONote.value.trim()) {
       html += strokeONote.value.trim().replace(/\n/g, '；') + '。';
@@ -2607,6 +2702,12 @@ function generateHandover() {
       html += chestS.value.trim().replace(/\n/g, '，');
     }
     html += '；</p>';
+
+    // Killip
+    var killipVal = document.getElementById('killip-val');
+    if (killipVal && killipVal.value) {
+      html += '<p style="margin:4px 0;"><b style="color:#7b1fa2;">Killip</b>：' + killipVal.value + '级。</p>';
+    }
 
     // T
     html += '<p style="margin:4px 0;"><b style="color:#e37400;">T</b>：';
@@ -3455,6 +3556,20 @@ function loadDemoCase() {
     document.getElementById('chest-t-note').value = '约10分钟抵达';
     document.getElementById('chest-green-channel').checked = true;
     document.getElementById('chest-cath-ready').checked = true;
+  document.getElementById('killip-val').value = 'II';
+  document.getElementById('grace-age').value = '55';
+  document.getElementById('grace-hr').value = '11';
+  document.getElementById('grace-sbp').value = '37';
+  document.getElementById('grace-killip').value = '21';
+  document.getElementById('grace-st').value = '30';
+  document.getElementById('grace-enzyme').value = '15';
+  calcGRACE();
+  document.getElementById('timi-age').value = '1';
+  document.getElementById('timi-risk').value = '1';
+  document.getElementById('timi-st').value = '1';
+  document.getElementById('timi-marker').value = '1';
+  calcTIMI();
+  calcNEWS();
 
     // ===== 卒中中心 STROKE =====
     document.getElementById('stroke-name').value = '王德发';
@@ -3479,6 +3594,8 @@ function loadDemoCase() {
     document.getElementById('stroke-spo2').value = '96';
     document.getElementById('stroke-glu').value = '7.2';
     document.getElementById('stroke-pupil').value = '双侧瞳孔等大等圆、对光反射灵敏';
+    document.getElementById('stroke-pupil-left').value = '3.0';
+    document.getElementById('stroke-pupil-right').value = '3.0';
     document.getElementById('stroke-o-note').value = '左侧鼻唇沟变浅，伸舌偏左';
     document.getElementById('stroke-meds-long').value = '长期口服降压药\n口服利伐沙班';
     document.getElementById('stroke-allergy').value = '无药物过敏史';
