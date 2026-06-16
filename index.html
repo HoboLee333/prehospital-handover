@@ -300,6 +300,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
     <div class="nav-item" data-section="stroke"><span class="icon">🧠</span><span class="nav-text"> 卒中中心</span><span class="nav-label">卒中</span></div>
     <div class="nav-item" data-section="chestpain"><span class="icon">❤️</span><span class="nav-text"> 胸痛中心</span><span class="nav-label">胸痛</span></div>
     <div class="nav-item" data-section="bleed"><span class="icon">🩸</span><span class="nav-text"> 消化道出血</span><span class="nav-label">出血</span></div>
+    <div class="nav-item" data-section="coma"><span class="icon">💤</span><span class="nav-text"> 昏迷/休克</span><span class="nav-label">昏迷</span></div>
     <div class="nav-section">院前处置</div>
     <div class="nav-item" data-section="medication"><span class="icon">💊</span><span class="nav-text"> 急救药物</span><span class="nav-label">药物</span></div>
     <div class="nav-item" data-section="measures"><span class="icon">🛠️</span><span class="nav-text"> 急救措施</span><span class="nav-label">措施</span></div>
@@ -1113,6 +1114,213 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC"
   </div>
 </section>
 
+<!-- ==================== 昏迷/休克 (COMA) ==================== -->
+<section id="section-coma" class="section">
+  <div class="page-header">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div style="background:linear-gradient(135deg,#7b1fa2,#4a148c);color:#fff;padding:4px 14px;border-radius:20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:4px;">
+        <span style="font-size:18px;">💤</span> 昏迷/休克
+      </div>
+      <h2 style="margin:0;">💤 昏迷/休克评估 · COMA 标准化交接</h2>
+    </div>
+    <span class="meta" style="font-size:11px;color:#7b1fa2;margin-top:6px;display:block;">C→O→M→A 逐项填写</span>
+  </div>
+
+  <!-- C: 意识状态 -->
+  <div class="card" style="border-left:4px solid #7b1fa2;">
+    <div class="card-header"><h3><span style="background:#7b1fa2;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">C</span> 意识状态 (Consciousness)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>姓名</label><input type="text" id="coma-name" placeholder="输入患者姓名"></div>
+      <div class="form-group"><label>性别</label><select id="coma-gender"><option value="">--</option><option>男</option><option>女</option></select></div>
+      <div class="form-group"><label>年龄（可填文字）</label><input type="text" id="coma-age" placeholder="如：55岁、约60岁、不详"></div>
+    </div>
+    <!-- GCS 评分 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-top:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><b style="font-size:14px;">GCS 格拉斯哥昏迷评分</b><span class="score-badge score-low" id="coma-gcs-score-badge">--</span></div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>睁眼 (E)</label><select id="coma-gcs-eye" onchange="calcComaGCS()"><option value="">--</option><option value="4">4-自主睁眼</option><option value="3">3-呼唤睁眼</option><option value="2">2-疼痛睁眼</option><option value="1">1-无反应</option></select></div>
+        <div class="form-group"><label>言语 (V)</label><select id="coma-gcs-verbal" onchange="calcComaGCS()"><option value="">--</option><option value="5">5-回答切题</option><option value="4">4-回答不切题</option><option value="3">3-用词不当</option><option value="2">2-难以理解</option><option value="1">1-无反应</option></select></div>
+        <div class="form-group"><label>运动 (M)</label><select id="coma-gcs-motor" onchange="calcComaGCS()"><option value="">--</option><option value="6">6-遵嘱动作</option><option value="5">5-疼痛定位</option><option value="4">4-疼痛回缩</option><option value="3">3-异常屈曲</option><option value="2">2-异常伸展</option><option value="1">1-无反应</option></select></div>
+      </div>
+      <div class="score-display" style="margin-top:8px;"><div class="score-value" id="coma-gcs-total" style="font-size:28px;">--</div><div class="score-label">GCS（3-15）：≤8分为重度昏迷</div></div>
+    </div>
+    <!-- 瞳孔检查 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-top:10px;">
+      <b style="font-size:14px;">瞳孔检查</b>
+      <div class="form-row form-row-3" style="margin-top:8px;">
+        <div class="form-group"><label>瞳孔状况</label><select id="coma-pupil"><option value="">-- 请选择 --</option><option>双侧瞳孔等大等圆、对光反射灵敏</option><option>双侧瞳孔等大等圆、对光反射迟钝</option><option>双侧瞳孔不等大</option><option>双侧瞳孔散大固定</option><option>双侧瞳孔缩小（针尖样）</option><option>左侧瞳孔散大</option><option>右侧瞳孔散大</option></select></div>
+        <div class="form-group"><label>左瞳孔直径 (mm)</label><input type="text" id="coma-pupil-left" placeholder="如：3.0"></div>
+        <div class="form-group"><label>右瞳孔直径 (mm)</label><input type="text" id="coma-pupil-right" placeholder="如：3.0"></div>
+      </div>
+    </div>
+    <!-- 意识水平 -->
+    <div class="form-group" style="margin-top:8px;">
+      <label>意识水平描述</label>
+      <select id="coma-conscious">
+        <option value="">-- 请选择 --</option>
+        <option>意识清楚</option>
+        <option>嗜睡</option>
+        <option>昏睡</option>
+        <option>浅昏迷</option>
+        <option>中度昏迷</option>
+        <option>深昏迷</option>
+        <option>意识模糊</option>
+        <option>谵妄状态</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-top:4px;">
+      <label>意识状态补充</label>
+      <textarea id="coma-c-note" rows="1" placeholder="补充描述意识状态特征..."></textarea>
+    </div>
+  </div>
+
+  <!-- O: 发病情况 -->
+  <div class="card" style="border-left:4px solid var(--warning);">
+    <div class="card-header"><h3><span style="background:var(--warning);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">O</span> 发病情况 (Onset)</h3></div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label>发病时间</label><input type="datetime-local" id="coma-onset-time"></div>
+      <div class="form-group"><label>被发现时间</label><input type="datetime-local" id="coma-found-time"></div>
+      <div class="form-group"><label>发病方式</label><select id="coma-onset-type"><option value="">--</option><option>突发昏迷</option><option>渐进性意识障碍</option><option>被发现时已昏迷</option><option>抽搐后昏迷</option><option>外伤后昏迷</option></select></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;margin-top:8px;">发病诱因 — 快速选择</p>
+    <div class="chip-bar" style="margin-bottom:8px;">
+      <span class="chip" onclick="appendComaTrigger('情绪激动后突发')">😤 情绪激动</span>
+      <span class="chip" onclick="appendComaTrigger('劳累后发病')">😴 劳累后</span>
+      <span class="chip" onclick="appendComaTrigger('饮酒后')">🍺 饮酒后</span>
+      <span class="chip" onclick="appendComaTrigger('服药后')">💊 服药后</span>
+      <span class="chip" onclick="appendComaTrigger('外伤后')">🔨 外伤后</span>
+      <span class="chip" onclick="appendComaTrigger('发热后')">🌡️ 发热后</span>
+      <span class="chip" onclick="appendComaTrigger('无明显诱因')">❓ 无明显诱因</span>
+      <span class="chip" onclick="appendComaTrigger('CO中毒环境')">⚠️ CO中毒</span>
+    </div>
+    <div class="form-group">
+      <label>发病诱因描述</label>
+      <textarea id="coma-trigger" rows="2" placeholder="描述发病诱因、发病前状况、目击者描述..."></textarea>
+    </div>
+    <!-- 既往史 -->
+    <div class="form-group" style="margin-top:8px;">
+      <label>既往史</label>
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:4px;">快速选择</p>
+      <div class="chip-bar" style="margin-bottom:6px;">
+        <span class="chip" onclick="appendComaHistory('既往高血压')">💓 高血压</span>
+        <span class="chip" onclick="appendComaHistory('糖尿病')">🩸 糖尿病</span>
+        <span class="chip" onclick="appendComaHistory('冠心病')">❤️ 冠心病</span>
+        <span class="chip" onclick="appendComaHistory('房颤')">💗 房颤</span>
+        <span class="chip" onclick="appendComaHistory('陈旧卒中/TIA')">🧠 卒中史</span>
+        <span class="chip" onclick="appendComaHistory('肝硬化')">🫁 肝硬化</span>
+        <span class="chip" onclick="appendComaHistory('慢性肾病')">🫘 肾病</span>
+        <span class="chip" onclick="appendComaHistory('COPD')">🫁 COPD</span>
+        <span class="chip" onclick="appendComaHistory('长期饮酒')">🍺 饮酒史</span>
+        <span class="chip" onclick="appendComaHistory('精神疾病史')">🧠 精神病史</span>
+        <span class="chip" onclick="appendComaHistory('药物滥用史')">💊 药物滥用</span>
+        <span class="chip" onclick="appendComaHistory('近期手术/创伤')">🔪 手术/创伤</span>
+      </div>
+      <textarea id="coma-history" rows="2" placeholder="描述患者既往病史、用药史、过敏史..."></textarea>
+    </div>
+  </div>
+
+  <!-- M: 可能病因 -->
+  <div class="card" style="border-left:4px solid #d93025;">
+    <div class="card-header"><h3><span style="background:#d93025;color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">M</span> 可能病因机制 (Mechanism)</h3></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">快速判断 — 点击可能病因</p>
+    <div class="chip-bar" style="margin-bottom:6px;">
+      <span class="chip" onclick="appendComaMech('脑血管意外（脑出血/脑梗死）')">🧠 脑血管意外</span>
+      <span class="chip" onclick="appendComaMech('蛛网膜下腔出血')">🩸 蛛网膜下腔出血</span>
+      <span class="chip" onclick="appendComaMech('低血糖昏迷')">📉 低血糖昏迷</span>
+      <span class="chip" onclick="appendComaMech('糖尿病酮症酸中毒')">🩸 酮症酸中毒</span>
+      <span class="chip" onclick="appendComaMech('高渗性昏迷')">📈 高渗性昏迷</span>
+      <span class="chip" onclick="appendComaMech('肝性脑病')">🫁 肝性脑病</span>
+    </div>
+    <div class="chip-bar" style="margin-bottom:6px;">
+      <span class="chip" onclick="appendComaMech('尿毒症脑病')">🫘 尿毒症脑病</span>
+      <span class="chip" onclick="appendComaMech('药物/毒物中毒')">☠️ 中毒（药物/毒物）</span>
+      <span class="chip" onclick="appendComaMech('CO中毒')">⚠️ CO中毒</span>
+      <span class="chip" onclick="appendComaMech('酒精中毒')">🍺 酒精中毒</span>
+      <span class="chip" onclick="appendComaMech('脓毒症/感染性休克')">🦠 脓毒症休克</span>
+      <span class="chip" onclick="appendComaMech('心源性休克')">💔 心源性休克</span>
+    </div>
+    <div class="chip-bar" style="margin-bottom:6px;">
+      <span class="chip" onclick="appendComaMech('失血性休克')">🩸 失血性休克</span>
+      <span class="chip" onclick="appendComaMech('过敏性休克')">⚡ 过敏性休克</span>
+      <span class="chip" onclick="appendComaMech('癫痫持续状态')">⚡ 癫痫持续状态</span>
+      <span class="chip" onclick="appendComaMech('颅脑外伤')">🔨 颅脑外伤</span>
+      <span class="chip" onclick="appendComaMech('低体温')">🥶 低体温</span>
+      <span class="chip" onclick="appendComaMech('中暑/热射病')">🔥 中暑/热射病</span>
+      <span class="chip" onclick="appendComaMech('电解质紊乱')">⚡ 电解质紊乱</span>
+    </div>
+    <div class="form-group">
+      <label>病因推断描述（可多选快速标签或自由输入）</label>
+      <textarea id="coma-mechanism" rows="2" placeholder="推断昏迷/休克可能病因，鉴别诊断方向..."></textarea>
+    </div>
+  </div>
+
+  <!-- A: 评估与处置 -->
+  <div class="card" style="border-left:4px solid var(--success);">
+    <div class="card-header"><h3><span style="background:var(--success);color:#fff;padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px;">A</span> 评估与院前处置 (Assessment &amp; Action)</h3></div>
+    <!-- 生命体征 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:10px;">
+      <b style="font-size:14px;">生命体征</b>
+      <div class="form-row form-row-4" style="margin-top:8px;">
+        <div class="form-group"><label>血压 (mmHg)</label><div style="display:flex;align-items:center;gap:4px;"><input type="number" id="coma-bp-sys" placeholder="收缩压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"><span style="font-size:18px;font-weight:700;color:var(--text);">/</span><input type="number" id="coma-bp-dia" placeholder="舒张压" style="flex:1;min-width:0;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
+        <div class="form-group"><label>心率 (次/分)</label><input type="text" id="coma-hr" placeholder="如：88"></div>
+        <div class="form-group"><label>血氧 (%)</label><input type="text" id="coma-spo2" placeholder="如：94"></div>
+        <div class="form-group"><label>呼吸 (次/分)</label><input type="text" id="coma-rr" placeholder="如：16"></div>
+      </div>
+      <div class="form-row form-row-3" style="margin-top:6px;">
+        <div class="form-group"><label>体温 (°C)</label><input type="text" id="coma-temp" placeholder="如：36.5"></div>
+        <div class="form-group"><label>指尖血糖 (mmol/L)</label><input type="text" id="coma-glu" placeholder="如：5.2"></div>
+        <div class="form-group"><label>血氧饱和度监测部位</label><input type="text" id="coma-spo2-site" placeholder="如：右手食指"></div>
+      </div>
+    </div>
+    <!-- 气道管理 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:10px;">
+      <b style="font-size:14px;">气道管理</b>
+      <div class="form-row form-row-3" style="margin-top:8px;">
+        <div class="form-group"><label>气道状态</label><select id="coma-airway"><option value="">--</option><option>气道通畅</option><option>鼾声呼吸/舌后坠</option><option>气道分泌物多</option><option>误吸风险高</option><option>已行气管插管</option><option>已置喉罩</option></select></div>
+        <div class="form-group"><label>呼吸支持</label><select id="coma-vent"><option value="">--</option><option>自主呼吸平稳</option><option>鼻导管吸氧</option><option>面罩吸氧</option><option>球囊面罩辅助通气</option><option>无创正压通气</option><option>有创机械通气</option></select></div>
+        <div class="form-group"><label>体位管理</label><select id="coma-position"><option value="">--</option><option>平卧位</option><option>头偏一侧（防误吸）</option><option>头高30°</option><option>休克体位（头低脚高）</option><option>侧卧位（复苏后体位）</option></select></div>
+      </div>
+    </div>
+    <!-- 院前用药与处置 -->
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:10px;">
+      <b style="font-size:14px;">院前急救用药与处置</b>
+      <p style="font-size:12px;color:var(--text-secondary);margin:4px 0;">快速选择</p>
+      <div class="chip-bar" style="margin-bottom:6px;">
+        <span class="chip" onclick="appendComaTx('已开放外周静脉通路')">💉 静脉通路</span>
+        <span class="chip" onclick="appendComaTx('心电监护中')">📟 心电监护</span>
+        <span class="chip" onclick="appendComaTx('快速静脉补液')">💧 快速补液</span>
+        <span class="chip" onclick="appendComaTx('50%GS 40ml 静推')">💉 高糖静推</span>
+        <span class="chip" onclick="appendComaTx('纳洛酮 0.4mg 静推')">💊 纳洛酮</span>
+        <span class="chip" onclick="appendComaTx('甘露醇 125ml 快速静滴')">💧 甘露醇</span>
+        <span class="chip" onclick="appendComaTx('去甲肾上腺素泵入')">💊 去甲肾</span>
+        <span class="chip" onclick="appendComaTx('多巴胺泵入')">💊 多巴胺</span>
+      </div>
+      <textarea id="coma-treatment" rows="2" placeholder="描述院前急救用药与处置措施..."></textarea>
+    </div>
+    <!-- 备注 -->
+    <div class="form-row form-row-2">
+      <div class="form-group">
+        <label>转运情况</label>
+        <select id="coma-transfer"><option value="">--</option><option>转运途中病情稳定</option><option>转运途中意识有所好转</option><option>转运途中意识进行性下降</option><option>转运途中生命体征不稳定</option><option>转运途中出现抽搐</option><option>转运途中出现呕吐</option></select>
+      </div>
+      <div class="form-group">
+        <label>备注</label>
+        <textarea id="coma-a-note" rows="2" placeholder="补充说明、到院提醒、特殊事项..."></textarea>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <label><input type="checkbox" id="coma-green-channel" checked> 建议启动昏迷/休克急救绿色通道</label>
+    </div>
+    <div style="margin-top:4px;">
+      <label><input type="checkbox" id="coma-ct-ready"> 请备好头颅CT</label>
+    </div>
+    <div style="margin-top:4px;">
+      <label><input type="checkbox" id="coma-icu-ready"> 通知ICU备床</label>
+    </div>
+  </div>
+</section>
+
+
 <!-- ==================== 急救药物（点选+自定义） ==================== -->
 <section id="section-medication" class="section">
   <div class="page-header"><h2>💊 急救药物</h2><span class="meta">点击常用药 → 自动添加 → 可编辑/删除</span></div>
@@ -1847,6 +2055,55 @@ function appendBleedD(val) {
   ta.value = cur ? cur + '\n' + val : val;
 }
 
+
+
+/* ==================== COMA Chip Helpers ==================== */
+function appendComaTrigger(val) {
+  var ta = document.getElementById('coma-trigger');
+  if (ta) {
+    ta.value = ta.value ? ta.value + '\n' + val : val;
+  }
+}
+
+function appendComaHistory(val) {
+  var ta = document.getElementById('coma-history');
+  if (ta) {
+    ta.value = ta.value ? ta.value + '\n' + val : val;
+  }
+}
+
+function appendComaMech(val) {
+  var ta = document.getElementById('coma-mechanism');
+  if (ta) {
+    ta.value = ta.value ? ta.value + '\n' + val : val;
+  }
+}
+
+function appendComaTx(val) {
+  var ta = document.getElementById('coma-treatment');
+  if (ta) {
+    ta.value = ta.value ? ta.value + '\n' + val : val;
+  }
+}
+
+function calcComaGCS() {
+  var e = parseInt(document.getElementById('coma-gcs-eye').value) || 0;
+  var v = parseInt(document.getElementById('coma-gcs-verbal').value) || 0;
+  var m = parseInt(document.getElementById('coma-gcs-motor').value) || 0;
+  var total = e + v + m;
+  var badge = document.getElementById('coma-gcs-score-badge');
+  var display = document.getElementById('coma-gcs-total');
+  if (total > 0) {
+    display.textContent = total;
+    if (total <= 8) { badge.textContent = total + ' 重度'; badge.className = 'score-badge score-high'; }
+    else if (total <= 12) { badge.textContent = total + ' 中度'; badge.className = 'score-badge score-mid'; }
+    else { badge.textContent = total + ' 轻度'; badge.className = 'score-badge score-low'; }
+  } else {
+    display.textContent = '--';
+    badge.textContent = '--';
+    badge.className = 'score-badge score-low';
+  }
+}
 // Auto-fill trauma time from patient receive time on page load
 function autoSetTraumaReceiveTime() {
   // 已移除接诊时间自动同步
@@ -2368,6 +2625,136 @@ function generateHandover() {
 
     html += '</div>';
   }
+
+  // 2.75 COMA 昏迷/休克结构化交班（仅当有昏迷/休克数据时显示）
+  var comaName = document.getElementById('coma-name');
+  var comaConscious = document.getElementById('coma-conscious');
+  var comaPupil = document.getElementById('coma-pupil');
+  var comaTrigger = document.getElementById('coma-trigger');
+  var comaHistory = document.getElementById('coma-history');
+  var comaMechanism = document.getElementById('coma-mechanism');
+  var comaTreatment = document.getElementById('coma-treatment');
+  var hasCOMA = (comaName && comaName.value.trim()) || (comaConscious && comaConscious.value) || (comaPupil && comaPupil.value) || (comaTrigger && comaTrigger.value.trim()) || (comaMechanism && comaMechanism.value.trim()) || (comaTreatment && comaTreatment.value.trim());
+  if (hasCOMA) {
+    html += '<div class="section-title" style="color:#7b1fa2;">COMA</div>';
+    html += '<div style="background:#faf5ff;border-left:3px solid #7b1fa2;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.9;">';
+
+    // 开场白
+    var coInfo = '';
+    if (comaName && comaName.value.trim()) coInfo += comaName.value.trim();
+    var comaGender = document.getElementById('coma-gender');
+    if (comaGender && comaGender.value) coInfo += ' ' + comaGender.value;
+    var comaAge = document.getElementById('coma-age');
+    if (comaAge && comaAge.value.trim()) coInfo += ' ' + comaAge.value.trim() + '岁';
+    if (!coInfo) coInfo = '一名';
+    html += '<p style="margin:0 0 10px 0;font-weight:700;color:#7b1fa2;">接收急诊团队，现交接' + coInfo + '昏迷/休克患者，按 COMA 汇报：</p>';
+
+    // C - Consciousness
+    html += '<p style="margin:4px 0;"><b style="color:#7b1fa2;">C</b><br>';
+    if (comaConscious && comaConscious.value) {
+      html += '意识状态：' + comaConscious.value + '。';
+    }
+    // COMA dedicated GCS
+    var comaGCSE = parseInt(document.getElementById('coma-gcs-eye').value) || 0;
+    var comaGCSV = parseInt(document.getElementById('coma-gcs-verbal').value) || 0;
+    var comaGCSM = parseInt(document.getElementById('coma-gcs-motor').value) || 0;
+    var comaGCS = comaGCSE + comaGCSV + comaGCSM;
+    if (comaGCS > 0) {
+      html += 'GCS ' + comaGCS + '分 (E' + comaGCSE + ' V' + comaGCSV + ' M' + comaGCSM + ')。';
+    }
+    // 瞳孔
+    if (comaPupil && comaPupil.value) {
+      var pupilLeft = document.getElementById('coma-pupil-left');
+      var pupilRight = document.getElementById('coma-pupil-right');
+      html += comaPupil.value;
+      if (pupilLeft && pupilLeft.value.trim() && pupilRight && pupilRight.value.trim()) {
+        html += '（左' + pupilLeft.value.trim() + 'mm，右' + pupilRight.value.trim() + 'mm）';
+      }
+      html += '。';
+    }
+    var comaCNote = document.getElementById('coma-c-note');
+    if (comaCNote && comaCNote.value.trim()) {
+      html += comaCNote.value.trim().replace(/\n/g, '；') + '。';
+    }
+    html += '</p>';
+
+    // O - Onset
+    html += '<p style="margin:4px 0;"><b style="color:#f9ab00;">O</b><br>';
+    var onsetTime = document.getElementById('coma-onset-time');
+    var foundTime = document.getElementById('coma-found-time');
+    var onsetType = document.getElementById('coma-onset-type');
+    if (onsetTime && onsetTime.value) html += '发病时间' + onsetTime.value.replace('T',' ') + '；';
+    if (foundTime && foundTime.value) html += '被发现于' + foundTime.value.replace('T',' ') + '；';
+    if (onsetType && onsetType.value) html += onsetType.value + '；';
+    if (comaTrigger && comaTrigger.value.trim()) {
+      html += comaTrigger.value.trim().replace(/\n/g, '；') + '。';
+    }
+    if (comaHistory && comaHistory.value.trim()) {
+      html += '既往史：' + comaHistory.value.trim().replace(/\n/g, '、') + '。';
+    }
+    html += '</p>';
+
+    // M - Mechanism
+    html += '<p style="margin:4px 0;"><b style="color:#d93025;">M</b><br>';
+    if (comaMechanism && comaMechanism.value.trim()) {
+      html += comaMechanism.value.trim().replace(/\n/g, '、') + '。';
+    } else {
+      html += '病因待查，需进一步鉴别诊断。';
+    }
+    html += '</p>';
+
+    // A - Assessment & Action
+    html += '<p style="margin:4px 0;"><b style="color:#188038;">A</b><br>';
+    // Vitals
+    var aVitals = [];
+    var comaBpSys = document.getElementById('coma-bp-sys');
+    var comaBpDia = document.getElementById('coma-bp-dia');
+    var comaHr = document.getElementById('coma-hr');
+    var comaSpo2 = document.getElementById('coma-spo2');
+    var comaRr = document.getElementById('coma-rr');
+    var comaTemp = document.getElementById('coma-temp');
+    var comaGlu = document.getElementById('coma-glu');
+    if (comaBpSys && comaBpSys.value.trim()) aVitals.push('BP ' + comaBpSys.value.trim() + '/' + (comaBpDia && comaBpDia.value.trim() ? comaBpDia.value.trim() : '?') + 'mmHg');
+    if (comaHr && comaHr.value.trim()) aVitals.push('HR ' + comaHr.value.trim() + '次/分');
+    if (comaSpo2 && comaSpo2.value.trim()) aVitals.push('SPO₂ ' + comaSpo2.value.trim() + '%');
+    if (comaRr && comaRr.value.trim()) aVitals.push('R ' + comaRr.value.trim() + '次/分');
+    if (comaTemp && comaTemp.value.trim()) aVitals.push('T ' + comaTemp.value.trim() + '°C');
+    if (comaGlu && comaGlu.value.trim()) aVitals.push('指尖血糖 ' + comaGlu.value.trim() + 'mmol/L');
+    if (aVitals.length > 0) {
+      html += aVitals.join('，') + '。';
+    }
+    // Airway
+    var comaAirway = document.getElementById('coma-airway');
+    var comaVent = document.getElementById('coma-vent');
+    var comaPosition = document.getElementById('coma-position');
+    if (comaAirway && comaAirway.value) html += '气道：' + comaAirway.value + '。';
+    if (comaVent && comaVent.value) html += '呼吸支持：' + comaVent.value + '。';
+    if (comaPosition && comaPosition.value) html += '体位：' + comaPosition.value + '。';
+    // Treatment
+    if (comaTreatment && comaTreatment.value.trim()) {
+      html += '院前处置：' + comaTreatment.value.trim().replace(/\n/g, '；') + '。';
+    }
+    // Transfer
+    var comaTransfer = document.getElementById('coma-transfer');
+    if (comaTransfer && comaTransfer.value) {
+      html += comaTransfer.value + '。';
+    }
+    var comaANote = document.getElementById('coma-a-note');
+    if (comaANote && comaANote.value.trim()) {
+      html += comaANote.value.trim().replace(/\n/g, '；') + '。';
+    }
+    // Checkboxes
+    var comaGreen = document.getElementById('coma-green-channel');
+    var comaCt = document.getElementById('coma-ct-ready');
+    var comaIcu = document.getElementById('coma-icu-ready');
+    if (comaGreen && comaGreen.checked) html += '建议启动<b style="color:#7b1fa2;">昏迷/休克急救绿色通道</b>。';
+    if (comaCt && comaCt.checked) html += '请备好<b>头颅CT</b>。';
+    if (comaIcu && comaIcu.checked) html += '通知<b>ICU</b>备床。';
+    html += '</p>';
+
+    html += '</div>';
+  }
+
 
   // 2.8 BLEED 消化道出血结构化交班（仅当有出血数据时显示）
   var bleedName = document.getElementById('bleed-name');
@@ -3008,6 +3395,45 @@ function loadDemoCase() {
     document.getElementById('trauma-t-note').value = '创伤绿色通道已启动';
     document.getElementById('trauma-alert-reason').value = 'ISS>15严重创伤\n多发伤\n颅脑损伤 GCS≤8\n高速交通事故\n需要紧急手术';
     document.getElementById('trauma-consult').value = '骨一科\n脑病科\n外一科\nICU\n手术室';
+
+    // ===== 昏迷/休克 COMA =====
+    document.getElementById('coma-name').value = '赵建国';
+    document.getElementById('coma-gender').value = '男';
+    document.getElementById('coma-age').value = '55';
+    // GCS: E2 V2 M4
+    document.getElementById('coma-gcs-eye').value = '2';
+    document.getElementById('coma-gcs-verbal').value = '2';
+    document.getElementById('coma-gcs-motor').value = '4';
+    calcComaGCS();
+    document.getElementById('coma-pupil').value = '双侧瞳孔等大等圆、对光反射迟钝';
+    document.getElementById('coma-pupil-left').value = '2.5';
+    document.getElementById('coma-pupil-right').value = '2.5';
+    document.getElementById('coma-conscious').value = '浅昏迷';
+    document.getElementById('coma-c-note').value = '对疼痛刺激有回缩反应，无自主睁眼';
+    document.getElementById('coma-onset-time').value = fmt(h1);
+    document.getElementById('coma-found-time').value = fmt(h05);
+    document.getElementById('coma-onset-type').value = '被发现时已昏迷';
+    document.getElementById('coma-trigger').value = '无明显诱因\n家人发现患者卧床不醒，呼之不应';
+    document.getElementById('coma-history').value = '既往高血压\n糖尿病\n长期饮酒';
+    document.getElementById('coma-mechanism').value = '脑血管意外（脑出血/脑梗死）\n低血糖昏迷待排';
+    document.getElementById('coma-bp-sys').value = '170';
+    document.getElementById('coma-bp-dia').value = '100';
+    document.getElementById('coma-hr').value = '88';
+    document.getElementById('coma-spo2').value = '94';
+    document.getElementById('coma-rr').value = '16';
+    document.getElementById('coma-temp').value = '36.8';
+    document.getElementById('coma-glu').value = '5.2';
+    document.getElementById('coma-spo2-site').value = '右手食指';
+    document.getElementById('coma-airway').value = '鼾声呼吸/舌后坠';
+    document.getElementById('coma-vent').value = '鼻导管吸氧';
+    document.getElementById('coma-position').value = '头偏一侧（防误吸）';
+    document.getElementById('coma-treatment').value = '已开放外周静脉通路\n心电监护中\n甘露醇 125ml 快速静滴';
+    document.getElementById('coma-transfer').value = '转运途中病情稳定';
+    document.getElementById('coma-a-note').value = '约15分钟抵达，请备好急救设备';
+    document.getElementById('coma-green-channel').checked = true;
+    document.getElementById('coma-ct-ready').checked = true;
+    document.getElementById('coma-icu-ready').checked = false;
+
 
     // ===== 胸痛中心 CHEST =====
     document.getElementById('chest-name').value = '李秀英';
